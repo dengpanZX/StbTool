@@ -265,7 +265,6 @@
             // tabPage3
             // 
             this.tabPage3.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.tabPage3.Controls.Add(this.text_status);
             this.tabPage3.Controls.Add(this.groupBox3);
             this.tabPage3.Controls.Add(this.groupBox2);
             this.tabPage3.Controls.Add(this.label2);
@@ -298,9 +297,9 @@
             // 
             this.text_status.BackColor = System.Drawing.Color.WhiteSmoke;
             this.text_status.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.text_status.Location = new System.Drawing.Point(6, 454);
+            this.text_status.Location = new System.Drawing.Point(7, 522);
             this.text_status.Name = "text_status";
-            this.text_status.Size = new System.Drawing.Size(182, 14);
+            this.text_status.Size = new System.Drawing.Size(300, 14);
             this.text_status.TabIndex = 60;
             // 
             // groupBox3
@@ -322,6 +321,7 @@
             this.btn_reboot.TabIndex = 56;
             this.btn_reboot.Text = "重启机顶盒";
             this.btn_reboot.UseVisualStyleBackColor = true;
+            this.btn_reboot.Click += new System.EventHandler(this.btn_reboot_Click);
             // 
             // btn_reset
             // 
@@ -517,7 +517,7 @@
             // 
             // text_account
             // 
-            this.text_account.Location = new System.Drawing.Point(103, 16);
+            this.text_account.Location = new System.Drawing.Point(105, 16);
             this.text_account.Name = "text_account";
             this.text_account.Size = new System.Drawing.Size(275, 21);
             this.text_account.TabIndex = 34;
@@ -526,35 +526,35 @@
             // 
             this.text_time.BackColor = System.Drawing.Color.WhiteSmoke;
             this.text_time.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.text_time.Location = new System.Drawing.Point(103, 241);
+            this.text_time.Location = new System.Drawing.Point(105, 239);
             this.text_time.Name = "text_time";
             this.text_time.Size = new System.Drawing.Size(251, 14);
             this.text_time.TabIndex = 48;
             // 
             // text_authaddress
             // 
-            this.text_authaddress.Location = new System.Drawing.Point(104, 40);
+            this.text_authaddress.Location = new System.Drawing.Point(105, 40);
             this.text_authaddress.Name = "text_authaddress";
             this.text_authaddress.Size = new System.Drawing.Size(275, 21);
             this.text_authaddress.TabIndex = 35;
             // 
             // text_sqmaddress
             // 
-            this.text_sqmaddress.Location = new System.Drawing.Point(103, 296);
+            this.text_sqmaddress.Location = new System.Drawing.Point(105, 296);
             this.text_sqmaddress.Name = "text_sqmaddress";
             this.text_sqmaddress.Size = new System.Drawing.Size(275, 21);
             this.text_sqmaddress.TabIndex = 44;
             // 
             // text_authaddress_backup
             // 
-            this.text_authaddress_backup.Location = new System.Drawing.Point(104, 62);
+            this.text_authaddress_backup.Location = new System.Drawing.Point(105, 62);
             this.text_authaddress_backup.Name = "text_authaddress_backup";
             this.text_authaddress_backup.Size = new System.Drawing.Size(275, 21);
             this.text_authaddress_backup.TabIndex = 36;
             // 
             // text_tvmsaddress
             // 
-            this.text_tvmsaddress.Location = new System.Drawing.Point(103, 277);
+            this.text_tvmsaddress.Location = new System.Drawing.Point(105, 277);
             this.text_tvmsaddress.Name = "text_tvmsaddress";
             this.text_tvmsaddress.Size = new System.Drawing.Size(275, 21);
             this.text_tvmsaddress.TabIndex = 45;
@@ -562,56 +562,56 @@
             // comboBox_timezone
             // 
             this.comboBox_timezone.FormattingEnabled = true;
-            this.comboBox_timezone.Location = new System.Drawing.Point(104, 216);
+            this.comboBox_timezone.Location = new System.Drawing.Point(105, 216);
             this.comboBox_timezone.Name = "comboBox_timezone";
             this.comboBox_timezone.Size = new System.Drawing.Size(121, 20);
             this.comboBox_timezone.TabIndex = 46;
             // 
             // text_EPGaddress
             // 
-            this.text_EPGaddress.Location = new System.Drawing.Point(104, 84);
+            this.text_EPGaddress.Location = new System.Drawing.Point(105, 84);
             this.text_EPGaddress.Name = "text_EPGaddress";
             this.text_EPGaddress.Size = new System.Drawing.Size(275, 21);
             this.text_EPGaddress.TabIndex = 37;
             // 
             // text_playurl
             // 
-            this.text_playurl.Location = new System.Drawing.Point(104, 106);
+            this.text_playurl.Location = new System.Drawing.Point(105, 106);
             this.text_playurl.Name = "text_playurl";
             this.text_playurl.Size = new System.Drawing.Size(275, 21);
             this.text_playurl.TabIndex = 38;
             // 
             // text_managerdomain
             // 
-            this.text_managerdomain.Location = new System.Drawing.Point(103, 256);
+            this.text_managerdomain.Location = new System.Drawing.Point(105, 256);
             this.text_managerdomain.Name = "text_managerdomain";
             this.text_managerdomain.Size = new System.Drawing.Size(275, 21);
             this.text_managerdomain.TabIndex = 44;
             // 
             // text_upgradeaddress
             // 
-            this.text_upgradeaddress.Location = new System.Drawing.Point(103, 128);
+            this.text_upgradeaddress.Location = new System.Drawing.Point(105, 128);
             this.text_upgradeaddress.Name = "text_upgradeaddress";
             this.text_upgradeaddress.Size = new System.Drawing.Size(275, 21);
             this.text_upgradeaddress.TabIndex = 39;
             // 
             // text_ntp_backup
             // 
-            this.text_ntp_backup.Location = new System.Drawing.Point(103, 194);
+            this.text_ntp_backup.Location = new System.Drawing.Point(105, 194);
             this.text_ntp_backup.Name = "text_ntp_backup";
             this.text_ntp_backup.Size = new System.Drawing.Size(275, 21);
             this.text_ntp_backup.TabIndex = 42;
             // 
             // text_upgradeaddress_backup
             // 
-            this.text_upgradeaddress_backup.Location = new System.Drawing.Point(103, 150);
+            this.text_upgradeaddress_backup.Location = new System.Drawing.Point(105, 150);
             this.text_upgradeaddress_backup.Name = "text_upgradeaddress_backup";
             this.text_upgradeaddress_backup.Size = new System.Drawing.Size(275, 21);
             this.text_upgradeaddress_backup.TabIndex = 40;
             // 
             // text_ntp
             // 
-            this.text_ntp.Location = new System.Drawing.Point(103, 172);
+            this.text_ntp.Location = new System.Drawing.Point(105, 172);
             this.text_ntp.Name = "text_ntp";
             this.text_ntp.Size = new System.Drawing.Size(275, 21);
             this.text_ntp.TabIndex = 41;
@@ -771,6 +771,7 @@
             // 
             this.text_stbtype.BackColor = System.Drawing.Color.WhiteSmoke;
             this.text_stbtype.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.text_stbtype.Enabled = false;
             this.text_stbtype.Location = new System.Drawing.Point(100, 21);
             this.text_stbtype.Name = "text_stbtype";
             this.text_stbtype.Size = new System.Drawing.Size(182, 14);
@@ -780,6 +781,7 @@
             // 
             this.text_dns.BackColor = System.Drawing.Color.WhiteSmoke;
             this.text_dns.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.text_dns.Enabled = false;
             this.text_dns.Location = new System.Drawing.Point(100, 153);
             this.text_dns.Name = "text_dns";
             this.text_dns.Size = new System.Drawing.Size(182, 14);
@@ -789,6 +791,7 @@
             // 
             this.text_hardwareversion.BackColor = System.Drawing.Color.WhiteSmoke;
             this.text_hardwareversion.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.text_hardwareversion.Enabled = false;
             this.text_hardwareversion.Location = new System.Drawing.Point(100, 241);
             this.text_hardwareversion.Name = "text_hardwareversion";
             this.text_hardwareversion.Size = new System.Drawing.Size(182, 14);
@@ -798,6 +801,7 @@
             // 
             this.text_compiletime.BackColor = System.Drawing.Color.WhiteSmoke;
             this.text_compiletime.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.text_compiletime.Enabled = false;
             this.text_compiletime.Location = new System.Drawing.Point(100, 263);
             this.text_compiletime.Name = "text_compiletime";
             this.text_compiletime.Size = new System.Drawing.Size(182, 14);
@@ -807,6 +811,7 @@
             // 
             this.text_broswerversion.BackColor = System.Drawing.Color.WhiteSmoke;
             this.text_broswerversion.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.text_broswerversion.Enabled = false;
             this.text_broswerversion.Location = new System.Drawing.Point(100, 219);
             this.text_broswerversion.Name = "text_broswerversion";
             this.text_broswerversion.Size = new System.Drawing.Size(182, 14);
@@ -816,6 +821,7 @@
             // 
             this.text_stbid.BackColor = System.Drawing.Color.WhiteSmoke;
             this.text_stbid.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.text_stbid.Enabled = false;
             this.text_stbid.Location = new System.Drawing.Point(100, 43);
             this.text_stbid.Name = "text_stbid";
             this.text_stbid.Size = new System.Drawing.Size(182, 14);
@@ -825,6 +831,7 @@
             // 
             this.text_stbmac.BackColor = System.Drawing.Color.WhiteSmoke;
             this.text_stbmac.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.text_stbmac.Enabled = false;
             this.text_stbmac.Location = new System.Drawing.Point(100, 65);
             this.text_stbmac.Name = "text_stbmac";
             this.text_stbmac.Size = new System.Drawing.Size(182, 14);
@@ -834,6 +841,7 @@
             // 
             this.text_nettype.BackColor = System.Drawing.Color.WhiteSmoke;
             this.text_nettype.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.text_nettype.Enabled = false;
             this.text_nettype.Location = new System.Drawing.Point(100, 87);
             this.text_nettype.Name = "text_nettype";
             this.text_nettype.Size = new System.Drawing.Size(182, 14);
@@ -843,6 +851,7 @@
             // 
             this.text_appversion.BackColor = System.Drawing.Color.WhiteSmoke;
             this.text_appversion.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.text_appversion.Enabled = false;
             this.text_appversion.Location = new System.Drawing.Point(100, 197);
             this.text_appversion.Name = "text_appversion";
             this.text_appversion.Size = new System.Drawing.Size(182, 14);
@@ -852,6 +861,7 @@
             // 
             this.text_ip.BackColor = System.Drawing.Color.WhiteSmoke;
             this.text_ip.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.text_ip.Enabled = false;
             this.text_ip.Location = new System.Drawing.Point(100, 109);
             this.text_ip.Name = "text_ip";
             this.text_ip.Size = new System.Drawing.Size(182, 14);
@@ -861,6 +871,7 @@
             // 
             this.text_gateway.BackColor = System.Drawing.Color.WhiteSmoke;
             this.text_gateway.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.text_gateway.Enabled = false;
             this.text_gateway.Location = new System.Drawing.Point(100, 131);
             this.text_gateway.Name = "text_gateway";
             this.text_gateway.Size = new System.Drawing.Size(182, 14);
@@ -870,6 +881,7 @@
             // 
             this.text_softversion.BackColor = System.Drawing.Color.WhiteSmoke;
             this.text_softversion.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.text_softversion.Enabled = false;
             this.text_softversion.Location = new System.Drawing.Point(100, 175);
             this.text_softversion.Name = "text_softversion";
             this.text_softversion.Size = new System.Drawing.Size(182, 14);
@@ -2142,6 +2154,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.WhiteSmoke;
             this.ClientSize = new System.Drawing.Size(734, 541);
+            this.Controls.Add(this.text_status);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.label1);
             this.MaximizeBox = false;
@@ -2195,6 +2208,37 @@
 
         #endregion
 
+        private void initListData()
+        {
+            DataModel.table1List.Add(new DataModel("STB_model", "", text_stbtype));
+            DataModel.table1List.Add(new DataModel("STB_model", "", text_stbid));
+            DataModel.table1List.Add(new DataModel("STB_model", "", text_stbmac));
+            DataModel.table1List.Add(new DataModel("STB_model", "", text_nettype));
+            DataModel.table1List.Add(new DataModel("STB_model", "", text_ip));
+            DataModel.table1List.Add(new DataModel("STB_model", "", text_gateway));
+            DataModel.table1List.Add(new DataModel("STB_model", "", text_dns));
+            DataModel.table1List.Add(new DataModel("STB_model", "", text_softversion));
+            DataModel.table1List.Add(new DataModel("STB_model", "", text_appversion));
+            DataModel.table1List.Add(new DataModel("STB_model", "", text_broswerversion));
+            DataModel.table1List.Add(new DataModel("STB_model", "", text_hardwareversion));
+            DataModel.table1List.Add(new DataModel("STB_model", "", text_compiletime));
+
+            DataModel.table1List.Add(new DataModel("STB_model", "", text_account));
+            DataModel.table1List.Add(new DataModel("STB_model", "", text_authaddress));
+            DataModel.table1List.Add(new DataModel("STB_model", "", text_authaddress_backup));
+            DataModel.table1List.Add(new DataModel("STB_model", "", text_EPGaddress));
+            DataModel.table1List.Add(new DataModel("STB_model", "", text_playurl));
+            DataModel.table1List.Add(new DataModel("STB_model", "", text_upgradeaddress));
+            DataModel.table1List.Add(new DataModel("STB_model", "", text_upgradeaddress_backup));
+            DataModel.table1List.Add(new DataModel("STB_model", "", text_ntp));
+            DataModel.table1List.Add(new DataModel("STB_model", "", text_ntp_backup));
+            DataModel.table1List.Add(new DataModel("STB_model", "", comboBox_timezone));
+            DataModel.table1List.Add(new DataModel("STB_model", "", text_time));;
+            DataModel.table1List.Add(new DataModel("STB_model", "", text_managerdomain));
+            DataModel.table1List.Add(new DataModel("STB_model", "", text_tvmsaddress));
+            DataModel.table1List.Add(new DataModel("STB_model", "", text_sqmaddress));
+        }
+
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
@@ -2236,12 +2280,13 @@
         private System.Windows.Forms.TextBox text_stbmac;
         private System.Windows.Forms.TextBox text_stbid;
         private System.Windows.Forms.TextBox text_stbtype;
-        private System.Windows.Forms.TextBox text_time;
-        private System.Windows.Forms.TextBox text_sqmaddress;
+
         private System.Windows.Forms.Label label32;
-        private System.Windows.Forms.ComboBox comboBox_timezone;
+        private System.Windows.Forms.TextBox text_sqmaddress;
         private System.Windows.Forms.TextBox text_tvmsaddress;
         private System.Windows.Forms.TextBox text_managerdomain;
+        private System.Windows.Forms.TextBox text_time;
+        private System.Windows.Forms.ComboBox comboBox_timezone;
         private System.Windows.Forms.TextBox text_ntp_backup;
         private System.Windows.Forms.TextBox text_ntp;
         private System.Windows.Forms.TextBox text_upgradeaddress_backup;

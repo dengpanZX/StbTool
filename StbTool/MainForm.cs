@@ -6,16 +6,18 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using System.Threading;
+using System.Runtime.InteropServices;
 
 namespace StbTool
 {
     public partial class MainForm : Form
     {
         private SocketHandler mSocket;
+        private bool mConnectStatus = false;
         public MainForm()
         {
             InitializeComponent();
-            mSocket = new SocketHandler();
+            mSocket = new SocketHandler(this);
         }
 
         // 判断输入IP  start
@@ -47,19 +49,19 @@ namespace StbTool
             switch (index)
             {
                 case 1:
-                    if (e.KeyChar == '.')
+                    if (e.KeyChar == '.' && text_ip1.Text.ToString() != String.Empty)
                         text_ip2.Focus();
                     break;
                 case 2:
                     if (e.KeyChar == 8 && text_ip2.Text.ToString() == String.Empty)
                         text_ip1.Focus();
-                    if (e.KeyChar == '.')
+                    if (e.KeyChar == '.' && text_ip2.Text.ToString() != String.Empty)
                         text_ip3.Focus();
                     break;
                 case 3:
                     if (e.KeyChar == 8 && text_ip3.Text.ToString() == String.Empty)
                         text_ip2.Focus();
-                    if (e.KeyChar == '.')
+                    if (e.KeyChar == '.' && text_ip3.Text.ToString() != String.Empty)
                         text_ip4.Focus();
                     break;
                 case 4:
@@ -151,14 +153,102 @@ namespace StbTool
         {
             if (mSocket == null)
                 return;
+            if (text_ip1.Text.ToString() == string.Empty ||
+                text_ip2.Text.ToString() == string.Empty ||
+                text_ip3.Text.ToString() == string.Empty ||
+                text_ip4.Text.ToString() == string.Empty)
+            {
+                text_status.Text = "错误，IP为空!";
+            }
+
+            if (comboBox_name.Text.ToString() == string.Empty)
+                text_status.Text = "错误，用户名为空!";
+
+            if (text_password.Text.ToString() == string.Empty)
+                text_status.Text = "错误，密码为空!";
             string ip = text_ip1.Text.ToString() + "." + text_ip2.Text.ToString() + "." + text_ip3.Text.ToString() + "." + text_ip4.Text.ToString();
-            Console.WriteLine(ip);
-            mSocket.startConnectThread(ip);
+            if (!mConnectStatus)
+            {
+                text_status.Text = "正在连接...";
+                string msg = mSocket.startConnectStb(comboBox_name.Text.ToString(), text_password.Text.ToString(), ip);
+                messageHandler(msg);
+            }
+            else
+            {
+                disconnect();
+            }
         }
 
         private void FormClosedEvent(object sender, FormClosedEventArgs e)
         {
-            mSocket.stopThread();
+            mSocket.stopConnect();
+        }
+
+        private void messageHandler(string msg)
+        {
+            if (msg.Contains("200"))
+            {
+                btn_connect.Text = "断开";
+                mConnectStatus = true;
+                text_status.Text = "连接成功！";
+            }
+            else if (msg.Contains("100"))
+            {
+                text_status.Text = "没有数据连接超时！";
+            }
+            else if (msg.Contains("400"))
+            {
+                text_status.Text = "连接被拒绝，请确认远程连接是否已打开！";
+            }
+            else if (msg.Contains("501"))
+            {
+                text_status.Text = "用户名或密码错误！";
+            }
+        }
+
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            Control ctl = this.ActiveControl;
+            if (keyData == Keys.Tab)
+            {
+                if (comboBox_name.Focused)
+                {
+                    text_password.Focus();
+                    return true;
+                }
+
+                if (text_ip4.Focused)
+                {
+                    comboBox_name.Focus();
+                    return true;
+                }
+            }
+            bool ret = base.ProcessCmdKey(ref msg, keyData);
+            return ret;
+        }
+
+        private void btn_reboot_Click(object sender, EventArgs e)
+        {
+            if (!mConnectStatus)
+                return;
+            mSocket.sendRebootCmd();
+        }
+
+        public void disconnect()
+        {
+            mSocket.stopConnect();
+            mConnectStatus = false;
+            this.Invoke((MethodInvoker)delegate
+                  {
+                      lock (this.btn_connect)
+                      {
+                          btn_connect.Text = "连接"; ;
+                      }
+                      lock (this.text_status)
+                      {
+                          text_status.Text = "连接已断开！";
+                      }
+                  });
         }
     }
 }

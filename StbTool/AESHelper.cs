@@ -10,176 +10,79 @@ namespace StbTool
     {
         private static string Vector = "8D352C149D0327BF";
         private const int CRYPTO_IV_LENGTH = 16;
-        ///< summary>  
-        /// AES加密  
-        ///< /summary>  
-        ///< param name="Data">被加密的明文</param>  
-        ///< param name="Key">密钥</param>  
-        ///< param name="Vector">向量</param>  
-        ///< returns>密文</returns>  
-        public static String AESEncrypt(String Data, String Key)
+
+        public static string Encrypt(string toEncrypt, string key)
         {
-            Byte[] plainBytes = Encoding.UTF8.GetBytes(Data);
+            RijndaelManaged rijndaelCipher = new RijndaelManaged();
 
-            Byte[] bKey = new Byte[32];
-            Array.Copy(Encoding.UTF8.GetBytes(Key.PadRight(bKey.Length)), bKey, bKey.Length);
-            Byte[] bVector = new Byte[16];
-            Array.Copy(Encoding.UTF8.GetBytes(Vector.PadRight(bVector.Length)), bVector, bVector.Length);
+            rijndaelCipher.Mode = CipherMode.CBC;
 
-            Byte[] Cryptograph = null; // 加密后的密文  
+            rijndaelCipher.Padding = PaddingMode.PKCS7;
 
-            Rijndael Aes = Rijndael.Create();
-            try
-            {
-                // 开辟一块内存流  
-                using (MemoryStream Memory = new MemoryStream())
-                {
-                    // 把内存流对象包装成加密流对象  
-                    using (CryptoStream Encryptor = new CryptoStream(Memory,
-                     Aes.CreateEncryptor(bKey, bVector),
-                     CryptoStreamMode.Write))
-                    {
-                        // 明文数据写入加密流  
-                        Encryptor.Write(plainBytes, 0, plainBytes.Length);
-                        Encryptor.FlushFinalBlock();
+            rijndaelCipher.KeySize = 128;
 
-                        Cryptograph = Memory.ToArray();
-                    }
-                }
-            }
-            catch
-            {
-                Cryptograph = null;
-            }
+            rijndaelCipher.BlockSize = 128;
 
-            return Convert.ToBase64String(Cryptograph);
+            byte[] pwdBytes = System.Text.Encoding.UTF8.GetBytes(key);
+
+            byte[] keyBytes = new byte[16];
+
+            int len = pwdBytes.Length;
+
+            if (len > keyBytes.Length) len = keyBytes.Length;
+
+            System.Array.Copy(pwdBytes, keyBytes, len);
+
+            rijndaelCipher.Key = keyBytes;
+
+
+            byte[] ivBytes = System.Text.Encoding.UTF8.GetBytes(Vector);
+            rijndaelCipher.IV = ivBytes;
+
+            ICryptoTransform transform = rijndaelCipher.CreateEncryptor();
+
+            byte[] plainText = Encoding.UTF8.GetBytes(toEncrypt);
+
+            byte[] cipherBytes = transform.TransformFinalBlock(plainText, 0, plainText.Length);
+
+            return Convert.ToBase64String(cipherBytes);
         }
 
-        ///< summary>  
-        /// AES解密  
-        ///< /summary>  
-        ///< param name="Data">被解密的密文</param>  
-        ///< param name="Key">密钥</param>  
-        ///< param name="Vector">向量</param>  
-        ///< returns>明文</returns>  
-        public static String AESDecrypt(String Data, String Key)
+        public static string Decrypt(string toDecrypt, string key)
         {
-            Byte[] encryptedBytes = Convert.FromBase64String(Data);
-            Byte[] bKey = new Byte[32];
-            Array.Copy(Encoding.UTF8.GetBytes(Key.PadRight(bKey.Length)), bKey, bKey.Length);
-            Byte[] bVector = new Byte[16];
-            Array.Copy(Encoding.UTF8.GetBytes(Vector.PadRight(bVector.Length)), bVector, bVector.Length);
+            RijndaelManaged rijndaelCipher = new RijndaelManaged();
 
-            Byte[] original = null; // 解密后的明文  
+            rijndaelCipher.Mode = CipherMode.CBC;
 
-            Rijndael Aes = Rijndael.Create();
-            try
-            {
-                // 开辟一块内存流，存储密文  
-                using (MemoryStream Memory = new MemoryStream(encryptedBytes))
-                {
-                    // 把内存流对象包装成加密流对象  
-                    using (CryptoStream Decryptor = new CryptoStream(Memory,
-                    Aes.CreateDecryptor(bKey, bVector),
-                    CryptoStreamMode.Read))
-                    {
-                        // 明文存储区  
-                        using (MemoryStream originalMemory = new MemoryStream())
-                        {
-                            Byte[] Buffer = new Byte[1024];
-                            Int32 readBytes = 0;
-                            while ((readBytes = Decryptor.Read(Buffer, 0, Buffer.Length)) > 0)
-                            {
-                                originalMemory.Write(Buffer, 0, readBytes);
-                            }
+            rijndaelCipher.Padding = PaddingMode.PKCS7;
 
-                            original = originalMemory.ToArray();
-                        }
-                    }
-                }
-            }
-            catch
-            {
-                original = null;
-            }
-            return Encoding.UTF8.GetString(original);
-        }
+            rijndaelCipher.KeySize = 128;
 
+            rijndaelCipher.BlockSize = 128;
 
+            byte[] encryptedData = Convert.FromBase64String(toDecrypt);
 
-        ///< summary>  
-        /// AES加密(无向量)  
-        ///< /summary>  
-        ///< param name="plainBytes">被加密的明文</param>  
-        ///< param name="key">密钥</param>  
-        ///< returns>密文</returns>  
-        public static string AESEncrypt(String Data, String Key, int flag)
-        {
-            MemoryStream mStream = new MemoryStream();
-            RijndaelManaged aes = new RijndaelManaged();
+            byte[] pwdBytes = System.Text.Encoding.UTF8.GetBytes(key);
 
-            byte[] plainBytes = Encoding.UTF8.GetBytes(Data);
-            Byte[] bKey = new Byte[32];
-            Array.Copy(Encoding.UTF8.GetBytes(Key.PadRight(bKey.Length)), bKey, bKey.Length);
+            byte[] keyBytes = new byte[16];
 
-            aes.Mode = CipherMode.ECB;
-            aes.Padding = PaddingMode.PKCS7;
-            aes.KeySize = 128;
-            //aes.Key = _key;  
-            aes.Key = bKey;
-            //aes.IV = _iV;  
-            CryptoStream cryptoStream = new CryptoStream(mStream, aes.CreateEncryptor(), CryptoStreamMode.Write);
-            try
-            {
-                cryptoStream.Write(plainBytes, 0, plainBytes.Length);
-                cryptoStream.FlushFinalBlock();
-                return Convert.ToBase64String(mStream.ToArray());
-            }
-            finally
-            {
-                cryptoStream.Close();
-                mStream.Close();
-                aes.Clear();
-            }
-        }
+            int len = pwdBytes.Length;
 
+            if (len > keyBytes.Length) len = keyBytes.Length;
 
-        ///< summary>  
-        /// AES解密(无向量)  
-        ///< /summary>  
-        ///< param name="encryptedBytes">被加密的明文</param>  
-        ///< param name="key">密钥</param>  
-        ///< returns>明文</returns>  
-        public static string AESDecrypt(String Data, String Key, int flag)
-        {
-            Byte[] encryptedBytes = Convert.FromBase64String(Data);
-            Byte[] bKey = new Byte[32];
-            Array.Copy(Encoding.UTF8.GetBytes(Key.PadRight(bKey.Length)), bKey, bKey.Length);
+            System.Array.Copy(pwdBytes, keyBytes, len);
 
-            MemoryStream mStream = new MemoryStream(encryptedBytes);
-            //mStream.Write( encryptedBytes, 0, encryptedBytes.Length );  
-            //mStream.Seek( 0, SeekOrigin.Begin );  
-            RijndaelManaged aes = new RijndaelManaged();
-            aes.Mode = CipherMode.ECB;
-            aes.Padding = PaddingMode.PKCS7;
-            aes.KeySize = 128;
-            aes.Key = bKey;
-            //aes.IV = _iV;  
-            CryptoStream cryptoStream = new CryptoStream(mStream, aes.CreateDecryptor(), CryptoStreamMode.Read);
-            try
-            {
-                byte[] tmp = new byte[encryptedBytes.Length + 32];
-                int len = cryptoStream.Read(tmp, 0, encryptedBytes.Length + 32);
-                byte[] ret = new byte[len];
-                Array.Copy(tmp, 0, ret, 0, len);
-                return Encoding.UTF8.GetString(ret);
-            }
-            finally
-            {
-                cryptoStream.Close();
-                mStream.Close();
-                aes.Clear();
-            }
+            rijndaelCipher.Key = keyBytes;
+
+            byte[] ivBytes = System.Text.Encoding.UTF8.GetBytes(Vector);
+            rijndaelCipher.IV = ivBytes;
+
+            ICryptoTransform transform = rijndaelCipher.CreateDecryptor();
+
+            byte[] plainText = transform.TransformFinalBlock(encryptedData, 0, encryptedData.Length);
+
+            return Encoding.UTF8.GetString(plainText);
+
         }
     }  
 }

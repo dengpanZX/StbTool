@@ -140,5 +140,26 @@ namespace StbTool
                 return null;
             }
         }
+
+        private static byte[] HexStringToBytes(string hex)
+        {
+            if (hex.Length == 0)
+            {
+                return new byte[] { 0 };
+            }
+
+            if (hex.Length % 2 == 1)
+            {
+                hex = "0" + hex;
+            }
+
+            byte[] result = new byte[hex.Length / 2];
+
+            for (int i = 0; i < hex.Length / 2; i++)
+            {
+                result[i] = byte.Parse(hex.Substring(2 * i, 2), System.Globalization.NumberStyles.HexNumber);
+            }
+            return result;
+        }
     }
 }
