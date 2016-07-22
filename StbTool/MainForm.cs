@@ -14,13 +14,27 @@ namespace StbTool
     {
         private SocketHandler mSocket;
         private bool mConnectStatus = false;
-        private bool isModifyList1 = false;
-        private bool isModifyList2 = false;
+        public static string netType = null;
+        private List<DataModel> mModifyList = new List<DataModel>();
+        private Thread resultThread;
+        private bool isOperationSuccessful = false;
         public MainForm()
         {
             InitializeComponent();
             initListData();
             mSocket = new SocketHandler(this);
+            DataModel.initTimeZone();
+            initConbobox();
+        }
+
+        private void initConbobox()
+        {
+            this.comboBox_name.SelectedIndex = 0;
+            foreach (string timezone in DataModel.timezoneList)
+            {
+                this.comboBox_timezone.Items.Add(timezone);
+                this.edt_timezone.Items.Add(timezone);
+            }
         }
 
         // 判断输入IP  start
@@ -191,6 +205,8 @@ namespace StbTool
         {
             if (msg.Contains("200"))
             {
+                resultThread = new Thread(printResult);
+                resultThread.Start();
                 btn_connect.Text = "断开";
                 mConnectStatus = true;
                 text_status.Text = "连接成功！";
@@ -280,6 +296,7 @@ namespace StbTool
 
         public void disconnect()
         {
+            clearData();
             mSocket.stopConnect();
             mConnectStatus = false;
             this.Invoke((MethodInvoker)delegate
@@ -306,9 +323,17 @@ namespace StbTool
                         case 1:
                             if (model.getName().Equals("timeZone"))
                             {
-                                lock ((ComboBox)model.getObject())
+                                lock (comboBox_timezone)
                                 {
-                                    ((ComboBox)model.getObject()).Text = model.getValue();
+                                    // comboBox_timezone.Text = model.getValue();
+                                    for (int index = 0; index < DataModel.timezoneList.Count; index++)
+                                    {
+                                        if (model.getValue().Equals(DataModel.timezoneUTCList[index]))
+                                        {
+                                            comboBox_timezone.SelectedIndex = index;
+                                        }
+
+                                    }
                                 }
                             }
                             else if (model.getName().Equals("connecttype"))
@@ -326,7 +351,7 @@ namespace StbTool
                                     ((TextBox)model.getObject()).Text = nettype;
                                 }
                             }
-                                                 else
+                            else
                             {
                                 lock ((TextBox)model.getObject())
                                 {
@@ -397,7 +422,14 @@ namespace StbTool
                                 {
                                     lock (edt_timezone)
                                     {
-                                        edt_timezone.Text = model.getValue();
+                                        for (int index = 0; index < DataModel.timezoneList.Count; index++)
+                                        {
+                                            if (model.getValue().Equals(DataModel.timezoneUTCList[index]))
+                                            {
+                                                edt_timezone.SelectedIndex = index;
+                                            }
+
+                                        }
                                     }
                                 }
                                 else if (tmpBtn != null)
@@ -412,56 +444,99 @@ namespace StbTool
                     }
                 }
             });
-            isModifyList1 = false;
-            isModifyList2 = false;
         }
 
         private void btn_fresh_Click(object sender, EventArgs e)
         {
             if (!mConnectStatus)
                 return;
+            updateStatus("正在更新数据...");
             mSocket.initSendData(DataModel.table1List, 1, "read");
             mSocket.sendMessage();
-            updateStatus("数据更新成功");
+            isOperationSuccessful = true;
+        }
+
+        private void tb2_btn_refresh_Click(object sender, EventArgs e)
+        {
+            updateStatus("正在更新数据...");
+            mSocket.initSendData(DataModel.table2List, 2, "read");
+            mSocket.sendMessage();
+            isOperationSuccessful = true;
         }
 
         private void btn_commit_Click(object sender, EventArgs e)
         {
             if (!mConnectStatus)
                 return;
-            if (!isModifyList1)
+            updateStatus("正在提交数据...");
+            mModifyList.Clear();
+            readTable1UIData();
+            if (mModifyList.Count == 0)
             {
                 text_status.Text = "没有可提交的数据！";
                 return;
             }
-            readTable1UIData();
-            mSocket.initSendData(DataModel.table1List, 1, "write");
+            mSocket.initSendData(mModifyList, 1, "write");
             mSocket.sendMessage();
-            isModifyList1 = false;
-            updateStatus("数据提交成功");
+            isOperationSuccessful = true;
         }
 
-        private void table1List_TextChanged(object sender, EventArgs e)
+        private void tb2_btn_commit_Click(object sender, EventArgs e)
         {
-            isModifyList1 = true;
+            updateStatus("正在提交数据...");
+            mModifyList.Clear();
+            readTable2UIData();
+            if (mModifyList.Count == 0)
+            {
+                text_status.Text = "没有可提交的数据！";
+                return;
+            }
+            mSocket.initSendData(mModifyList, 2, "write");
+            mSocket.sendMessage();
+            isOperationSuccessful = true;
         }
 
-        private void table2List_TextChanged(object sender, EventArgs e)
+        private void printResult()
         {
-            isModifyList2 = true;
+            while (mConnectStatus)
+            {
+                if (isOperationSuccessful)
+                {
+                    Thread.Sleep(500);
+                    updateStatus("操作成功！");
+                    isOperationSuccessful = false;
+                }
+            }
         }
 
-        private void rbt_CheckedChanged(object sender, EventArgs e)
+        private void rbtnetwork_CheckedChanged(object sender, EventArgs e)
         {
-            isModifyList2 = true;
+            if (rbt_static.Checked == true)
+                setNetworkPanel(panel_static);
+            else if (rbt_dhcp.Checked == true)
+                setNetworkPanel(panel_dhcp);
+            else if (rbt_pppoe.Checked == true)
+                setNetworkPanel(panel_pppoe);
+        }
+
+        private void setNetworkPanel(Panel panel)
+        {
+            panel_static.Visible = false;
+            panel_dhcp.Visible = false;
+            panel_pppoe.Visible = false;
+
+            panel.Visible = true;
         }
 
         private void updateStatus(string msg)
         {
-            lock (this.text_status)
+            this.Invoke((MethodInvoker)delegate
             {
-                text_status.Text = msg;
-            }
+                lock (this.text_status)
+                {
+                    text_status.Text = msg;
+                }
+            });
         }
 
         private void readTable1UIData()
@@ -469,13 +544,24 @@ namespace StbTool
             List<DataModel> tempList = new List<DataModel>();
             foreach (DataModel model in DataModel.table1List)
             {
+                string value = "";
                 if (model.getName().Equals("timeZone"))
                 {
-                    model.setValue(((ComboBox)model.getObject()).Text.ToString());
+                    value = comboBox_timezone.Text.ToString();
+                    if (value.Equals(DataModel.timezoneList[comboBox_timezone.SelectedIndex]) &&
+                        model.getValue().Equals(DataModel.timezoneUTCList[comboBox_timezone.SelectedIndex]))
+                    {
+                        value = model.getValue();
+                    }
                 }
                 else
                 {
-                    model.setValue(((TextBox)model.getObject()).Text.ToString());
+                    value = ((TextBox)model.getObject()).Text.ToString();
+                }
+                if (!value.Equals(model.getValue()) && !model.getName().Equals("connecttype"))  //网络状态已经转换,避免每次都可以提交
+                {
+                    model.setValue(value);
+                    mModifyList.Add(model);
                 }
                 tempList.Add(model);
             }
@@ -485,23 +571,28 @@ namespace StbTool
         private void readTable2UIData()
         {
             List<DataModel> tempList = new List<DataModel>();
+            netType = null;
             foreach (DataModel model in DataModel.table2List)
             {
+                string tempValue = null;
                 if (model.getObject() != null)
                 {
-                    model.setValue(((TextBox)model.getObject()).Text.ToString());
+                    tempValue = ((TextBox)model.getObject()).Text.ToString();
                 }
                 else
                 {
-                    string tempValue = null;
                     if (model.getName().Equals("connecttype"))
                     {
                         if (rbt_static.Checked == true)
                             tempValue = "3";
                         else if (rbt_dhcp.Checked == true)
-                            tempValue = "1";
-                        else if (rbt_pppoe.Checked == true)
                             tempValue = "2";
+                        else if (rbt_pppoe.Checked == true)
+                            tempValue = "1";
+                        if (!model.getValue().Equals(tempValue))
+                        {
+                            netType = tempValue;
+                        }
                     }
 
                     if (model.getName().Equals("QoSLogSwitch"))
@@ -541,30 +632,38 @@ namespace StbTool
 
                     if (model.getName().Equals("timeZone"))
                     {
-                        model.setValue(edt_timezone.Text.ToString());
+                        tempValue = edt_timezone.Text.ToString();
+                        if (tempValue.Equals(DataModel.timezoneList[edt_timezone.SelectedIndex]) &&
+                        model.getValue().Equals(DataModel.timezoneUTCList[edt_timezone.SelectedIndex]))
+                        {
+                            tempValue = model.getValue();
+                        }
                     }
-                    else if (tempValue != null)
-                    {
-                        model.setValue(tempValue);
-                    }
+                }
+                if (!tempValue.Equals(model.getValue()))
+                {
+                    model.setValue(tempValue);
+                    mModifyList.Add(model);
                 }
                 tempList.Add(model);
             }
             DataModel.table2List = tempList;
         }
 
+        //未连接成功不让页面切换
         private void tabControl1_Selecting(object sender, TabControlCancelEventArgs e)
         {
-            Console.WriteLine(">>>>>>>>>" + isFirstTable);
             if (!mConnectStatus && isFirstTable)
             {
                 e.Cancel = true;
             }
         }
 
+        //tableConrol页面切换
         private static bool isFirstTable = true;
         private void tabControl1_Selected(object sender, TabControlEventArgs e)
         {
+            updateStatus("");
             if(e.TabPage == tabPage3)
             {
                 mSocket.initSendData(DataModel.table1List, 1, "read");
@@ -582,25 +681,45 @@ namespace StbTool
             mSocket.sendMessage();
         }
 
-        private void tb2_btn_refresh_Click(object sender, EventArgs e)
+        //断开连接清楚数据
+        private void clearData()
         {
-            mSocket.initSendData(DataModel.table2List, 2, "read");
-            mSocket.sendMessage();
-            updateStatus("数据更新成功");
-        }
-
-        private void tb2_btn_commit_Click(object sender, EventArgs e)
-        {
-            if (!isModifyList2)
+            this.Invoke((MethodInvoker)delegate
             {
-                text_status.Text = "没有可提交的数据！";
-                return;
-            }
-            readTable2UIData();
-            mSocket.initSendData(DataModel.table2List, 2, "write");
-            mSocket.sendMessage();
-            isModifyList2 = false;
-            updateStatus("数据提交成功");
+                foreach (DataModel model in DataModel.table1List)
+                {
+                    if (model.getObject() == null)
+                        continue;
+                    lock ((TextBox)model.getObject())
+                    {
+                        ((TextBox)model.getObject()).Text = "";
+                    }
+                }
+                lock (this.comboBox_timezone)
+                {
+                    comboBox_timezone.Text = "";
+                }
+                lock (this.edt_timezone)
+                {
+                    edt_timezone.Text = "";
+                }
+                foreach (DataModel model in DataModel.table2List)
+                {
+                    if (model.getObject() == null)
+                        continue;
+                    lock ((TextBox)model.getObject())
+                    {
+                        ((TextBox)model.getObject()).Text = "";
+                    }
+                }
+                foreach (RadioButton rbt in DataModel.rbtlist)
+                {
+                    lock (rbt)
+                    {
+                        rbt.Checked = false;
+                    }
+                }
+            });
         }
     }
 }

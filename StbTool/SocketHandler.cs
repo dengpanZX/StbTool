@@ -186,7 +186,8 @@ namespace StbTool
                     }
                     else if (mOperate.Equals("write"))
                     {
-
+                        if (model.getName().Equals("connecttype"))
+                            continue;
                         Console.WriteLine(mTcpHead + mOperate + "^" + model.getName() + "^null^" + model.getValue());
                         client.Send(Encoding.ASCII.GetBytes(mTcpHead + mOperate + "^" + model.getName() + "^null^" + model.getValue()));
                     }
@@ -199,7 +200,7 @@ namespace StbTool
                     break;
                 }
                 string getdata = Encoding.UTF8.GetString(data, 0, recv);
-                Console.WriteLine(getdata + "<<<" + model.getName());
+                //Console.WriteLine(getdata + "<<<" + model.getName());
                 if (getdata.Contains("200read"))
                 {
                     string value = getdata.Substring(9 + model.getName().Length);
@@ -210,6 +211,10 @@ namespace StbTool
                     Console.WriteLine(value);
                     tmpList.Add(model);
                 }
+            }
+            if (mOperate.Equals("write") && mListIndex == 2 && MainForm.netType != null)
+            {
+                client.Send(Encoding.ASCII.GetBytes(mTcpHead + mOperate + "^" + "connecttype" + "^null^" + MainForm.netType));     
             }
             if (mOperate.Equals("read"))
             {

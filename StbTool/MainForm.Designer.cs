@@ -165,20 +165,31 @@
             this.edt_ntp_bak = new System.Windows.Forms.TextBox();
             this.edt_timezone = new System.Windows.Forms.ComboBox();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.label45 = new System.Windows.Forms.Label();
-            this.label46 = new System.Windows.Forms.Label();
+            this.panel_dhcp = new System.Windows.Forms.Panel();
+            this.label76 = new System.Windows.Forms.Label();
+            this.edt_dhcpaccount = new System.Windows.Forms.TextBox();
+            this.edt_dhcppassword = new System.Windows.Forms.TextBox();
+            this.label77 = new System.Windows.Forms.Label();
+            this.panel_static = new System.Windows.Forms.Panel();
             this.label47 = new System.Windows.Forms.Label();
             this.label48 = new System.Windows.Forms.Label();
+            this.edt_ip = new System.Windows.Forms.TextBox();
+            this.edt_mask = new System.Windows.Forms.TextBox();
+            this.edt_dhcpserver = new System.Windows.Forms.TextBox();
+            this.edt_gateway = new System.Windows.Forms.TextBox();
+            this.label50 = new System.Windows.Forms.Label();
+            this.label49 = new System.Windows.Forms.Label();
+            this.panel_pppoe = new System.Windows.Forms.Panel();
+            this.label75 = new System.Windows.Forms.Label();
+            this.edt_pppoeaccount = new System.Windows.Forms.TextBox();
+            this.edt_pppoepassword = new System.Windows.Forms.TextBox();
+            this.label78 = new System.Windows.Forms.Label();
+            this.label45 = new System.Windows.Forms.Label();
+            this.label46 = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
             this.rbt_pppoe = new System.Windows.Forms.RadioButton();
             this.rbt_dhcp = new System.Windows.Forms.RadioButton();
             this.rbt_static = new System.Windows.Forms.RadioButton();
-            this.edt_ip = new System.Windows.Forms.TextBox();
-            this.edt_mask = new System.Windows.Forms.TextBox();
-            this.label49 = new System.Windows.Forms.Label();
-            this.label50 = new System.Windows.Forms.Label();
-            this.edt_gateway = new System.Windows.Forms.TextBox();
-            this.edt_dhcpserver = new System.Windows.Forms.TextBox();
             this.checkBox_visualip = new System.Windows.Forms.CheckBox();
             this.label51 = new System.Windows.Forms.Label();
             this.label52 = new System.Windows.Forms.Label();
@@ -235,6 +246,9 @@
             this.panel7.SuspendLayout();
             this.groupBox6.SuspendLayout();
             this.groupBox5.SuspendLayout();
+            this.panel_dhcp.SuspendLayout();
+            this.panel_static.SuspendLayout();
+            this.panel_pppoe.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel4.SuspendLayout();
             this.panel5.SuspendLayout();
@@ -515,18 +529,16 @@
             this.text_account.Name = "text_account";
             this.text_account.Size = new System.Drawing.Size(275, 21);
             this.text_account.TabIndex = 34;
-            this.text_account.TextChanged += new System.EventHandler(this.table1List_TextChanged);
             // 
             // text_time
             // 
             this.text_time.BackColor = System.Drawing.Color.WhiteSmoke;
             this.text_time.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.text_time.Enabled = false;
             this.text_time.Location = new System.Drawing.Point(105, 239);
             this.text_time.Name = "text_time";
+            this.text_time.ReadOnly = true;
             this.text_time.Size = new System.Drawing.Size(251, 14);
             this.text_time.TabIndex = 48;
-            this.text_time.TextChanged += new System.EventHandler(this.table1List_TextChanged);
             // 
             // text_authaddress
             // 
@@ -534,7 +546,6 @@
             this.text_authaddress.Name = "text_authaddress";
             this.text_authaddress.Size = new System.Drawing.Size(275, 21);
             this.text_authaddress.TabIndex = 35;
-            this.text_authaddress.TextChanged += new System.EventHandler(this.table1List_TextChanged);
             // 
             // text_sqmaddress
             // 
@@ -542,7 +553,6 @@
             this.text_sqmaddress.Name = "text_sqmaddress";
             this.text_sqmaddress.Size = new System.Drawing.Size(275, 21);
             this.text_sqmaddress.TabIndex = 44;
-            this.text_sqmaddress.TextChanged += new System.EventHandler(this.table1List_TextChanged);
             // 
             // text_authaddress_backup
             // 
@@ -557,7 +567,6 @@
             this.text_tvmsaddress.Name = "text_tvmsaddress";
             this.text_tvmsaddress.Size = new System.Drawing.Size(275, 21);
             this.text_tvmsaddress.TabIndex = 45;
-            this.text_tvmsaddress.TextChanged += new System.EventHandler(this.table1List_TextChanged);
             // 
             // comboBox_timezone
             // 
@@ -573,7 +582,6 @@
             this.text_EPGaddress.Name = "text_EPGaddress";
             this.text_EPGaddress.Size = new System.Drawing.Size(275, 21);
             this.text_EPGaddress.TabIndex = 37;
-            this.text_EPGaddress.TextChanged += new System.EventHandler(this.table1List_TextChanged);
             // 
             // text_playurl
             // 
@@ -581,7 +589,6 @@
             this.text_playurl.Name = "text_playurl";
             this.text_playurl.Size = new System.Drawing.Size(275, 21);
             this.text_playurl.TabIndex = 38;
-            this.text_playurl.TextChanged += new System.EventHandler(this.table1List_TextChanged);
             // 
             // text_managerdomain
             // 
@@ -589,7 +596,6 @@
             this.text_managerdomain.Name = "text_managerdomain";
             this.text_managerdomain.Size = new System.Drawing.Size(275, 21);
             this.text_managerdomain.TabIndex = 44;
-            this.text_managerdomain.TextChanged += new System.EventHandler(this.table1List_TextChanged);
             // 
             // text_upgradeaddress
             // 
@@ -597,7 +603,6 @@
             this.text_upgradeaddress.Name = "text_upgradeaddress";
             this.text_upgradeaddress.Size = new System.Drawing.Size(275, 21);
             this.text_upgradeaddress.TabIndex = 39;
-            this.text_upgradeaddress.TextChanged += new System.EventHandler(this.table1List_TextChanged);
             // 
             // text_ntp_backup
             // 
@@ -605,7 +610,6 @@
             this.text_ntp_backup.Name = "text_ntp_backup";
             this.text_ntp_backup.Size = new System.Drawing.Size(275, 21);
             this.text_ntp_backup.TabIndex = 42;
-            this.text_ntp_backup.TextChanged += new System.EventHandler(this.table1List_TextChanged);
             // 
             // text_upgradeaddress_backup
             // 
@@ -613,7 +617,6 @@
             this.text_upgradeaddress_backup.Name = "text_upgradeaddress_backup";
             this.text_upgradeaddress_backup.Size = new System.Drawing.Size(275, 21);
             this.text_upgradeaddress_backup.TabIndex = 40;
-            this.text_upgradeaddress_backup.TextChanged += new System.EventHandler(this.table1List_TextChanged);
             // 
             // text_ntp
             // 
@@ -621,7 +624,6 @@
             this.text_ntp.Name = "text_ntp";
             this.text_ntp.Size = new System.Drawing.Size(275, 21);
             this.text_ntp.TabIndex = 41;
-            this.text_ntp.TextChanged += new System.EventHandler(this.table1List_TextChanged);
             // 
             // label2
             // 
@@ -778,9 +780,9 @@
             // 
             this.text_stbtype.BackColor = System.Drawing.Color.WhiteSmoke;
             this.text_stbtype.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.text_stbtype.Enabled = false;
             this.text_stbtype.Location = new System.Drawing.Point(100, 21);
             this.text_stbtype.Name = "text_stbtype";
+            this.text_stbtype.ReadOnly = true;
             this.text_stbtype.Size = new System.Drawing.Size(182, 14);
             this.text_stbtype.TabIndex = 49;
             // 
@@ -788,9 +790,9 @@
             // 
             this.text_dns.BackColor = System.Drawing.Color.WhiteSmoke;
             this.text_dns.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.text_dns.Enabled = false;
             this.text_dns.Location = new System.Drawing.Point(100, 153);
             this.text_dns.Name = "text_dns";
+            this.text_dns.ReadOnly = true;
             this.text_dns.Size = new System.Drawing.Size(182, 14);
             this.text_dns.TabIndex = 53;
             // 
@@ -798,9 +800,9 @@
             // 
             this.text_hardwareversion.BackColor = System.Drawing.Color.WhiteSmoke;
             this.text_hardwareversion.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.text_hardwareversion.Enabled = false;
             this.text_hardwareversion.Location = new System.Drawing.Point(100, 241);
             this.text_hardwareversion.Name = "text_hardwareversion";
+            this.text_hardwareversion.ReadOnly = true;
             this.text_hardwareversion.Size = new System.Drawing.Size(182, 14);
             this.text_hardwareversion.TabIndex = 53;
             // 
@@ -808,9 +810,9 @@
             // 
             this.text_compiletime.BackColor = System.Drawing.Color.WhiteSmoke;
             this.text_compiletime.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.text_compiletime.Enabled = false;
             this.text_compiletime.Location = new System.Drawing.Point(100, 263);
             this.text_compiletime.Name = "text_compiletime";
+            this.text_compiletime.ReadOnly = true;
             this.text_compiletime.Size = new System.Drawing.Size(182, 14);
             this.text_compiletime.TabIndex = 53;
             // 
@@ -818,9 +820,9 @@
             // 
             this.text_broswerversion.BackColor = System.Drawing.Color.WhiteSmoke;
             this.text_broswerversion.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.text_broswerversion.Enabled = false;
             this.text_broswerversion.Location = new System.Drawing.Point(100, 219);
             this.text_broswerversion.Name = "text_broswerversion";
+            this.text_broswerversion.ReadOnly = true;
             this.text_broswerversion.Size = new System.Drawing.Size(182, 14);
             this.text_broswerversion.TabIndex = 53;
             // 
@@ -828,9 +830,9 @@
             // 
             this.text_stbid.BackColor = System.Drawing.Color.WhiteSmoke;
             this.text_stbid.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.text_stbid.Enabled = false;
             this.text_stbid.Location = new System.Drawing.Point(100, 43);
             this.text_stbid.Name = "text_stbid";
+            this.text_stbid.ReadOnly = true;
             this.text_stbid.Size = new System.Drawing.Size(182, 14);
             this.text_stbid.TabIndex = 50;
             // 
@@ -838,9 +840,9 @@
             // 
             this.text_stbmac.BackColor = System.Drawing.Color.WhiteSmoke;
             this.text_stbmac.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.text_stbmac.Enabled = false;
             this.text_stbmac.Location = new System.Drawing.Point(100, 65);
             this.text_stbmac.Name = "text_stbmac";
+            this.text_stbmac.ReadOnly = true;
             this.text_stbmac.Size = new System.Drawing.Size(182, 14);
             this.text_stbmac.TabIndex = 51;
             // 
@@ -848,9 +850,9 @@
             // 
             this.text_nettype.BackColor = System.Drawing.Color.WhiteSmoke;
             this.text_nettype.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.text_nettype.Enabled = false;
             this.text_nettype.Location = new System.Drawing.Point(100, 87);
             this.text_nettype.Name = "text_nettype";
+            this.text_nettype.ReadOnly = true;
             this.text_nettype.Size = new System.Drawing.Size(182, 14);
             this.text_nettype.TabIndex = 52;
             // 
@@ -858,9 +860,9 @@
             // 
             this.text_appversion.BackColor = System.Drawing.Color.WhiteSmoke;
             this.text_appversion.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.text_appversion.Enabled = false;
             this.text_appversion.Location = new System.Drawing.Point(100, 197);
             this.text_appversion.Name = "text_appversion";
+            this.text_appversion.ReadOnly = true;
             this.text_appversion.Size = new System.Drawing.Size(182, 14);
             this.text_appversion.TabIndex = 53;
             // 
@@ -868,9 +870,9 @@
             // 
             this.text_ip.BackColor = System.Drawing.Color.WhiteSmoke;
             this.text_ip.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.text_ip.Enabled = false;
             this.text_ip.Location = new System.Drawing.Point(100, 109);
             this.text_ip.Name = "text_ip";
+            this.text_ip.ReadOnly = true;
             this.text_ip.Size = new System.Drawing.Size(182, 14);
             this.text_ip.TabIndex = 53;
             // 
@@ -878,9 +880,9 @@
             // 
             this.text_gateway.BackColor = System.Drawing.Color.WhiteSmoke;
             this.text_gateway.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.text_gateway.Enabled = false;
             this.text_gateway.Location = new System.Drawing.Point(100, 131);
             this.text_gateway.Name = "text_gateway";
+            this.text_gateway.ReadOnly = true;
             this.text_gateway.Size = new System.Drawing.Size(182, 14);
             this.text_gateway.TabIndex = 54;
             // 
@@ -888,9 +890,9 @@
             // 
             this.text_softversion.BackColor = System.Drawing.Color.WhiteSmoke;
             this.text_softversion.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.text_softversion.Enabled = false;
             this.text_softversion.Location = new System.Drawing.Point(100, 175);
             this.text_softversion.Name = "text_softversion";
+            this.text_softversion.ReadOnly = true;
             this.text_softversion.Size = new System.Drawing.Size(182, 14);
             this.text_softversion.TabIndex = 53;
             // 
@@ -970,7 +972,12 @@
             // 
             // comboBox_name
             // 
+            this.comboBox_name.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox_name.FormattingEnabled = true;
+            this.comboBox_name.Items.AddRange(new object[] {
+            "root",
+            "hybroad",
+            "admin"});
             this.comboBox_name.Location = new System.Drawing.Point(273, 20);
             this.comboBox_name.Name = "comboBox_name";
             this.comboBox_name.Size = new System.Drawing.Size(103, 20);
@@ -1269,7 +1276,6 @@
             this.edt_heartbit.Name = "edt_heartbit";
             this.edt_heartbit.Size = new System.Drawing.Size(128, 21);
             this.edt_heartbit.TabIndex = 19;
-            this.edt_heartbit.TextChanged += new System.EventHandler(this.table2List_TextChanged);
             // 
             // edt_connect_password
             // 
@@ -1278,7 +1284,6 @@
             this.edt_connect_password.Size = new System.Drawing.Size(128, 21);
             this.edt_connect_password.TabIndex = 9;
             this.edt_connect_password.UseSystemPasswordChar = true;
-            this.edt_connect_password.TextChanged += new System.EventHandler(this.table2List_TextChanged);
             // 
             // label71
             // 
@@ -1310,7 +1315,6 @@
             this.management_off.TabStop = true;
             this.management_off.Text = "关";
             this.management_off.UseVisualStyleBackColor = true;
-            this.management_off.CheckedChanged += new System.EventHandler(this.rbt_CheckedChanged);
             // 
             // management_on
             // 
@@ -1322,7 +1326,6 @@
             this.management_on.TabStop = true;
             this.management_on.Text = "开";
             this.management_on.UseVisualStyleBackColor = true;
-            this.management_on.CheckedChanged += new System.EventHandler(this.rbt_CheckedChanged);
             // 
             // label74
             // 
@@ -1339,7 +1342,6 @@
             this.edt_connect_name.Name = "edt_connect_name";
             this.edt_connect_name.Size = new System.Drawing.Size(141, 21);
             this.edt_connect_name.TabIndex = 20;
-            this.edt_connect_name.TextChanged += new System.EventHandler(this.table2List_TextChanged);
             // 
             // panel9
             // 
@@ -1362,7 +1364,6 @@
             this.heartbit_off.TabStop = true;
             this.heartbit_off.Text = "关";
             this.heartbit_off.UseVisualStyleBackColor = true;
-            this.heartbit_off.CheckedChanged += new System.EventHandler(this.rbt_CheckedChanged);
             // 
             // heartbit_on
             // 
@@ -1374,7 +1375,6 @@
             this.heartbit_on.TabStop = true;
             this.heartbit_on.Text = "开";
             this.heartbit_on.UseVisualStyleBackColor = true;
-            this.heartbit_on.CheckedChanged += new System.EventHandler(this.rbt_CheckedChanged);
             // 
             // edt_acsaddress
             // 
@@ -1382,7 +1382,6 @@
             this.edt_acsaddress.Name = "edt_acsaddress";
             this.edt_acsaddress.Size = new System.Drawing.Size(408, 21);
             this.edt_acsaddress.TabIndex = 68;
-            this.edt_acsaddress.TextChanged += new System.EventHandler(this.table2List_TextChanged);
             // 
             // groupBox7
             // 
@@ -1407,7 +1406,6 @@
             this.edt_uploadtime.Name = "edt_uploadtime";
             this.edt_uploadtime.Size = new System.Drawing.Size(128, 21);
             this.edt_uploadtime.TabIndex = 20;
-            this.edt_uploadtime.TextChanged += new System.EventHandler(this.table2List_TextChanged);
             // 
             // label63
             // 
@@ -1467,7 +1465,6 @@
             this.qos_off.TabStop = true;
             this.qos_off.Text = "关";
             this.qos_off.UseVisualStyleBackColor = true;
-            this.qos_off.CheckedChanged += new System.EventHandler(this.rbt_CheckedChanged);
             // 
             // qos_on
             // 
@@ -1479,7 +1476,6 @@
             this.qos_on.TabStop = true;
             this.qos_on.Text = "开";
             this.qos_on.UseVisualStyleBackColor = true;
-            this.qos_on.CheckedChanged += new System.EventHandler(this.rbt_CheckedChanged);
             // 
             // panel7
             // 
@@ -1502,7 +1498,6 @@
             this.browserlog_off.TabStop = true;
             this.browserlog_off.Text = "关";
             this.browserlog_off.UseVisualStyleBackColor = true;
-            this.browserlog_off.CheckedChanged += new System.EventHandler(this.rbt_CheckedChanged);
             // 
             // browserlog_on
             // 
@@ -1514,7 +1509,6 @@
             this.browserlog_on.TabStop = true;
             this.browserlog_on.Text = "开";
             this.browserlog_on.UseVisualStyleBackColor = true;
-            this.browserlog_on.CheckedChanged += new System.EventHandler(this.rbt_CheckedChanged);
             // 
             // label65
             // 
@@ -1532,7 +1526,6 @@
             this.edt_log_address.Size = new System.Drawing.Size(408, 21);
             this.edt_log_address.TabIndex = 8;
             this.edt_log_address.UseSystemPasswordChar = true;
-            this.edt_log_address.TextChanged += new System.EventHandler(this.table2List_TextChanged);
             // 
             // groupBox6
             // 
@@ -1596,7 +1589,6 @@
             this.edt_upgrade.Name = "edt_upgrade";
             this.edt_upgrade.Size = new System.Drawing.Size(407, 21);
             this.edt_upgrade.TabIndex = 64;
-            this.edt_upgrade.TextChanged += new System.EventHandler(this.table2List_TextChanged);
             // 
             // edt_upgrade_bak
             // 
@@ -1604,7 +1596,6 @@
             this.edt_upgrade_bak.Name = "edt_upgrade_bak";
             this.edt_upgrade_bak.Size = new System.Drawing.Size(407, 21);
             this.edt_upgrade_bak.TabIndex = 65;
-            this.edt_upgrade_bak.TextChanged += new System.EventHandler(this.table2List_TextChanged);
             // 
             // edt_ntp
             // 
@@ -1612,7 +1603,6 @@
             this.edt_ntp.Name = "edt_ntp";
             this.edt_ntp.Size = new System.Drawing.Size(408, 21);
             this.edt_ntp.TabIndex = 66;
-            this.edt_ntp.TextChanged += new System.EventHandler(this.table2List_TextChanged);
             // 
             // label61
             // 
@@ -1638,7 +1628,6 @@
             this.edt_ntp_bak.Name = "edt_ntp_bak";
             this.edt_ntp_bak.Size = new System.Drawing.Size(408, 21);
             this.edt_ntp_bak.TabIndex = 67;
-            this.edt_ntp_bak.TextChanged += new System.EventHandler(this.table2List_TextChanged);
             // 
             // edt_timezone
             // 
@@ -1647,21 +1636,15 @@
             this.edt_timezone.Name = "edt_timezone";
             this.edt_timezone.Size = new System.Drawing.Size(121, 20);
             this.edt_timezone.TabIndex = 47;
-            this.edt_timezone.TextChanged += new System.EventHandler(this.table2List_TextChanged);
             // 
             // groupBox5
             // 
+            this.groupBox5.Controls.Add(this.panel_dhcp);
+            this.groupBox5.Controls.Add(this.panel_static);
+            this.groupBox5.Controls.Add(this.panel_pppoe);
             this.groupBox5.Controls.Add(this.label45);
             this.groupBox5.Controls.Add(this.label46);
-            this.groupBox5.Controls.Add(this.label47);
-            this.groupBox5.Controls.Add(this.label48);
             this.groupBox5.Controls.Add(this.panel3);
-            this.groupBox5.Controls.Add(this.edt_ip);
-            this.groupBox5.Controls.Add(this.edt_mask);
-            this.groupBox5.Controls.Add(this.label49);
-            this.groupBox5.Controls.Add(this.label50);
-            this.groupBox5.Controls.Add(this.edt_gateway);
-            this.groupBox5.Controls.Add(this.edt_dhcpserver);
             this.groupBox5.Controls.Add(this.checkBox_visualip);
             this.groupBox5.Controls.Add(this.label51);
             this.groupBox5.Controls.Add(this.label52);
@@ -1681,6 +1664,173 @@
             this.groupBox5.TabIndex = 70;
             this.groupBox5.TabStop = false;
             // 
+            // panel_dhcp
+            // 
+            this.panel_dhcp.Controls.Add(this.label76);
+            this.panel_dhcp.Controls.Add(this.edt_dhcpaccount);
+            this.panel_dhcp.Controls.Add(this.edt_dhcppassword);
+            this.panel_dhcp.Controls.Add(this.label77);
+            this.panel_dhcp.Location = new System.Drawing.Point(0, 56);
+            this.panel_dhcp.Name = "panel_dhcp";
+            this.panel_dhcp.Size = new System.Drawing.Size(547, 74);
+            this.panel_dhcp.TabIndex = 65;
+            this.panel_dhcp.Visible = false;
+            // 
+            // label76
+            // 
+            this.label76.AutoSize = true;
+            this.label76.Location = new System.Drawing.Point(28, 15);
+            this.label76.Name = "label76";
+            this.label76.Size = new System.Drawing.Size(59, 12);
+            this.label76.TabIndex = 14;
+            this.label76.Text = "接入账号:";
+            // 
+            // edt_dhcpaccount
+            // 
+            this.edt_dhcpaccount.Location = new System.Drawing.Point(110, 11);
+            this.edt_dhcpaccount.Name = "edt_dhcpaccount";
+            this.edt_dhcpaccount.Size = new System.Drawing.Size(141, 21);
+            this.edt_dhcpaccount.TabIndex = 16;
+            // 
+            // edt_dhcppassword
+            // 
+            this.edt_dhcppassword.Location = new System.Drawing.Point(391, 11);
+            this.edt_dhcppassword.Name = "edt_dhcppassword";
+            this.edt_dhcppassword.Size = new System.Drawing.Size(128, 21);
+            this.edt_dhcppassword.TabIndex = 20;
+            // 
+            // label77
+            // 
+            this.label77.AutoSize = true;
+            this.label77.Location = new System.Drawing.Point(319, 15);
+            this.label77.Name = "label77";
+            this.label77.Size = new System.Drawing.Size(59, 12);
+            this.label77.TabIndex = 18;
+            this.label77.Text = "接入密码:";
+            // 
+            // panel_static
+            // 
+            this.panel_static.Controls.Add(this.label47);
+            this.panel_static.Controls.Add(this.label48);
+            this.panel_static.Controls.Add(this.edt_ip);
+            this.panel_static.Controls.Add(this.edt_mask);
+            this.panel_static.Controls.Add(this.edt_dhcpserver);
+            this.panel_static.Controls.Add(this.edt_gateway);
+            this.panel_static.Controls.Add(this.label50);
+            this.panel_static.Controls.Add(this.label49);
+            this.panel_static.Location = new System.Drawing.Point(0, 56);
+            this.panel_static.Name = "panel_static";
+            this.panel_static.Size = new System.Drawing.Size(547, 70);
+            this.panel_static.TabIndex = 64;
+            // 
+            // label47
+            // 
+            this.label47.AutoSize = true;
+            this.label47.Location = new System.Drawing.Point(28, 14);
+            this.label47.Name = "label47";
+            this.label47.Size = new System.Drawing.Size(47, 12);
+            this.label47.TabIndex = 13;
+            this.label47.Text = "IP地址:";
+            // 
+            // label48
+            // 
+            this.label48.AutoSize = true;
+            this.label48.Location = new System.Drawing.Point(28, 44);
+            this.label48.Name = "label48";
+            this.label48.Size = new System.Drawing.Size(59, 12);
+            this.label48.TabIndex = 14;
+            this.label48.Text = "子网掩码:";
+            // 
+            // edt_ip
+            // 
+            this.edt_ip.Location = new System.Drawing.Point(110, 11);
+            this.edt_ip.Name = "edt_ip";
+            this.edt_ip.Size = new System.Drawing.Size(141, 21);
+            this.edt_ip.TabIndex = 15;
+            // 
+            // edt_mask
+            // 
+            this.edt_mask.Location = new System.Drawing.Point(110, 40);
+            this.edt_mask.Name = "edt_mask";
+            this.edt_mask.Size = new System.Drawing.Size(141, 21);
+            this.edt_mask.TabIndex = 16;
+            // 
+            // edt_dhcpserver
+            // 
+            this.edt_dhcpserver.Location = new System.Drawing.Point(391, 40);
+            this.edt_dhcpserver.Name = "edt_dhcpserver";
+            this.edt_dhcpserver.Size = new System.Drawing.Size(128, 21);
+            this.edt_dhcpserver.TabIndex = 20;
+            // 
+            // edt_gateway
+            // 
+            this.edt_gateway.Location = new System.Drawing.Point(391, 11);
+            this.edt_gateway.Name = "edt_gateway";
+            this.edt_gateway.Size = new System.Drawing.Size(128, 21);
+            this.edt_gateway.TabIndex = 19;
+            // 
+            // label50
+            // 
+            this.label50.AutoSize = true;
+            this.label50.Location = new System.Drawing.Point(319, 44);
+            this.label50.Name = "label50";
+            this.label50.Size = new System.Drawing.Size(65, 12);
+            this.label50.TabIndex = 18;
+            this.label50.Text = "DNS服务器:";
+            // 
+            // label49
+            // 
+            this.label49.AutoSize = true;
+            this.label49.Location = new System.Drawing.Point(319, 14);
+            this.label49.Name = "label49";
+            this.label49.Size = new System.Drawing.Size(59, 12);
+            this.label49.TabIndex = 17;
+            this.label49.Text = "默认网关:";
+            // 
+            // panel_pppoe
+            // 
+            this.panel_pppoe.Controls.Add(this.label75);
+            this.panel_pppoe.Controls.Add(this.edt_pppoeaccount);
+            this.panel_pppoe.Controls.Add(this.edt_pppoepassword);
+            this.panel_pppoe.Controls.Add(this.label78);
+            this.panel_pppoe.Location = new System.Drawing.Point(0, 56);
+            this.panel_pppoe.Name = "panel_pppoe";
+            this.panel_pppoe.Size = new System.Drawing.Size(547, 74);
+            this.panel_pppoe.TabIndex = 66;
+            this.panel_pppoe.Visible = false;
+            // 
+            // label75
+            // 
+            this.label75.AutoSize = true;
+            this.label75.Location = new System.Drawing.Point(28, 15);
+            this.label75.Name = "label75";
+            this.label75.Size = new System.Drawing.Size(59, 12);
+            this.label75.TabIndex = 14;
+            this.label75.Text = "接入账号:";
+            // 
+            // edt_pppoeaccount
+            // 
+            this.edt_pppoeaccount.Location = new System.Drawing.Point(110, 11);
+            this.edt_pppoeaccount.Name = "edt_pppoeaccount";
+            this.edt_pppoeaccount.Size = new System.Drawing.Size(141, 21);
+            this.edt_pppoeaccount.TabIndex = 16;
+            // 
+            // edt_pppoepassword
+            // 
+            this.edt_pppoepassword.Location = new System.Drawing.Point(391, 11);
+            this.edt_pppoepassword.Name = "edt_pppoepassword";
+            this.edt_pppoepassword.Size = new System.Drawing.Size(128, 21);
+            this.edt_pppoepassword.TabIndex = 20;
+            // 
+            // label78
+            // 
+            this.label78.AutoSize = true;
+            this.label78.Location = new System.Drawing.Point(319, 15);
+            this.label78.Name = "label78";
+            this.label78.Size = new System.Drawing.Size(59, 12);
+            this.label78.TabIndex = 18;
+            this.label78.Text = "接入密码:";
+            // 
             // label45
             // 
             this.label45.AutoSize = true;
@@ -1699,24 +1849,6 @@
             this.label46.Size = new System.Drawing.Size(59, 12);
             this.label46.TabIndex = 11;
             this.label46.Text = "接入方式:";
-            // 
-            // label47
-            // 
-            this.label47.AutoSize = true;
-            this.label47.Location = new System.Drawing.Point(28, 60);
-            this.label47.Name = "label47";
-            this.label47.Size = new System.Drawing.Size(47, 12);
-            this.label47.TabIndex = 13;
-            this.label47.Text = "IP地址:";
-            // 
-            // label48
-            // 
-            this.label48.AutoSize = true;
-            this.label48.Location = new System.Drawing.Point(28, 90);
-            this.label48.Name = "label48";
-            this.label48.Size = new System.Drawing.Size(59, 12);
-            this.label48.TabIndex = 14;
-            this.label48.Text = "子网掩码:";
             // 
             // panel3
             // 
@@ -1740,7 +1872,7 @@
             this.rbt_pppoe.TabStop = true;
             this.rbt_pppoe.Text = "PPPoE";
             this.rbt_pppoe.UseVisualStyleBackColor = true;
-            this.rbt_pppoe.CheckedChanged += new System.EventHandler(this.rbt_CheckedChanged);
+            this.rbt_pppoe.CheckedChanged += new System.EventHandler(this.rbtnetwork_CheckedChanged);
             // 
             // rbt_dhcp
             // 
@@ -1752,7 +1884,7 @@
             this.rbt_dhcp.TabStop = true;
             this.rbt_dhcp.Text = "DHCP";
             this.rbt_dhcp.UseVisualStyleBackColor = true;
-            this.rbt_dhcp.CheckedChanged += new System.EventHandler(this.rbt_CheckedChanged);
+            this.rbt_dhcp.CheckedChanged += new System.EventHandler(this.rbtnetwork_CheckedChanged);
             // 
             // rbt_static
             // 
@@ -1764,57 +1896,7 @@
             this.rbt_static.TabStop = true;
             this.rbt_static.Text = "Static IP";
             this.rbt_static.UseVisualStyleBackColor = true;
-            this.rbt_static.CheckedChanged += new System.EventHandler(this.rbt_CheckedChanged);
-            // 
-            // edt_ip
-            // 
-            this.edt_ip.Location = new System.Drawing.Point(110, 57);
-            this.edt_ip.Name = "edt_ip";
-            this.edt_ip.Size = new System.Drawing.Size(141, 21);
-            this.edt_ip.TabIndex = 15;
-            this.edt_ip.TextChanged += new System.EventHandler(this.table2List_TextChanged);
-            // 
-            // edt_mask
-            // 
-            this.edt_mask.Location = new System.Drawing.Point(110, 87);
-            this.edt_mask.Name = "edt_mask";
-            this.edt_mask.Size = new System.Drawing.Size(141, 21);
-            this.edt_mask.TabIndex = 16;
-            this.edt_mask.TextChanged += new System.EventHandler(this.table2List_TextChanged);
-            // 
-            // label49
-            // 
-            this.label49.AutoSize = true;
-            this.label49.Location = new System.Drawing.Point(319, 60);
-            this.label49.Name = "label49";
-            this.label49.Size = new System.Drawing.Size(59, 12);
-            this.label49.TabIndex = 17;
-            this.label49.Text = "默认网关:";
-            // 
-            // label50
-            // 
-            this.label50.AutoSize = true;
-            this.label50.Location = new System.Drawing.Point(319, 90);
-            this.label50.Name = "label50";
-            this.label50.Size = new System.Drawing.Size(65, 12);
-            this.label50.TabIndex = 18;
-            this.label50.Text = "DNS服务器:";
-            // 
-            // edt_gateway
-            // 
-            this.edt_gateway.Location = new System.Drawing.Point(390, 57);
-            this.edt_gateway.Name = "edt_gateway";
-            this.edt_gateway.Size = new System.Drawing.Size(128, 21);
-            this.edt_gateway.TabIndex = 19;
-            this.edt_gateway.TextChanged += new System.EventHandler(this.table2List_TextChanged);
-            // 
-            // edt_dhcpserver
-            // 
-            this.edt_dhcpserver.Location = new System.Drawing.Point(390, 87);
-            this.edt_dhcpserver.Name = "edt_dhcpserver";
-            this.edt_dhcpserver.Size = new System.Drawing.Size(128, 21);
-            this.edt_dhcpserver.TabIndex = 20;
-            this.edt_dhcpserver.TextChanged += new System.EventHandler(this.table2List_TextChanged);
+            this.rbt_static.CheckedChanged += new System.EventHandler(this.rbtnetwork_CheckedChanged);
             // 
             // checkBox_visualip
             // 
@@ -2049,7 +2131,6 @@
             this.edt_iptv_account.Name = "edt_iptv_account";
             this.edt_iptv_account.Size = new System.Drawing.Size(130, 21);
             this.edt_iptv_account.TabIndex = 6;
-            this.edt_iptv_account.TextChanged += new System.EventHandler(this.table2List_TextChanged);
             // 
             // label42
             // 
@@ -2068,7 +2149,6 @@
             this.edt_user_password.Size = new System.Drawing.Size(165, 21);
             this.edt_user_password.TabIndex = 7;
             this.edt_user_password.UseSystemPasswordChar = true;
-            this.edt_user_password.TextChanged += new System.EventHandler(this.table2List_TextChanged);
             // 
             // edt_authaddress
             // 
@@ -2076,7 +2156,6 @@
             this.edt_authaddress.Name = "edt_authaddress";
             this.edt_authaddress.Size = new System.Drawing.Size(400, 21);
             this.edt_authaddress.TabIndex = 8;
-            this.edt_authaddress.TextChanged += new System.EventHandler(this.table2List_TextChanged);
             // 
             // edt_authaddress_backup
             // 
@@ -2084,7 +2163,6 @@
             this.edt_authaddress_backup.Name = "edt_authaddress_backup";
             this.edt_authaddress_backup.Size = new System.Drawing.Size(400, 21);
             this.edt_authaddress_backup.TabIndex = 9;
-            this.edt_authaddress_backup.TextChanged += new System.EventHandler(this.table2List_TextChanged);
             // 
             // tabPage2
             // 
@@ -2241,6 +2319,12 @@
             this.groupBox6.PerformLayout();
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
+            this.panel_dhcp.ResumeLayout(false);
+            this.panel_dhcp.PerformLayout();
+            this.panel_static.ResumeLayout(false);
+            this.panel_static.PerformLayout();
+            this.panel_pppoe.ResumeLayout(false);
+            this.panel_pppoe.PerformLayout();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
             this.panel4.ResumeLayout(false);
@@ -2282,7 +2366,7 @@
             DataModel.table1List.Add(new DataModel("bakUpgradeServer", "", text_upgradeaddress_backup));
             DataModel.table1List.Add(new DataModel("NTPDomain", "", text_ntp));
             DataModel.table1List.Add(new DataModel("bakNTPDomain", "", text_ntp_backup));
-            DataModel.table1List.Add(new DataModel("timeZone", "", comboBox_timezone));
+            DataModel.table1List.Add(new DataModel("timeZone", "", null));
             DataModel.table1List.Add(new DataModel("localTime", "", text_time)); ;
             DataModel.table1List.Add(new DataModel("ManagementDomain", "", text_managerdomain));
             DataModel.table1List.Add(new DataModel("TVMSHeartbitUrl", "", text_tvmsaddress));
@@ -2309,12 +2393,28 @@
             DataModel.table2List.Add(new DataModel("ManagementDomain", "", edt_acsaddress));
             DataModel.table2List.Add(new DataModel("TMSUsername", "", edt_connect_name));
             DataModel.table2List.Add(new DataModel("TMSPassword", "", edt_connect_password));
+            DataModel.table2List.Add(new DataModel("dhcpaccount", "", edt_dhcpaccount));
+            DataModel.table2List.Add(new DataModel("dhcppassword", "", edt_dhcppassword));
+            DataModel.table2List.Add(new DataModel("netuseraccount", "", edt_pppoeaccount));
+            DataModel.table2List.Add(new DataModel("netuserpassword", "", edt_pppoepassword));
 
             DataModel.table2List.Add(new DataModel("connecttype", "", null)); //connect type
             DataModel.table2List.Add(new DataModel("QoSLogSwitch", "", null)); //qos上报开关
             DataModel.table2List.Add(new DataModel("browser_log_switch", "", null)); //浏览器日志上报开关
             DataModel.table2List.Add(new DataModel("TMSEnable", "", null)); //tms开关
             DataModel.table2List.Add(new DataModel("TMSHeartBit", "", null)); //tms心跳开关
+
+            DataModel.rbtlist.Add(rbt_static);
+            DataModel.rbtlist.Add(rbt_pppoe);
+            DataModel.rbtlist.Add(rbt_dhcp);
+            DataModel.rbtlist.Add(qos_on);
+            DataModel.rbtlist.Add(qos_off);
+            DataModel.rbtlist.Add(browserlog_on);
+            DataModel.rbtlist.Add(browserlog_off);
+            DataModel.rbtlist.Add(management_on);
+            DataModel.rbtlist.Add(management_off);
+            DataModel.rbtlist.Add(heartbit_on);
+            DataModel.rbtlist.Add(heartbit_off);
         }
 
         private System.Windows.Forms.Label label1;
@@ -2508,6 +2608,17 @@
         private System.Windows.Forms.GroupBox groupBox8;
         private System.Windows.Forms.GroupBox groupBox6;
         private System.Windows.Forms.TextBox edt_uploadtime;
+        private System.Windows.Forms.Panel panel_dhcp;
+        private System.Windows.Forms.Panel panel_pppoe;
+        private System.Windows.Forms.Label label75;
+        private System.Windows.Forms.TextBox edt_pppoeaccount;
+        private System.Windows.Forms.TextBox edt_pppoepassword;
+        private System.Windows.Forms.Label label78;
+        private System.Windows.Forms.Label label76;
+        private System.Windows.Forms.TextBox edt_dhcpaccount;
+        private System.Windows.Forms.TextBox edt_dhcppassword;
+        private System.Windows.Forms.Label label77;
+        private System.Windows.Forms.Panel panel_static;
     }
 }
 
