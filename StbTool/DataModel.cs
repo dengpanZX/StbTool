@@ -5,7 +5,7 @@ using System.Windows.Forms;
 
 namespace StbTool
 {
-    class DataModel
+    public class DataModel
     {
         private String name;
         private String value;

@@ -14,9 +14,12 @@ namespace StbTool
     {
         private SocketHandler mSocket;
         private bool mConnectStatus = false;
+        private bool isModifyList1 = false;
+        private bool isModifyList2 = false;
         public MainForm()
         {
             InitializeComponent();
+            initListData();
             mSocket = new SocketHandler(this);
         }
 
@@ -222,6 +225,42 @@ namespace StbTool
                     comboBox_name.Focus();
                     return true;
                 }
+
+                if (text_ntp_backup.Focused)
+                {
+                    comboBox_timezone.Focus();
+                    return true;
+                }
+
+                if (comboBox_timezone.Focused)
+                {
+                    text_time.Focus();
+                    return true;
+                }
+
+                if (text_time.Focused)
+                {
+                    text_managerdomain.Focus();
+                    return true;
+                }
+
+                if (text_tvmsaddress.Focused)
+                {
+                    text_sqmaddress.Focus();
+                    return true;
+                }
+
+                if (text_sqmaddress.Focused)
+                {
+                    btn_commit.Focus();
+                    return true;
+                }
+
+                if (btn_fresh.Focused)
+                {
+                    text_ip1.Focus();
+                    return true;
+                }
             }
             bool ret = base.ProcessCmdKey(ref msg, keyData);
             return ret;
@@ -232,6 +271,11 @@ namespace StbTool
             if (!mConnectStatus)
                 return;
             mSocket.sendRebootCmd();
+        }
+
+        private void btn_reset_Click(object sender, EventArgs e)
+        {
+            mSocket.resetFactory();
         }
 
         public void disconnect()
@@ -249,6 +293,314 @@ namespace StbTool
                           text_status.Text = "连接已断开！";
                       }
                   });
+        }
+
+        public void updateUI(List<DataModel> list, int listIndex)
+        {
+            this.Invoke((MethodInvoker)delegate
+            {
+                foreach (DataModel model in list)
+                {
+                    switch (listIndex)
+                    {
+                        case 1:
+                            if (model.getName().Equals("timeZone"))
+                            {
+                                lock ((ComboBox)model.getObject())
+                                {
+                                    ((ComboBox)model.getObject()).Text = model.getValue();
+                                }
+                            }
+                            else if (model.getName().Equals("connecttype"))
+                            {
+                                string nettype = null;
+                                if ("3".Equals(model.getValue()))
+                                    nettype = "STATIC IP";
+                                else if ("1".Equals(model.getValue()))
+                                    nettype = "PPPoE";
+                                else if ("2".Equals(model.getValue()))
+                                    nettype = "DHCP";
+                                lock ((TextBox)model.getObject())
+                                {
+
+                                    ((TextBox)model.getObject()).Text = nettype;
+                                }
+                            }
+                                                 else
+                            {
+                                lock ((TextBox)model.getObject())
+                                {
+                                    ((TextBox)model.getObject()).Text = model.getValue();
+                                }
+                            }
+                            break;
+
+                        case 2:
+                            if (model.getObject() != null)
+                            {
+                                lock ((TextBox)model.getObject())
+                                {
+                                    ((TextBox)model.getObject()).Text = model.getValue();
+                                }
+
+
+                            }
+                            else
+                            {
+                                RadioButton tmpBtn = null;
+                                if (model.getName().Equals("connecttype"))
+                                {
+                                    if ("3".Equals(model.getValue()))
+                                        tmpBtn = rbt_static;
+                                    else if ("1".Equals(model.getValue()))
+                                        tmpBtn = rbt_pppoe;
+                                    else if ("2".Equals(model.getValue()))
+                                        tmpBtn = rbt_dhcp;
+                                }
+
+                                if (model.getName().Equals("QoSLogSwitch"))
+                                {
+                                    if ("1".Equals(model.getValue()))
+                                        tmpBtn = qos_on;
+                                    else
+                                        tmpBtn = qos_off;
+                                }
+
+
+                                if (model.getName().Equals("browser_log_switch"))
+                                {
+                                    if ("1".Equals(model.getValue()))
+                                        tmpBtn = browserlog_on;
+                                    else
+                                        tmpBtn = browserlog_off;
+                                }
+
+
+                                if (model.getName().Equals("TMSEnable"))
+                                {
+                                    if ("1".Equals(model.getValue()))
+                                        tmpBtn = management_on;
+                                    else
+                                        tmpBtn = management_off;
+                                }
+
+
+                                if (model.getName().Equals("TMSHeartBit"))
+                                {
+                                    if ("1".Equals(model.getValue()))
+                                        tmpBtn = heartbit_on;
+                                    else
+                                        tmpBtn = heartbit_off;
+                                }
+
+                                if (model.getName().Equals("timeZone"))
+                                {
+                                    lock (edt_timezone)
+                                    {
+                                        edt_timezone.Text = model.getValue();
+                                    }
+                                }
+                                else if (tmpBtn != null)
+                                {
+                                    lock (tmpBtn)
+                                    {
+                                        tmpBtn.Checked = true;
+                                    }
+                                }
+                            }
+                            break;
+                    }
+                }
+            });
+            isModifyList1 = false;
+            isModifyList2 = false;
+        }
+
+        private void btn_fresh_Click(object sender, EventArgs e)
+        {
+            if (!mConnectStatus)
+                return;
+            mSocket.initSendData(DataModel.table1List, 1, "read");
+            mSocket.sendMessage();
+            updateStatus("数据更新成功");
+        }
+
+        private void btn_commit_Click(object sender, EventArgs e)
+        {
+            if (!mConnectStatus)
+                return;
+            if (!isModifyList1)
+            {
+                text_status.Text = "没有可提交的数据！";
+                return;
+            }
+            readTable1UIData();
+            mSocket.initSendData(DataModel.table1List, 1, "write");
+            mSocket.sendMessage();
+            isModifyList1 = false;
+            updateStatus("数据提交成功");
+        }
+
+        private void table1List_TextChanged(object sender, EventArgs e)
+        {
+            isModifyList1 = true;
+        }
+
+        private void table2List_TextChanged(object sender, EventArgs e)
+        {
+            isModifyList2 = true;
+        }
+
+        private void rbt_CheckedChanged(object sender, EventArgs e)
+        {
+            isModifyList2 = true;
+        }
+
+        private void updateStatus(string msg)
+        {
+            lock (this.text_status)
+            {
+                text_status.Text = msg;
+            }
+        }
+
+        private void readTable1UIData()
+        {
+            List<DataModel> tempList = new List<DataModel>();
+            foreach (DataModel model in DataModel.table1List)
+            {
+                if (model.getName().Equals("timeZone"))
+                {
+                    model.setValue(((ComboBox)model.getObject()).Text.ToString());
+                }
+                else
+                {
+                    model.setValue(((TextBox)model.getObject()).Text.ToString());
+                }
+                tempList.Add(model);
+            }
+            DataModel.table1List = tempList;
+        }
+
+        private void readTable2UIData()
+        {
+            List<DataModel> tempList = new List<DataModel>();
+            foreach (DataModel model in DataModel.table2List)
+            {
+                if (model.getObject() != null)
+                {
+                    model.setValue(((TextBox)model.getObject()).Text.ToString());
+                }
+                else
+                {
+                    string tempValue = null;
+                    if (model.getName().Equals("connecttype"))
+                    {
+                        if (rbt_static.Checked == true)
+                            tempValue = "3";
+                        else if (rbt_dhcp.Checked == true)
+                            tempValue = "1";
+                        else if (rbt_pppoe.Checked == true)
+                            tempValue = "2";
+                    }
+
+                    if (model.getName().Equals("QoSLogSwitch"))
+                    {
+                        if (qos_on.Checked == true)
+                            tempValue = "1";
+                        else
+                            tempValue = "0";
+                    }
+
+
+                    if (model.getName().Equals("browser_log_switch"))
+                    {
+                        if (browserlog_on.Checked == true)
+                            tempValue = "1";
+                        else
+                            tempValue = "0";
+                    }
+
+
+                    if (model.getName().Equals("TMSEnable"))
+                    {
+                        if (management_on.Checked == true)
+                            tempValue = "1";
+                        else
+                            tempValue = "0";
+                    }
+
+
+                    if (model.getName().Equals("TMSHeartBit"))
+                    {
+                        if (heartbit_on.Checked == true)
+                            tempValue = "1";
+                        else
+                            tempValue = "0";
+                    }
+
+                    if (model.getName().Equals("timeZone"))
+                    {
+                        model.setValue(edt_timezone.Text.ToString());
+                    }
+                    else if (tempValue != null)
+                    {
+                        model.setValue(tempValue);
+                    }
+                }
+                tempList.Add(model);
+            }
+            DataModel.table2List = tempList;
+        }
+
+        private void tabControl1_Selecting(object sender, TabControlCancelEventArgs e)
+        {
+            Console.WriteLine(">>>>>>>>>" + isFirstTable);
+            if (!mConnectStatus && isFirstTable)
+            {
+                e.Cancel = true;
+            }
+        }
+
+        private static bool isFirstTable = true;
+        private void tabControl1_Selected(object sender, TabControlEventArgs e)
+        {
+            if(e.TabPage == tabPage3)
+            {
+                mSocket.initSendData(DataModel.table1List, 1, "read");
+                isFirstTable = true;
+            }
+            else if (e.TabPage == tabPage1)
+            {
+                mSocket.initSendData(DataModel.table2List, 2, "read");
+                isFirstTable = false;
+            }
+            else
+            {
+                isFirstTable = false;
+            }
+            mSocket.sendMessage();
+        }
+
+        private void tb2_btn_refresh_Click(object sender, EventArgs e)
+        {
+            mSocket.initSendData(DataModel.table2List, 2, "read");
+            mSocket.sendMessage();
+            updateStatus("数据更新成功");
+        }
+
+        private void tb2_btn_commit_Click(object sender, EventArgs e)
+        {
+            if (!isModifyList2)
+            {
+                text_status.Text = "没有可提交的数据！";
+                return;
+            }
+            readTable2UIData();
+            mSocket.initSendData(DataModel.table2List, 2, "write");
+            mSocket.sendMessage();
+            isModifyList2 = false;
+            updateStatus("数据提交成功");
         }
     }
 }

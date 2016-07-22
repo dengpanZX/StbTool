@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Sockets; 
 using System.Threading;
 using System.Security;
+using System.Windows.Forms;
 using System.Security.Cryptography;
 
 namespace StbTool
@@ -15,8 +16,12 @@ namespace StbTool
         private Socket client;
         private string mTcpHead;  //TCP请求的头部
         private static ManualResetEvent TimeoutObject;
+        private static ManualResetEvent GetMessageObject;
         private bool IsConnectionSuccessful;
         private MainForm mainForm;
+        private List<DataModel> mList;
+        private string mOperate;
+        private int mListIndex;
 
         public SocketHandler(MainForm mainForm){
             this.mainForm = mainForm;
@@ -41,8 +46,9 @@ namespace StbTool
         {
             byte[] data = new byte[1024];
             client = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-            IPEndPoint ie = new IPEndPoint(IPAddress.Parse("114.1.3.71"), port);
+            IPEndPoint ie = new IPEndPoint(IPAddress.Parse("114.1.3.238"), port);
             TimeoutObject = new ManualResetEvent(false);
+            GetMessageObject = new ManualResetEvent(false);
             try
             {
                // client.Connect(ie);    
@@ -62,7 +68,7 @@ namespace StbTool
                 }
             }  
             int recv;  
-            string msg = createMd5("huawei28780808");
+            string msg = createMd5("huawei.287aW");
             string sessionID = msg.Substring(0,16).ToLower();
             string indefycode = createMd5(sessionID + "huawei").Substring(0,8);
             client.Send(Encoding.ASCII.GetBytes(indefycode + sessionID + "initialize^connection^null"));
@@ -84,10 +90,10 @@ namespace StbTool
             }
             if (getdata.Contains("200"))
             {
+                initSendData(DataModel.table1List, 1, "read");
+                sendMessage();
                 Thread t = new Thread(createHeartBit);
                 t.Start();
-                Thread msgt = new Thread(getMessage);
-                msgt.Start();
             }
             return getdata.Substring(16);
         }
@@ -98,6 +104,13 @@ namespace StbTool
             byte[] b = Encoding.Default.GetBytes(str);
             string result = BitConverter.ToString(md5.ComputeHash(b));
             return result.Replace("-", "");
+        }
+
+        public void initSendData(List<DataModel> list, int listIndex, string operate)
+        {
+            this.mListIndex = listIndex;
+            this.mList = list;
+            this.mOperate = operate;
         }
 
         //socket连接的回调方法
@@ -123,50 +136,94 @@ namespace StbTool
         public void sendRebootCmd()
         {
             byte[] data = new byte[1024];
-            client.Send(Encoding.ASCII.GetBytes(mTcpHead + "read^SoftwareVersion^null"));
+            client.Send(Encoding.ASCII.GetBytes(mTcpHead + "ioctl^reboot^null"));
+            client.Receive(data);
+            //mainForm.disconnect();
+        }
+
+        public void resetFactory()
+        {
+            client.Send(Encoding.ASCII.GetBytes(mTcpHead + "ioctl^restore_setting^null"));
         }
 
         private void createHeartBit()
         {
-            bool isRunning = true;
-            while (isRunning && IsConnectionSuccessful)
+            byte[] data = new byte[1024];
+            int recv = 0;
+            while (IsConnectionSuccessful)
             {
+                GetMessageObject.WaitOne();
                 try
                 {
                     client.Send(Encoding.ASCII.GetBytes(mTcpHead + "heartbit^null"));
+                    recv = client.Receive(data);
+                    string getdata = Encoding.UTF8.GetString(data, 0, recv);
                 }
                 catch (Exception e)
                 {
                     Console.WriteLine(e);
-                    isRunning = false;
                     mainForm.disconnect();
                 }
                 Thread.Sleep(1000);
             }
+
         }
 
-        //获取数据
-        private void getMessage()
+        public void sendMessage()
         {
-            while (IsConnectionSuccessful)
+            byte[] data = new byte[1024];
+            int recv = 0;
+            List<DataModel> tmpList = new List<DataModel>();
+            GetMessageObject.Reset();
+            foreach (DataModel model in mList)
             {
-                byte[] data = new byte[1024];
-                int recv = 0;
-                if (client.Connected)
+                try
                 {
-                    try
+                    if (mOperate.Equals("read"))
                     {
-                        recv = client.Receive(data);
+                        Console.WriteLine(mTcpHead + mOperate + "^" + model.getName() + "^null");
+                        client.Send(Encoding.ASCII.GetBytes(mTcpHead + mOperate + "^" + model.getName() + "^null"));
                     }
-                    catch (Exception e)
+                    else if (mOperate.Equals("write"))
                     {
-                        Console.WriteLine(e);;
+
+                        Console.WriteLine(mTcpHead + mOperate + "^" + model.getName() + "^null^" + model.getValue());
+                        client.Send(Encoding.ASCII.GetBytes(mTcpHead + mOperate + "^" + model.getName() + "^null^" + model.getValue()));
                     }
-                }                    
+                    recv = client.Receive(data);
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                    GetMessageObject.Set();
+                    break;
+                }
                 string getdata = Encoding.UTF8.GetString(data, 0, recv);
-                if (getdata.Contains("200"))
-                    Console.WriteLine(getdata);
+                Console.WriteLine(getdata + "<<<" + model.getName());
+                if (getdata.Contains("200read"))
+                {
+                    string value = getdata.Substring(9 + model.getName().Length);
+                    if (value.Equals("null"))
+                        model.setValue("");
+                    else
+                        model.setValue(value);
+                    Console.WriteLine(value);
+                    tmpList.Add(model);
+                }
             }
+            if (mOperate.Equals("read"))
+            {
+                if (mListIndex == 1)
+                {
+                    DataModel.table1List = tmpList;
+                }
+                else if (mListIndex == 2)
+                {
+                    DataModel.table2List = tmpList;
+                }
+                mainForm.updateUI(tmpList, mListIndex);
+            }
+            GetMessageObject.Set();
         }
     }
 }
