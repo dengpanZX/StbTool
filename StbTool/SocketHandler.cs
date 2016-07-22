@@ -15,13 +15,13 @@ namespace StbTool
         private const int port = 9003;
         private Socket client;
         private string mTcpHead;  //TCP请求的头部
-        private static ManualResetEvent TimeoutObject;
-        private static ManualResetEvent GetMessageObject;
-        private bool IsConnectionSuccessful;
+        private static ManualResetEvent TimeoutObject; //在连接后线程阻塞等待连接结果
+        private static ManualResetEvent GetMessageObject; //阻塞心跳线程
+        private bool IsConnectionSuccessful; //socket连接状态
         private MainForm mainForm;
-        private List<DataModel> mList;
-        private string mOperate;
-        private int mListIndex;
+        private List<DataModel> mList; //发送数据的队列
+        private string mOperate; //操作状态  “read"or"write"
+        private int mListIndex; //判断是tabPage1 or tablePage2的数据请求
 
         public SocketHandler(MainForm mainForm){
             this.mainForm = mainForm;
@@ -59,6 +59,7 @@ namespace StbTool
                 Console.WriteLine(e.ToString());
                 return null;
             }
+            //线程阻塞5秒判断是否可以连接的地址
             if (!TimeoutObject.WaitOne(5000, false)) 
             {
                 if (!IsConnectionSuccessful)
@@ -98,6 +99,7 @@ namespace StbTool
             return getdata.Substring(16);
         }
 
+        //MD5的操作
         private string createMd5(string str)
         {
             MD5 md5 = new MD5CryptoServiceProvider();
@@ -106,6 +108,7 @@ namespace StbTool
             return result.Replace("-", "");
         }
 
+        //初始化发送的数据
         public void initSendData(List<DataModel> list, int listIndex, string operate)
         {
             this.mListIndex = listIndex;
@@ -133,26 +136,28 @@ namespace StbTool
             }
         }
 
+        //发送重启命令
         public void sendRebootCmd()
         {
             byte[] data = new byte[1024];
             client.Send(Encoding.ASCII.GetBytes(mTcpHead + "ioctl^reboot^null"));
             client.Receive(data);
-            //mainForm.disconnect();
         }
 
+        //发送恢复出厂命令
         public void resetFactory()
         {
             client.Send(Encoding.ASCII.GetBytes(mTcpHead + "ioctl^restore_setting^null"));
         }
 
+        //创建心跳线程，处理盒子端主动断开的情景
         private void createHeartBit()
         {
             byte[] data = new byte[1024];
             int recv = 0;
             while (IsConnectionSuccessful)
             {
-                GetMessageObject.WaitOne();
+                GetMessageObject.WaitOne(); //发送数据请求过程阻塞心跳线程
                 try
                 {
                     client.Send(Encoding.ASCII.GetBytes(mTcpHead + "heartbit^null"));
@@ -169,6 +174,7 @@ namespace StbTool
 
         }
 
+        //发送数据请求
         public void sendMessage()
         {
             byte[] data = new byte[1024];
@@ -209,11 +215,12 @@ namespace StbTool
                     else
                         model.setValue(value);
                     Console.WriteLine(value);
-                    tmpList.Add(model);
+                    tmpList.Add(model); //将接收的数据保存在队列
                 }
             }
             if (mOperate.Equals("write") && mListIndex == 2 && MainForm.netType != null)
             {
+                //网络修改后单独在最后发送，避免修改网络后又数据未修改成功
                 client.Send(Encoding.ASCII.GetBytes(mTcpHead + mOperate + "^" + "connecttype" + "^null^" + MainForm.netType));     
             }
             if (mOperate.Equals("read"))
@@ -228,7 +235,7 @@ namespace StbTool
                 }
                 mainForm.updateUI(tmpList, mListIndex);
             }
-            GetMessageObject.Set();
+            GetMessageObject.Set(); //放开心跳线程的阻塞
         }
     }
 }

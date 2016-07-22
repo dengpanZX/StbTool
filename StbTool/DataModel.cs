@@ -10,11 +10,11 @@ namespace StbTool
         private String name;
         private String value;
         private Object text_box;
-        public static List<DataModel> table1List = new List<DataModel>();
-        public static List<DataModel> table2List = new List<DataModel>();
-        public static List<RadioButton> rbtlist = new List<RadioButton>();
-        public static List<string> timezoneList = new List<string>();
-        public static List<string> timezoneUTCList = new List<string>();
+        public static List<DataModel> table1List = new List<DataModel>(); //面板一数据队列
+        public static List<DataModel> table2List = new List<DataModel>(); //面板二数据队列
+        public static List<RadioButton> rbtlist = new List<RadioButton>(); //radioButton的队列，方便数据清空
+        public static List<string> timezoneList = new List<string>(); //GMT时区队列
+        public static List<string> timezoneUTCList = new List<string>(); //UTC时区队列
 
         public DataModel(string name, string value, Object text)
         {
@@ -53,6 +53,7 @@ namespace StbTool
             return text_box;
         }
 
+        //初始化时区的数据
         public static void initTimeZone()
         {
             timezoneList.Add("GMT -12:00");

@@ -13,11 +13,11 @@ namespace StbTool
     public partial class MainForm : Form
     {
         private SocketHandler mSocket;
-        private bool mConnectStatus = false;
-        public static string netType = null;
-        private List<DataModel> mModifyList = new List<DataModel>();
-        private Thread resultThread;
-        private bool isOperationSuccessful = false;
+        private bool mConnectStatus = false; //获取连接状态
+        public static string netType = null; //获取网络的连接状态
+        private List<DataModel> mModifyList = new List<DataModel>(); //提交时获取的修改队列
+        private Thread resultThread; //通过线程打印执行结果
+        private bool isOperationSuccessful = false; //通过修改状态打印执行结果
         public MainForm()
         {
             InitializeComponent();
@@ -27,6 +27,7 @@ namespace StbTool
             initConbobox();
         }
 
+        //初始化用户名和时区的初始值
         private void initConbobox()
         {
             this.comboBox_name.SelectedIndex = 0;
@@ -131,7 +132,7 @@ namespace StbTool
             if (1 == ipJustfy(text_ip4))
                 comboBox_name.Focus();
         }
-        // 判断输入IP  start
+        // 判断输入IP  end
 
         //第二个面板按键的跳转  start
         private void panel_scroll_to(int height)
@@ -196,11 +197,13 @@ namespace StbTool
             }
         }
 
+        //关闭程序后停止socket和心跳线程
         private void FormClosedEvent(object sender, FormClosedEventArgs e)
         {
-            mSocket.stopConnect();
+            disconnect();
         }
 
+        //对连接后返回的结果反馈在UI上
         private void messageHandler(string msg)
         {
             if (msg.Contains("200"))
@@ -225,6 +228,7 @@ namespace StbTool
             }
         }
 
+        //对textbox的TAB键的处理
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
             Control ctl = this.ActiveControl;
@@ -282,6 +286,7 @@ namespace StbTool
             return ret;
         }
 
+        //重启按键处理
         private void btn_reboot_Click(object sender, EventArgs e)
         {
             if (!mConnectStatus)
@@ -289,16 +294,19 @@ namespace StbTool
             mSocket.sendRebootCmd();
         }
 
+        //恢复出厂按键处理
         private void btn_reset_Click(object sender, EventArgs e)
         {
             mSocket.resetFactory();
         }
 
+        //断开连接处理
         public void disconnect()
         {
             clearData();
             mSocket.stopConnect();
             mConnectStatus = false;
+            // 非UI线程通知主线程修改UI状态
             this.Invoke((MethodInvoker)delegate
                   {
                       lock (this.btn_connect)
@@ -312,6 +320,7 @@ namespace StbTool
                   });
         }
 
+        //请求获取值后更新页面UI显示
         public void updateUI(List<DataModel> list, int listIndex)
         {
             this.Invoke((MethodInvoker)delegate
@@ -326,6 +335,7 @@ namespace StbTool
                                 lock (comboBox_timezone)
                                 {
                                     // comboBox_timezone.Text = model.getValue();
+                                    //兼容stb获取的UTC和GMT问题
                                     for (int index = 0; index < DataModel.timezoneList.Count; index++)
                                     {
                                         if (model.getValue().Equals(DataModel.timezoneUTCList[index]))
@@ -349,6 +359,15 @@ namespace StbTool
                                 {
 
                                     ((TextBox)model.getObject()).Text = nettype;
+                                }
+                            }
+                            else if (model.getName().Equals("localTime"))
+                            {
+                                string time = time_format(model.getValue());
+                                lock ((TextBox)model.getObject())
+                                {
+
+                                    ((TextBox)model.getObject()).Text = time;
                                 }
                             }
                             else
@@ -446,6 +465,7 @@ namespace StbTool
             });
         }
 
+        //第一页的刷新按钮处理
         private void btn_fresh_Click(object sender, EventArgs e)
         {
             if (!mConnectStatus)
@@ -456,6 +476,7 @@ namespace StbTool
             isOperationSuccessful = true;
         }
 
+        //第二页的刷新按钮处理
         private void tb2_btn_refresh_Click(object sender, EventArgs e)
         {
             updateStatus("正在更新数据...");
@@ -464,6 +485,7 @@ namespace StbTool
             isOperationSuccessful = true;
         }
 
+        //第一页的提交按钮处理
         private void btn_commit_Click(object sender, EventArgs e)
         {
             if (!mConnectStatus)
@@ -481,6 +503,7 @@ namespace StbTool
             isOperationSuccessful = true;
         }
 
+        //第二页的提交按钮处理
         private void tb2_btn_commit_Click(object sender, EventArgs e)
         {
             updateStatus("正在提交数据...");
@@ -496,6 +519,7 @@ namespace StbTool
             isOperationSuccessful = true;
         }
 
+        //线程打印操作的处理结果
         private void printResult()
         {
             while (mConnectStatus)
@@ -509,6 +533,7 @@ namespace StbTool
             }
         }
 
+        //第二个面板中网络按钮下panel的显示处理
         private void rbtnetwork_CheckedChanged(object sender, EventArgs e)
         {
             if (rbt_static.Checked == true)
@@ -519,6 +544,7 @@ namespace StbTool
                 setNetworkPanel(panel_pppoe);
         }
 
+        //网络选择下panel的展示结果
         private void setNetworkPanel(Panel panel)
         {
             panel_static.Visible = false;
@@ -528,6 +554,7 @@ namespace StbTool
             panel.Visible = true;
         }
 
+        //通过Invoke处理非UI线程调用的执行结果
         private void updateStatus(string msg)
         {
             this.Invoke((MethodInvoker)delegate
@@ -539,6 +566,7 @@ namespace StbTool
             });
         }
 
+        // 获取面板一中修改数据的队列
         private void readTable1UIData()
         {
             List<DataModel> tempList = new List<DataModel>();
@@ -548,6 +576,7 @@ namespace StbTool
                 if (model.getName().Equals("timeZone"))
                 {
                     value = comboBox_timezone.Text.ToString();
+                    //兼容时区中UTC和GMT
                     if (value.Equals(DataModel.timezoneList[comboBox_timezone.SelectedIndex]) &&
                         model.getValue().Equals(DataModel.timezoneUTCList[comboBox_timezone.SelectedIndex]))
                     {
@@ -568,6 +597,7 @@ namespace StbTool
             DataModel.table1List = tempList;
         }
 
+        // 获取面板二中修改数据的队列
         private void readTable2UIData()
         {
             List<DataModel> tempList = new List<DataModel>();
@@ -664,7 +694,7 @@ namespace StbTool
         private void tabControl1_Selected(object sender, TabControlEventArgs e)
         {
             updateStatus("");
-            if(e.TabPage == tabPage3)
+            if (e.TabPage == tabPage3)
             {
                 mSocket.initSendData(DataModel.table1List, 1, "read");
                 isFirstTable = true;
@@ -720,6 +750,19 @@ namespace StbTool
                     }
                 }
             });
+        }
+
+        //格式化获取的时间
+        private string time_format(string time)
+        {
+            string year = time.Substring(0, 4);
+            string month = time.Substring(4, 2);
+            string day = time.Substring(6, 2);
+            string hour = time.Substring(8, 2);
+            string minute = time.Substring(10, 2);
+            string second = time.Substring(12, 2);
+            time = year + "-" + month + "-" + day + " " + hour + ":" + minute + ":" + second;
+            return time;
         }
     }
 }
