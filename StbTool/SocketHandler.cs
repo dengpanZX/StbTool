@@ -46,6 +46,7 @@ namespace StbTool
         {
             byte[] data = new byte[1024];
             client = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            //IPEndPoint ie = new IPEndPoint(IPAddress.Parse(ipAddress), port);
             IPEndPoint ie = new IPEndPoint(IPAddress.Parse("114.1.3.238"), port);
             TimeoutObject = new ManualResetEvent(false);
             GetMessageObject = new ManualResetEvent(false);
@@ -59,16 +60,15 @@ namespace StbTool
                 Console.WriteLine(e.ToString());
                 return null;
             }
-            //线程阻塞5秒判断是否可以连接的地址
-            if (!TimeoutObject.WaitOne(5000, false)) 
+            //线程阻塞10秒判断是否可以连接的地址
+            TimeoutObject.WaitOne(10000, false);
+            if (!IsConnectionSuccessful)
             {
-                if (!IsConnectionSuccessful)
-                {
-                    stopConnect();
-                    return "100initialize^connection"; //超时连接
-                }
-            }  
+                stopConnect();
+                return "100initialize^connection"; //超时连接
+            }          
             int recv;  
+           // string msg = createMd5(name + password);
             string msg = createMd5("huawei.287aW");
             string sessionID = msg.Substring(0,16).ToLower();
             string indefycode = createMd5(sessionID + "huawei").Substring(0,8);
@@ -88,6 +88,11 @@ namespace StbTool
             {
                 stopConnect();
                 return "501initialize^connection"; //用户名和密码错误
+            }
+            if (getdata.Contains("503"))
+            {
+                stopConnect();
+                return "503initialize^connection"; //连续5次连接失败
             }
             if (getdata.Contains("200"))
             {
@@ -139,9 +144,18 @@ namespace StbTool
         //发送重启命令
         public void sendRebootCmd()
         {
+            int recv = 0;
             byte[] data = new byte[1024];
-            client.Send(Encoding.ASCII.GetBytes(mTcpHead + "ioctl^reboot^null"));
-            client.Receive(data);
+            GetMessageObject.Reset();
+            //client.Send(Encoding.ASCII.GetBytes(mTcpHead + "ioctl^reboot^null"));
+            client.Send(Encoding.ASCII.GetBytes(mTcpHead + "ioctl^getAllDebugInfo^null"));
+            recv = client.Receive(data);
+            while (recv > 0)
+            {
+                string getdata = Encoding.UTF8.GetString(data, 0, recv);
+                Console.WriteLine(getdata + "<<<" + getdata);
+                recv = client.Receive(data);
+            }
         }
 
         //发送恢复出厂命令

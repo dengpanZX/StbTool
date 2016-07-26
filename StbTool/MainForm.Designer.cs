@@ -116,8 +116,8 @@
             this.btn_iptvsetting = new System.Windows.Forms.Button();
             this.tb2_btn_refresh = new System.Windows.Forms.Button();
             this.tb2_btn_commit = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.btn_export_params = new System.Windows.Forms.Button();
+            this.btn_import_params = new System.Windows.Forms.Button();
             this.panel_setting = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
@@ -223,7 +223,7 @@
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.button1 = new System.Windows.Forms.Button();
             this.btn_select_updatezip = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.text_upgrade_path = new System.Windows.Forms.TextBox();
             this.label39 = new System.Windows.Forms.Label();
             this.label38 = new System.Windows.Forms.Label();
             this.text_current_softversion = new System.Windows.Forms.TextBox();
@@ -325,7 +325,7 @@
             this.btn_reboot.Location = new System.Drawing.Point(21, 20);
             this.btn_reboot.Name = "btn_reboot";
             this.btn_reboot.Size = new System.Drawing.Size(75, 23);
-            this.btn_reboot.TabIndex = 56;
+            this.btn_reboot.TabIndex = 47;
             this.btn_reboot.Text = "重启机顶盒";
             this.btn_reboot.UseVisualStyleBackColor = true;
             this.btn_reboot.Click += new System.EventHandler(this.btn_reboot_Click);
@@ -335,7 +335,7 @@
             this.btn_reset.Location = new System.Drawing.Point(108, 20);
             this.btn_reset.Name = "btn_reset";
             this.btn_reset.Size = new System.Drawing.Size(75, 23);
-            this.btn_reset.TabIndex = 57;
+            this.btn_reset.TabIndex = 48;
             this.btn_reset.Text = "恢复出厂";
             this.btn_reset.UseVisualStyleBackColor = true;
             this.btn_reset.Click += new System.EventHandler(this.btn_reset_Click);
@@ -528,7 +528,7 @@
             this.text_account.Location = new System.Drawing.Point(105, 16);
             this.text_account.Name = "text_account";
             this.text_account.Size = new System.Drawing.Size(275, 21);
-            this.text_account.TabIndex = 34;
+            this.text_account.TabIndex = 7;
             // 
             // text_time
             // 
@@ -552,7 +552,7 @@
             this.text_sqmaddress.Location = new System.Drawing.Point(105, 300);
             this.text_sqmaddress.Name = "text_sqmaddress";
             this.text_sqmaddress.Size = new System.Drawing.Size(275, 21);
-            this.text_sqmaddress.TabIndex = 44;
+            this.text_sqmaddress.TabIndex = 46;
             // 
             // text_authaddress_backup
             // 
@@ -574,7 +574,7 @@
             this.comboBox_timezone.Location = new System.Drawing.Point(105, 216);
             this.comboBox_timezone.Name = "comboBox_timezone";
             this.comboBox_timezone.Size = new System.Drawing.Size(121, 20);
-            this.comboBox_timezone.TabIndex = 46;
+            this.comboBox_timezone.TabIndex = 43;
             // 
             // text_EPGaddress
             // 
@@ -784,7 +784,7 @@
             this.text_stbtype.Name = "text_stbtype";
             this.text_stbtype.ReadOnly = true;
             this.text_stbtype.Size = new System.Drawing.Size(182, 14);
-            this.text_stbtype.TabIndex = 49;
+            this.text_stbtype.TabIndex = 51;
             // 
             // text_dns
             // 
@@ -794,7 +794,7 @@
             this.text_dns.Name = "text_dns";
             this.text_dns.ReadOnly = true;
             this.text_dns.Size = new System.Drawing.Size(182, 14);
-            this.text_dns.TabIndex = 53;
+            this.text_dns.TabIndex = 57;
             // 
             // text_hardwareversion
             // 
@@ -804,7 +804,7 @@
             this.text_hardwareversion.Name = "text_hardwareversion";
             this.text_hardwareversion.ReadOnly = true;
             this.text_hardwareversion.Size = new System.Drawing.Size(182, 14);
-            this.text_hardwareversion.TabIndex = 53;
+            this.text_hardwareversion.TabIndex = 61;
             // 
             // text_compiletime
             // 
@@ -814,7 +814,7 @@
             this.text_compiletime.Name = "text_compiletime";
             this.text_compiletime.ReadOnly = true;
             this.text_compiletime.Size = new System.Drawing.Size(182, 14);
-            this.text_compiletime.TabIndex = 53;
+            this.text_compiletime.TabIndex = 62;
             // 
             // text_broswerversion
             // 
@@ -824,7 +824,7 @@
             this.text_broswerversion.Name = "text_broswerversion";
             this.text_broswerversion.ReadOnly = true;
             this.text_broswerversion.Size = new System.Drawing.Size(182, 14);
-            this.text_broswerversion.TabIndex = 53;
+            this.text_broswerversion.TabIndex = 60;
             // 
             // text_stbid
             // 
@@ -834,7 +834,7 @@
             this.text_stbid.Name = "text_stbid";
             this.text_stbid.ReadOnly = true;
             this.text_stbid.Size = new System.Drawing.Size(182, 14);
-            this.text_stbid.TabIndex = 50;
+            this.text_stbid.TabIndex = 52;
             // 
             // text_stbmac
             // 
@@ -844,7 +844,7 @@
             this.text_stbmac.Name = "text_stbmac";
             this.text_stbmac.ReadOnly = true;
             this.text_stbmac.Size = new System.Drawing.Size(182, 14);
-            this.text_stbmac.TabIndex = 51;
+            this.text_stbmac.TabIndex = 53;
             // 
             // text_nettype
             // 
@@ -854,7 +854,7 @@
             this.text_nettype.Name = "text_nettype";
             this.text_nettype.ReadOnly = true;
             this.text_nettype.Size = new System.Drawing.Size(182, 14);
-            this.text_nettype.TabIndex = 52;
+            this.text_nettype.TabIndex = 54;
             // 
             // text_appversion
             // 
@@ -864,7 +864,7 @@
             this.text_appversion.Name = "text_appversion";
             this.text_appversion.ReadOnly = true;
             this.text_appversion.Size = new System.Drawing.Size(182, 14);
-            this.text_appversion.TabIndex = 53;
+            this.text_appversion.TabIndex = 59;
             // 
             // text_ip
             // 
@@ -874,7 +874,7 @@
             this.text_ip.Name = "text_ip";
             this.text_ip.ReadOnly = true;
             this.text_ip.Size = new System.Drawing.Size(182, 14);
-            this.text_ip.TabIndex = 53;
+            this.text_ip.TabIndex = 55;
             // 
             // text_gateway
             // 
@@ -884,7 +884,7 @@
             this.text_gateway.Name = "text_gateway";
             this.text_gateway.ReadOnly = true;
             this.text_gateway.Size = new System.Drawing.Size(182, 14);
-            this.text_gateway.TabIndex = 54;
+            this.text_gateway.TabIndex = 56;
             // 
             // text_softversion
             // 
@@ -894,7 +894,7 @@
             this.text_softversion.Name = "text_softversion";
             this.text_softversion.ReadOnly = true;
             this.text_softversion.Size = new System.Drawing.Size(182, 14);
-            this.text_softversion.TabIndex = 53;
+            this.text_softversion.TabIndex = 58;
             // 
             // label36
             // 
@@ -933,7 +933,7 @@
             this.text_ip4.MaxLength = 3;
             this.text_ip4.Name = "text_ip4";
             this.text_ip4.Size = new System.Drawing.Size(24, 14);
-            this.text_ip4.TabIndex = 64;
+            this.text_ip4.TabIndex = 3;
             this.text_ip4.TextChanged += new System.EventHandler(this.text_ip4_TextChanged);
             this.text_ip4.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.text_ip4_KeyPress);
             // 
@@ -944,7 +944,7 @@
             this.text_ip3.MaxLength = 3;
             this.text_ip3.Name = "text_ip3";
             this.text_ip3.Size = new System.Drawing.Size(24, 14);
-            this.text_ip3.TabIndex = 63;
+            this.text_ip3.TabIndex = 2;
             this.text_ip3.TextChanged += new System.EventHandler(this.text_ip3_TextChanged);
             this.text_ip3.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.text_ip3_KeyPress);
             // 
@@ -955,7 +955,7 @@
             this.text_ip2.MaxLength = 3;
             this.text_ip2.Name = "text_ip2";
             this.text_ip2.Size = new System.Drawing.Size(24, 14);
-            this.text_ip2.TabIndex = 62;
+            this.text_ip2.TabIndex = 1;
             this.text_ip2.TextChanged += new System.EventHandler(this.text_ip2_TextChanged);
             this.text_ip2.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.text_ip2_KeyPress);
             // 
@@ -966,13 +966,12 @@
             this.text_ip1.MaxLength = 3;
             this.text_ip1.Name = "text_ip1";
             this.text_ip1.Size = new System.Drawing.Size(24, 14);
-            this.text_ip1.TabIndex = 61;
+            this.text_ip1.TabIndex = 0;
             this.text_ip1.TextChanged += new System.EventHandler(this.text_ip1_TextChanged);
             this.text_ip1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.text_ip1_KeyPress);
             // 
             // comboBox_name
             // 
-            this.comboBox_name.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox_name.FormattingEnabled = true;
             this.comboBox_name.Items.AddRange(new object[] {
             "root",
@@ -981,14 +980,14 @@
             this.comboBox_name.Location = new System.Drawing.Point(273, 20);
             this.comboBox_name.Name = "comboBox_name";
             this.comboBox_name.Size = new System.Drawing.Size(103, 20);
-            this.comboBox_name.TabIndex = 60;
+            this.comboBox_name.TabIndex = 4;
             // 
             // btn_fresh
             // 
             this.btn_fresh.Location = new System.Drawing.Point(633, 449);
             this.btn_fresh.Name = "btn_fresh";
             this.btn_fresh.Size = new System.Drawing.Size(75, 23);
-            this.btn_fresh.TabIndex = 59;
+            this.btn_fresh.TabIndex = 50;
             this.btn_fresh.Text = "刷新";
             this.btn_fresh.UseVisualStyleBackColor = true;
             this.btn_fresh.Click += new System.EventHandler(this.btn_fresh_Click);
@@ -998,7 +997,7 @@
             this.btn_commit.Location = new System.Drawing.Point(534, 449);
             this.btn_commit.Name = "btn_commit";
             this.btn_commit.Size = new System.Drawing.Size(75, 23);
-            this.btn_commit.TabIndex = 58;
+            this.btn_commit.TabIndex = 49;
             this.btn_commit.Text = "提交";
             this.btn_commit.UseVisualStyleBackColor = true;
             this.btn_commit.Click += new System.EventHandler(this.btn_commit_Click);
@@ -1008,7 +1007,7 @@
             this.btn_connect.Location = new System.Drawing.Point(630, 18);
             this.btn_connect.Name = "btn_connect";
             this.btn_connect.Size = new System.Drawing.Size(75, 23);
-            this.btn_connect.TabIndex = 8;
+            this.btn_connect.TabIndex = 6;
             this.btn_connect.Text = "连接";
             this.btn_connect.UseVisualStyleBackColor = true;
             this.btn_connect.Click += new System.EventHandler(this.btn_connect_Click);
@@ -1019,7 +1018,7 @@
             this.text_password.MaxLength = 32;
             this.text_password.Name = "text_password";
             this.text_password.Size = new System.Drawing.Size(83, 21);
-            this.text_password.TabIndex = 7;
+            this.text_password.TabIndex = 5;
             this.text_password.UseSystemPasswordChar = true;
             // 
             // label5
@@ -1064,8 +1063,8 @@
             this.tabPage1.Controls.Add(this.panel10);
             this.tabPage1.Controls.Add(this.tb2_btn_refresh);
             this.tabPage1.Controls.Add(this.tb2_btn_commit);
-            this.tabPage1.Controls.Add(this.button3);
-            this.tabPage1.Controls.Add(this.button2);
+            this.tabPage1.Controls.Add(this.btn_export_params);
+            this.tabPage1.Controls.Add(this.btn_import_params);
             this.tabPage1.Controls.Add(this.panel_setting);
             this.tabPage1.Location = new System.Drawing.Point(4, 36);
             this.tabPage1.Name = "tabPage1";
@@ -1162,23 +1161,25 @@
             this.tb2_btn_commit.UseVisualStyleBackColor = true;
             this.tb2_btn_commit.Click += new System.EventHandler(this.tb2_btn_commit_Click);
             // 
-            // button3
+            // btn_export_params
             // 
-            this.button3.Location = new System.Drawing.Point(258, 442);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 23);
-            this.button3.TabIndex = 2;
-            this.button3.Text = "导出参数";
-            this.button3.UseVisualStyleBackColor = true;
+            this.btn_export_params.Location = new System.Drawing.Point(258, 442);
+            this.btn_export_params.Name = "btn_export_params";
+            this.btn_export_params.Size = new System.Drawing.Size(75, 23);
+            this.btn_export_params.TabIndex = 2;
+            this.btn_export_params.Text = "导出参数";
+            this.btn_export_params.UseVisualStyleBackColor = true;
+            this.btn_export_params.Click += new System.EventHandler(this.btn_export_params_Click);
             // 
-            // button2
+            // btn_import_params
             // 
-            this.button2.Location = new System.Drawing.Point(151, 442);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 1;
-            this.button2.Text = "导入参数";
-            this.button2.UseVisualStyleBackColor = true;
+            this.btn_import_params.Location = new System.Drawing.Point(151, 442);
+            this.btn_import_params.Name = "btn_import_params";
+            this.btn_import_params.Size = new System.Drawing.Size(75, 23);
+            this.btn_import_params.TabIndex = 1;
+            this.btn_import_params.Text = "导入参数";
+            this.btn_import_params.UseVisualStyleBackColor = true;
+            this.btn_import_params.Click += new System.EventHandler(this.btn_import_params_Click);
             // 
             // panel_setting
             // 
@@ -2171,7 +2172,7 @@
             this.tabPage2.Controls.Add(this.checkBox1);
             this.tabPage2.Controls.Add(this.button1);
             this.tabPage2.Controls.Add(this.btn_select_updatezip);
-            this.tabPage2.Controls.Add(this.textBox1);
+            this.tabPage2.Controls.Add(this.text_upgrade_path);
             this.tabPage2.Controls.Add(this.label39);
             this.tabPage2.Controls.Add(this.label38);
             this.tabPage2.Controls.Add(this.text_current_softversion);
@@ -2221,13 +2222,16 @@
             this.btn_select_updatezip.TabIndex = 54;
             this.btn_select_updatezip.Text = "浏览";
             this.btn_select_updatezip.UseVisualStyleBackColor = true;
+            this.btn_select_updatezip.Click += new System.EventHandler(this.btn_select_updatezip_Click);
             // 
-            // textBox1
+            // text_upgrade_path
             // 
-            this.textBox1.Location = new System.Drawing.Point(154, 59);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(439, 21);
-            this.textBox1.TabIndex = 53;
+            this.text_upgrade_path.BackColor = System.Drawing.Color.White;
+            this.text_upgrade_path.Location = new System.Drawing.Point(154, 59);
+            this.text_upgrade_path.Name = "text_upgrade_path";
+            this.text_upgrade_path.ReadOnly = true;
+            this.text_upgrade_path.Size = new System.Drawing.Size(439, 21);
+            this.text_upgrade_path.TabIndex = 53;
             // 
             // label39
             // 
@@ -2273,6 +2277,7 @@
             this.text_status.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.text_status.Location = new System.Drawing.Point(7, 522);
             this.text_status.Name = "text_status";
+            this.text_status.ReadOnly = true;
             this.text_status.Size = new System.Drawing.Size(300, 14);
             this.text_status.TabIndex = 60;
             // 
@@ -2289,6 +2294,7 @@
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "工具";
+            this.Activated += new System.EventHandler(this.MainForm_Activated);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormClosedEvent);
             this.tabControl1.ResumeLayout(false);
             this.tabPage3.ResumeLayout(false);
@@ -2344,65 +2350,65 @@
 
         private void initListData()
         {
-            DataModel.table1List.Add(new DataModel("STB_model", "", text_stbtype));
-            DataModel.table1List.Add(new DataModel("STBIDNUM", "", text_stbid));
-            DataModel.table1List.Add(new DataModel("MACAddress", "", text_stbmac));
-            DataModel.table1List.Add(new DataModel("connecttype", "", text_nettype));
-            DataModel.table1List.Add(new DataModel("stbIP", "", text_ip));
-            DataModel.table1List.Add(new DataModel("gateway", "", text_gateway));
-            DataModel.table1List.Add(new DataModel("dns", "", text_dns));
-            DataModel.table1List.Add(new DataModel("SoftwareVersion", "", text_softversion));
-            DataModel.table1List.Add(new DataModel("STB_model", "", text_appversion));
-            DataModel.table1List.Add(new DataModel("BrowserVersion", "", text_broswerversion));
-            DataModel.table1List.Add(new DataModel("HardWareVersion", "", text_hardwareversion));
-            DataModel.table1List.Add(new DataModel("CompTime", "", text_compiletime));
+            DataModel.table1List.Add(new DataModel("STB_model", "", text_stbtype, 1));
+            DataModel.table1List.Add(new DataModel("STBIDNUM", "", text_stbid, 1));
+            DataModel.table1List.Add(new DataModel("MACAddress", "", text_stbmac, 1));
+            DataModel.table1List.Add(new DataModel("connecttype", "", text_nettype, 1));
+            DataModel.table1List.Add(new DataModel("stbIP", "", text_ip, 1));
+            DataModel.table1List.Add(new DataModel("gateway", "", text_gateway, 1));
+            DataModel.table1List.Add(new DataModel("dns", "", text_dns, 1));
+            DataModel.table1List.Add(new DataModel("SoftwareVersion", "", text_softversion, 1));
+            DataModel.table1List.Add(new DataModel("STB_model", "", text_appversion, 1));
+            DataModel.table1List.Add(new DataModel("BrowserVersion", "", text_broswerversion, 1));
+            DataModel.table1List.Add(new DataModel("HardWareVersion", "", text_hardwareversion, 1));
+            DataModel.table1List.Add(new DataModel("CompTime", "", text_compiletime, 1));
 
-            DataModel.table1List.Add(new DataModel("ntvuseraccount", "", text_account));
-            DataModel.table1List.Add(new DataModel("Main_HomepageUrl", "", text_authaddress));
-            DataModel.table1List.Add(new DataModel("Secondary_HomepageUrl", "", text_authaddress_backup));
-            DataModel.table1List.Add(new DataModel("epgurl", "", text_EPGaddress));
-            DataModel.table1List.Add(new DataModel("currentPlayingUrl", "", text_playurl));
-            DataModel.table1List.Add(new DataModel("UpgradeServer", "", text_upgradeaddress));
-            DataModel.table1List.Add(new DataModel("bakUpgradeServer", "", text_upgradeaddress_backup));
-            DataModel.table1List.Add(new DataModel("NTPDomain", "", text_ntp));
-            DataModel.table1List.Add(new DataModel("bakNTPDomain", "", text_ntp_backup));
-            DataModel.table1List.Add(new DataModel("timeZone", "", null));
-            DataModel.table1List.Add(new DataModel("localTime", "", text_time)); ;
-            DataModel.table1List.Add(new DataModel("ManagementDomain", "", text_managerdomain));
-            DataModel.table1List.Add(new DataModel("TVMSHeartbitUrl", "", text_tvmsaddress));
-            DataModel.table1List.Add(new DataModel("sqmURL", "", text_sqmaddress));
+            DataModel.table1List.Add(new DataModel("ntvuseraccount", "", text_account, 3));
+            DataModel.table1List.Add(new DataModel("Main_HomepageUrl", "", text_authaddress, 3));
+            DataModel.table1List.Add(new DataModel("Secondary_HomepageUrl", "", text_authaddress_backup, 3));
+            DataModel.table1List.Add(new DataModel("epgurl", "", text_EPGaddress, 3));
+            DataModel.table1List.Add(new DataModel("currentPlayingUrl", "", text_playurl, 3));
+            DataModel.table1List.Add(new DataModel("UpgradeServer", "", text_upgradeaddress, 3));
+            DataModel.table1List.Add(new DataModel("bakUpgradeServer", "", text_upgradeaddress_backup, 3));
+            DataModel.table1List.Add(new DataModel("NTPDomain", "", text_ntp, 3));
+            DataModel.table1List.Add(new DataModel("bakNTPDomain", "", text_ntp_backup, 3));
+            DataModel.table1List.Add(new DataModel("timeZone", "", null, 3));
+            DataModel.table1List.Add(new DataModel("localTime", "", text_time, 1)); ;
+            DataModel.table1List.Add(new DataModel("ManagementDomain", "", text_managerdomain, 3));
+            DataModel.table1List.Add(new DataModel("TVMSHeartbitUrl", "", text_tvmsaddress, 3));
+            DataModel.table1List.Add(new DataModel("sqmURL", "", text_sqmaddress, 3));
 
 
 
-            DataModel.table2List.Add(new DataModel("ntvuseraccount", "", edt_iptv_account));
-            DataModel.table2List.Add(new DataModel("ntvuserpassword", "", edt_user_password));
-            DataModel.table2List.Add(new DataModel("Main_HomepageUrl", "", edt_authaddress));
-            DataModel.table2List.Add(new DataModel("Secondary_HomepageUrl", "", edt_authaddress_backup));
-            DataModel.table2List.Add(new DataModel("stbIP", "", edt_ip));
-            DataModel.table2List.Add(new DataModel("gateway", "", edt_gateway));
-            DataModel.table2List.Add(new DataModel("netmask", "", edt_mask));
-            DataModel.table2List.Add(new DataModel("dns", "", edt_dhcpserver));
-            DataModel.table2List.Add(new DataModel("UpgradeServer", "", edt_upgrade));
-            DataModel.table2List.Add(new DataModel("bakUpgradeServer", "", edt_upgrade_bak));
-            DataModel.table2List.Add(new DataModel("NTPDomain", "", edt_ntp));
-            DataModel.table2List.Add(new DataModel("bakNTPDomain", "", edt_ntp_bak));
-            DataModel.table2List.Add(new DataModel("timeZone", "", null));
-            DataModel.table2List.Add(new DataModel("LogServerUrl", "", edt_log_address));
-            DataModel.table2List.Add(new DataModel("LogUploadInterval", "", edt_uploadtime));
-            DataModel.table2List.Add(new DataModel("TMSHeartBitInterval", "", edt_heartbit));
-            DataModel.table2List.Add(new DataModel("ManagementDomain", "", edt_acsaddress));
-            DataModel.table2List.Add(new DataModel("TMSUsername", "", edt_connect_name));
-            DataModel.table2List.Add(new DataModel("TMSPassword", "", edt_connect_password));
-            DataModel.table2List.Add(new DataModel("dhcpaccount", "", edt_dhcpaccount));
-            DataModel.table2List.Add(new DataModel("dhcppassword", "", edt_dhcppassword));
-            DataModel.table2List.Add(new DataModel("netuseraccount", "", edt_pppoeaccount));
-            DataModel.table2List.Add(new DataModel("netuserpassword", "", edt_pppoepassword));
+            DataModel.table2List.Add(new DataModel("ntvuseraccount", "", edt_iptv_account, 3));
+            DataModel.table2List.Add(new DataModel("ntvuserpassword", "", edt_user_password, 3));
+            DataModel.table2List.Add(new DataModel("Main_HomepageUrl", "", edt_authaddress, 3));
+            DataModel.table2List.Add(new DataModel("Secondary_HomepageUrl", "", edt_authaddress_backup, 3));
+            DataModel.table2List.Add(new DataModel("stbIP", "", edt_ip, 3));
+            DataModel.table2List.Add(new DataModel("gateway", "", edt_gateway, 3));
+            DataModel.table2List.Add(new DataModel("netmask", "", edt_mask, 3));
+            DataModel.table2List.Add(new DataModel("dns", "", edt_dhcpserver, 3));
+            DataModel.table2List.Add(new DataModel("UpgradeServer", "", edt_upgrade, 3));
+            DataModel.table2List.Add(new DataModel("bakUpgradeServer", "", edt_upgrade_bak, 3));
+            DataModel.table2List.Add(new DataModel("NTPDomain", "", edt_ntp, 3));
+            DataModel.table2List.Add(new DataModel("bakNTPDomain", "", edt_ntp_bak, 3));
+            DataModel.table2List.Add(new DataModel("timeZone", "", null, 3));
+            DataModel.table2List.Add(new DataModel("LogServerUrl", "", edt_log_address, 3));
+            DataModel.table2List.Add(new DataModel("LogUploadInterval", "", edt_uploadtime, 3));
+            DataModel.table2List.Add(new DataModel("TMSHeartBitInterval", "", edt_heartbit, 3));
+            DataModel.table2List.Add(new DataModel("ManagementDomain", "", edt_acsaddress, 3));
+            DataModel.table2List.Add(new DataModel("TMSUsername", "", edt_connect_name, 3));
+            DataModel.table2List.Add(new DataModel("TMSPassword", "", edt_connect_password, 3));
+            DataModel.table2List.Add(new DataModel("dhcpaccount", "", edt_dhcpaccount, 3));
+            DataModel.table2List.Add(new DataModel("dhcppassword", "", edt_dhcppassword, 3));
+            DataModel.table2List.Add(new DataModel("netuseraccount", "", edt_pppoeaccount, 3));
+            DataModel.table2List.Add(new DataModel("netuserpassword", "", edt_pppoepassword, 3));
 
-            DataModel.table2List.Add(new DataModel("connecttype", "", null)); //connect type
-            DataModel.table2List.Add(new DataModel("QoSLogSwitch", "", null)); //qos上报开关
-            DataModel.table2List.Add(new DataModel("browser_log_switch", "", null)); //浏览器日志上报开关
-            DataModel.table2List.Add(new DataModel("TMSEnable", "", null)); //tms开关
-            DataModel.table2List.Add(new DataModel("TMSHeartBit", "", null)); //tms心跳开关
+            DataModel.table2List.Add(new DataModel("connecttype", "", null, 3)); //connect type
+            DataModel.table2List.Add(new DataModel("QoSLogSwitch", "", null, 3)); //qos上报开关
+            DataModel.table2List.Add(new DataModel("browser_log_switch", "", null, 3)); //浏览器日志上报开关
+            DataModel.table2List.Add(new DataModel("TMSEnable", "", null, 3)); //tms开关
+            DataModel.table2List.Add(new DataModel("TMSHeartBit", "", null, 3)); //tms心跳开关
 
             DataModel.rbtlist.Add(rbt_static);
             DataModel.rbtlist.Add(rbt_pppoe);
@@ -2503,7 +2509,7 @@
         private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button btn_select_updatezip;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox text_upgrade_path;
         private System.Windows.Forms.Label label39;
         private System.Windows.Forms.Label label38;
         private System.Windows.Forms.Panel panel_setting;
@@ -2542,8 +2548,8 @@
         private System.Windows.Forms.Panel panel10;
         private System.Windows.Forms.Button tb2_btn_refresh;
         private System.Windows.Forms.Button tb2_btn_commit;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button btn_export_params;
+        private System.Windows.Forms.Button btn_import_params;
         private System.Windows.Forms.TextBox edt_connect_password;
         private System.Windows.Forms.TextBox edt_connect_name;
         private System.Windows.Forms.Label label74;

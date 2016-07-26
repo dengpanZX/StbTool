@@ -18,6 +18,8 @@ namespace StbTool
         private List<DataModel> mModifyList = new List<DataModel>(); //提交时获取的修改队列
         private Thread resultThread; //通过线程打印执行结果
         private bool isOperationSuccessful = false; //通过修改状态打印执行结果
+        private string resultMsg; //打印的结果
+        private bool isResultRunning; //控制打印结果的线程执行
         public MainForm()
         {
             InitializeComponent();
@@ -25,6 +27,15 @@ namespace StbTool
             mSocket = new SocketHandler(this);
             DataModel.initTimeZone();
             initConbobox();
+            isResultRunning = true;
+            resultThread = new Thread(printResult);
+            resultThread.Start();
+        }
+
+        //设置默认的焦点
+        private void MainForm_Activated(object sender, EventArgs e)
+        {
+            text_ip1.Focus();
         }
 
         //初始化用户名和时区的初始值
@@ -169,6 +180,11 @@ namespace StbTool
 
         private void btn_connect_Click(object sender, EventArgs e)
         {
+            stbConnect();
+        }
+
+        private void stbConnect()
+        {
             if (mSocket == null)
                 return;
             if (text_ip1.Text.ToString() == string.Empty ||
@@ -177,17 +193,25 @@ namespace StbTool
                 text_ip4.Text.ToString() == string.Empty)
             {
                 text_status.Text = "错误，IP为空!";
+              //  return;
             }
 
             if (comboBox_name.Text.ToString() == string.Empty)
+            {
                 text_status.Text = "错误，用户名为空!";
+               // return;
+            }
 
             if (text_password.Text.ToString() == string.Empty)
+            {
                 text_status.Text = "错误，密码为空!";
+               // return;
+            }
             string ip = text_ip1.Text.ToString() + "." + text_ip2.Text.ToString() + "." + text_ip3.Text.ToString() + "." + text_ip4.Text.ToString();
             if (!mConnectStatus)
             {
                 text_status.Text = "正在连接...";
+                isFirstInitTable2 = true;
                 string msg = mSocket.startConnectStb(comboBox_name.Text.ToString(), text_password.Text.ToString(), ip);
                 messageHandler(msg);
             }
@@ -200,6 +224,7 @@ namespace StbTool
         //关闭程序后停止socket和心跳线程
         private void FormClosedEvent(object sender, FormClosedEventArgs e)
         {
+            isResultRunning = false;
             disconnect();
         }
 
@@ -208,79 +233,44 @@ namespace StbTool
         {
             if (msg.Contains("200"))
             {
-                resultThread = new Thread(printResult);
-                resultThread.Start();
                 btn_connect.Text = "断开";
                 mConnectStatus = true;
-                text_status.Text = "连接成功！";
+                resultMsg = "连接成功！";
             }
             else if (msg.Contains("100"))
             {
-                text_status.Text = "没有数据连接超时！";
+                resultMsg = "没有数据连接超时！";
             }
             else if (msg.Contains("400"))
             {
-                text_status.Text = "连接被拒绝，请确认远程连接是否已打开！";
+                resultMsg = "连接被拒绝，请确认远程连接是否已打开！";
             }
             else if (msg.Contains("501"))
             {
-                text_status.Text = "用户名或密码错误！";
+                resultMsg = "用户名或密码错误！";
             }
+            else if (msg.Contains("503"))
+            {
+                DialogResult dr;
+                dr = MessageBox.Show("连续5次连接失败，请三分钟后再重试！", "连接失败", MessageBoxButtons.OK,
+                MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1);
+                if (dr == DialogResult.OK)
+                {
+                    mSocket.stopConnect();
+                    mConnectStatus = false;
+                }
+                resultMsg = "";
+            }
+            isOperationSuccessful = true;
         }
 
-        //对textbox的TAB键的处理
+        //对enter键的处理
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
             Control ctl = this.ActiveControl;
-            if (keyData == Keys.Tab)
+            if (keyData == Keys.Enter)
             {
-                if (comboBox_name.Focused)
-                {
-                    text_password.Focus();
-                    return true;
-                }
-
-                if (text_ip4.Focused)
-                {
-                    comboBox_name.Focus();
-                    return true;
-                }
-
-                if (text_ntp_backup.Focused)
-                {
-                    comboBox_timezone.Focus();
-                    return true;
-                }
-
-                if (comboBox_timezone.Focused)
-                {
-                    text_time.Focus();
-                    return true;
-                }
-
-                if (text_time.Focused)
-                {
-                    text_managerdomain.Focus();
-                    return true;
-                }
-
-                if (text_tvmsaddress.Focused)
-                {
-                    text_sqmaddress.Focus();
-                    return true;
-                }
-
-                if (text_sqmaddress.Focused)
-                {
-                    btn_commit.Focus();
-                    return true;
-                }
-
-                if (btn_fresh.Focused)
-                {
-                    text_ip1.Focus();
-                    return true;
-                }
+                stbConnect();
             }
             bool ret = base.ProcessCmdKey(ref msg, keyData);
             return ret;
@@ -291,13 +281,27 @@ namespace StbTool
         {
             if (!mConnectStatus)
                 return;
-            mSocket.sendRebootCmd();
+            DialogResult dr;
+            dr = MessageBox.Show("重启机顶盒可能会影响客户当前使用，请确定您已经征得客户同意！", "重启机顶盒", MessageBoxButtons.OK,
+            MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1);
+            if (dr == DialogResult.OK)
+            {
+                mSocket.sendRebootCmd();
+            }
         }
 
         //恢复出厂按键处理
         private void btn_reset_Click(object sender, EventArgs e)
         {
-            mSocket.resetFactory();
+            if (!mConnectStatus)
+                return;
+            DialogResult dr;
+            dr = MessageBox.Show("恢复出厂可能会影响客户当前使用，请确定您已经征得客户同意！", "恢复出厂", MessageBoxButtons.OK,
+            MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1);
+            if (dr == DialogResult.OK)
+            {
+                mSocket.resetFactory();
+            }
         }
 
         //断开连接处理
@@ -311,7 +315,7 @@ namespace StbTool
                   {
                       lock (this.btn_connect)
                       {
-                          btn_connect.Text = "连接"; ;
+                          btn_connect.Text = "连接";
                       }
                       lock (this.text_status)
                       {
@@ -473,6 +477,7 @@ namespace StbTool
             updateStatus("正在更新数据...");
             mSocket.initSendData(DataModel.table1List, 1, "read");
             mSocket.sendMessage();
+            resultMsg = "操作成功";
             isOperationSuccessful = true;
         }
 
@@ -482,6 +487,7 @@ namespace StbTool
             updateStatus("正在更新数据...");
             mSocket.initSendData(DataModel.table2List, 2, "read");
             mSocket.sendMessage();
+            resultMsg = "操作成功";
             isOperationSuccessful = true;
         }
 
@@ -500,6 +506,7 @@ namespace StbTool
             }
             mSocket.initSendData(mModifyList, 1, "write");
             mSocket.sendMessage();
+            resultMsg = "操作成功";
             isOperationSuccessful = true;
         }
 
@@ -516,18 +523,19 @@ namespace StbTool
             }
             mSocket.initSendData(mModifyList, 2, "write");
             mSocket.sendMessage();
+            resultMsg = "操作成功";
             isOperationSuccessful = true;
         }
 
         //线程打印操作的处理结果
         private void printResult()
         {
-            while (mConnectStatus)
+            while (isResultRunning)
             {
                 if (isOperationSuccessful)
                 {
                     Thread.Sleep(500);
-                    updateStatus("操作成功！");
+                    updateStatus(resultMsg);
                     isOperationSuccessful = false;
                 }
             }
@@ -587,7 +595,8 @@ namespace StbTool
                 {
                     value = ((TextBox)model.getObject()).Text.ToString();
                 }
-                if (!value.Equals(model.getValue()) && !model.getName().Equals("connecttype"))  //网络状态已经转换,避免每次都可以提交
+                Console.WriteLine(value + "<<<<<<<<<<<<<" + model.getValue());
+                if (!value.Equals(model.getValue()) && !model.getName().Equals("connecttype") && !model.getName().Equals("localTime"))  //网络状态已经转换,避免每次都可以提交
                 {
                     model.setValue(value);
                     mModifyList.Add(model);
@@ -691,27 +700,31 @@ namespace StbTool
 
         //tableConrol页面切换
         private static bool isFirstTable = true;
+        private static bool isFirstInitTable2 = true;
         private void tabControl1_Selected(object sender, TabControlEventArgs e)
         {
             updateStatus("");
             if (e.TabPage == tabPage3)
             {
-                mSocket.initSendData(DataModel.table1List, 1, "read");
                 isFirstTable = true;
             }
             else if (e.TabPage == tabPage1)
             {
-                mSocket.initSendData(DataModel.table2List, 2, "read");
+                if (isFirstInitTable2)
+                {
+                    mSocket.initSendData(DataModel.table2List, 2, "read");
+                    isFirstInitTable2 = false;
+                    mSocket.sendMessage();
+                }
                 isFirstTable = false;
             }
             else
             {
                 isFirstTable = false;
             }
-            mSocket.sendMessage();
         }
 
-        //断开连接清楚数据
+        //断开连接清除数据
         private void clearData()
         {
             this.Invoke((MethodInvoker)delegate
@@ -763,6 +776,36 @@ namespace StbTool
             string second = time.Substring(12, 2);
             time = year + "-" + month + "-" + day + " " + hour + ":" + minute + ":" + second;
             return time;
+        }
+
+        //导入参数
+        private void btn_import_params_Click(object sender, EventArgs e)
+        {
+            string fName = StbToolUtils.GetOpenFileName();
+            if (fName == string.Empty)
+                return;
+            StbToolUtils.ReadTextFileToList(fName);
+            resultMsg = "导入参数成功";
+            isOperationSuccessful = true;
+            updateUI(DataModel.paramsList1, 1);
+            updateUI(DataModel.paramsList2, 2);
+        }
+
+        //导出参数
+        private void btn_export_params_Click(object sender, EventArgs e)
+        {
+            string fName = StbToolUtils.GetSaveFileName();
+            if (fName == string.Empty)
+                return;
+            StbToolUtils.WriteListToTextFile(fName);
+            resultMsg = "导出参数成功";
+            isOperationSuccessful = true;
+        }
+
+        private void btn_select_updatezip_Click(object sender, EventArgs e)
+        {
+            string fName = StbToolUtils.GetUpgradeZipFileName();
+            text_upgrade_path.Text = fName;
         }
     }
 }

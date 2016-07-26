@@ -10,17 +10,21 @@ namespace StbTool
         private String name;
         private String value;
         private Object text_box;
+        private int attribute; // 属性是否可读写
         public static List<DataModel> table1List = new List<DataModel>(); //面板一数据队列
         public static List<DataModel> table2List = new List<DataModel>(); //面板二数据队列
+        public static List<DataModel> paramsList1 = new List<DataModel>(); //面板一数据队列
+        public static List<DataModel> paramsList2 = new List<DataModel>(); //面板二数据队列
         public static List<RadioButton> rbtlist = new List<RadioButton>(); //radioButton的队列，方便数据清空
         public static List<string> timezoneList = new List<string>(); //GMT时区队列
         public static List<string> timezoneUTCList = new List<string>(); //UTC时区队列
 
-        public DataModel(string name, string value, Object text)
+        public DataModel(string name, string value, Object text, int attribute)
         {
             this.name = name;
             this.value = value;
             this.text_box = text;
+            this.attribute = attribute;
         }
 
         public void setName(string name)
@@ -38,6 +42,11 @@ namespace StbTool
             this.text_box = textBox;
         }
 
+        public void setAttribute(int attribute)
+        {
+            this.attribute = attribute;
+        }
+
         public string getName()
         {
             return name;
@@ -51,6 +60,11 @@ namespace StbTool
         public object getObject()
         {
             return text_box;
+        }
+
+        public int getAttribute()
+        {
+            return attribute;
         }
 
         //初始化时区的数据
