@@ -228,7 +228,64 @@
             this.label38 = new System.Windows.Forms.Label();
             this.text_current_softversion = new System.Windows.Forms.TextBox();
             this.label37 = new System.Windows.Forms.Label();
-            this.text_status = new System.Windows.Forms.TextBox();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.tabControl2 = new System.Windows.Forms.TabControl();
+            this.tabPage6 = new System.Windows.Forms.TabPage();
+            this.panel_info = new System.Windows.Forms.Panel();
+            this.groupBox11 = new System.Windows.Forms.GroupBox();
+            this.picture_upload = new System.Windows.Forms.Button();
+            this.picture_sftp_pwd = new System.Windows.Forms.TextBox();
+            this.label91 = new System.Windows.Forms.Label();
+            this.picture_sftp_name = new System.Windows.Forms.TextBox();
+            this.label92 = new System.Windows.Forms.Label();
+            this.picture_sftp_host = new System.Windows.Forms.TextBox();
+            this.label93 = new System.Windows.Forms.Label();
+            this.textBox14 = new System.Windows.Forms.TextBox();
+            this.groupBox10 = new System.Windows.Forms.GroupBox();
+            this.boot_stop = new System.Windows.Forms.Button();
+            this.label88 = new System.Windows.Forms.Label();
+            this.label87 = new System.Windows.Forms.Label();
+            this.label86 = new System.Windows.Forms.Label();
+            this.start_size = new System.Windows.Forms.TextBox();
+            this.label85 = new System.Windows.Forms.Label();
+            this.boot_upload = new System.Windows.Forms.Button();
+            this.boot_start = new System.Windows.Forms.Button();
+            this.start_sftp_pwd = new System.Windows.Forms.TextBox();
+            this.label82 = new System.Windows.Forms.Label();
+            this.start_sftp_name = new System.Windows.Forms.TextBox();
+            this.label83 = new System.Windows.Forms.Label();
+            this.start_sftp_host = new System.Windows.Forms.TextBox();
+            this.label84 = new System.Windows.Forms.Label();
+            this.textBox10 = new System.Windows.Forms.TextBox();
+            this.groupBox9 = new System.Windows.Forms.GroupBox();
+            this.info_upload = new System.Windows.Forms.Button();
+            this.info_stop = new System.Windows.Forms.Button();
+            this.info_start = new System.Windows.Forms.Button();
+            this.info_sftp_pwd = new System.Windows.Forms.TextBox();
+            this.label81 = new System.Windows.Forms.Label();
+            this.info_sftp_name = new System.Windows.Forms.TextBox();
+            this.label80 = new System.Windows.Forms.Label();
+            this.info_stfp_host = new System.Windows.Forms.TextBox();
+            this.label79 = new System.Windows.Forms.Label();
+            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.info_tcpdump = new System.Windows.Forms.CheckBox();
+            this.checkBox5 = new System.Windows.Forms.CheckBox();
+            this.checkBox4 = new System.Windows.Forms.CheckBox();
+            this.checkBox3 = new System.Windows.Forms.CheckBox();
+            this.info_allpick = new System.Windows.Forms.CheckBox();
+            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.panel_play_data = new System.Windows.Forms.Panel();
+            this.label96 = new System.Windows.Forms.Label();
+            this.label95 = new System.Windows.Forms.Label();
+            this.labe_cpu = new System.Windows.Forms.Label();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.button6 = new System.Windows.Forms.Button();
+            this.button5 = new System.Windows.Forms.Button();
+            this.label90 = new System.Windows.Forms.Label();
+            this.label89 = new System.Windows.Forms.Label();
+            this.text_status = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -254,6 +311,16 @@
             this.panel5.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.tabPage2.SuspendLayout();
+            this.tabPage4.SuspendLayout();
+            this.tabControl2.SuspendLayout();
+            this.tabPage6.SuspendLayout();
+            this.panel_info.SuspendLayout();
+            this.groupBox11.SuspendLayout();
+            this.groupBox10.SuspendLayout();
+            this.groupBox9.SuspendLayout();
+            this.tabPage5.SuspendLayout();
+            this.panel_play_data.SuspendLayout();
+            this.splitContainer1.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -269,6 +336,7 @@
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Controls.Add(this.tabPage4);
             this.tabControl1.Location = new System.Drawing.Point(-3, -1);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.Padding = new System.Drawing.Point(15, 10);
@@ -2271,13 +2339,602 @@
             this.label37.TabIndex = 0;
             this.label37.Text = "当前软件版本:";
             // 
+            // tabPage4
+            // 
+            this.tabPage4.Controls.Add(this.tabControl2);
+            this.tabPage4.Location = new System.Drawing.Point(4, 36);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage4.Size = new System.Drawing.Size(729, 477);
+            this.tabPage4.TabIndex = 3;
+            this.tabPage4.Text = "故障诊断";
+            this.tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // tabControl2
+            // 
+            this.tabControl2.Controls.Add(this.tabPage6);
+            this.tabControl2.Controls.Add(this.tabPage5);
+            this.tabControl2.Location = new System.Drawing.Point(-4, 0);
+            this.tabControl2.Name = "tabControl2";
+            this.tabControl2.SelectedIndex = 0;
+            this.tabControl2.Size = new System.Drawing.Size(733, 481);
+            this.tabControl2.TabIndex = 0;
+            // 
+            // tabPage6
+            // 
+            this.tabPage6.Controls.Add(this.panel_info);
+            this.tabPage6.Location = new System.Drawing.Point(4, 22);
+            this.tabPage6.Name = "tabPage6";
+            this.tabPage6.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage6.Size = new System.Drawing.Size(725, 455);
+            this.tabPage6.TabIndex = 1;
+            this.tabPage6.Text = "信息收集";
+            this.tabPage6.UseVisualStyleBackColor = true;
+            // 
+            // panel_info
+            // 
+            this.panel_info.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.panel_info.Controls.Add(this.groupBox11);
+            this.panel_info.Controls.Add(this.groupBox10);
+            this.panel_info.Controls.Add(this.groupBox9);
+            this.panel_info.Location = new System.Drawing.Point(-4, 3);
+            this.panel_info.Name = "panel_info";
+            this.panel_info.Size = new System.Drawing.Size(729, 452);
+            this.panel_info.TabIndex = 0;
+            // 
+            // groupBox11
+            // 
+            this.groupBox11.Controls.Add(this.picture_upload);
+            this.groupBox11.Controls.Add(this.picture_sftp_pwd);
+            this.groupBox11.Controls.Add(this.label91);
+            this.groupBox11.Controls.Add(this.picture_sftp_name);
+            this.groupBox11.Controls.Add(this.label92);
+            this.groupBox11.Controls.Add(this.picture_sftp_host);
+            this.groupBox11.Controls.Add(this.label93);
+            this.groupBox11.Controls.Add(this.textBox14);
+            this.groupBox11.Location = new System.Drawing.Point(15, 355);
+            this.groupBox11.Name = "groupBox11";
+            this.groupBox11.Size = new System.Drawing.Size(693, 91);
+            this.groupBox11.TabIndex = 21;
+            this.groupBox11.TabStop = false;
+            // 
+            // picture_upload
+            // 
+            this.picture_upload.Location = new System.Drawing.Point(595, 55);
+            this.picture_upload.Name = "picture_upload";
+            this.picture_upload.Size = new System.Drawing.Size(75, 23);
+            this.picture_upload.TabIndex = 16;
+            this.picture_upload.Text = "上传";
+            this.picture_upload.UseVisualStyleBackColor = true;
+            // 
+            // picture_sftp_pwd
+            // 
+            this.picture_sftp_pwd.Location = new System.Drawing.Point(556, 20);
+            this.picture_sftp_pwd.Name = "picture_sftp_pwd";
+            this.picture_sftp_pwd.Size = new System.Drawing.Size(115, 21);
+            this.picture_sftp_pwd.TabIndex = 13;
+            this.picture_sftp_pwd.UseSystemPasswordChar = true;
+            // 
+            // label91
+            // 
+            this.label91.AutoSize = true;
+            this.label91.Location = new System.Drawing.Point(518, 25);
+            this.label91.Name = "label91";
+            this.label91.Size = new System.Drawing.Size(35, 12);
+            this.label91.TabIndex = 12;
+            this.label91.Text = "密码:";
+            // 
+            // picture_sftp_name
+            // 
+            this.picture_sftp_name.Location = new System.Drawing.Point(356, 20);
+            this.picture_sftp_name.Name = "picture_sftp_name";
+            this.picture_sftp_name.Size = new System.Drawing.Size(115, 21);
+            this.picture_sftp_name.TabIndex = 11;
+            // 
+            // label92
+            // 
+            this.label92.AutoSize = true;
+            this.label92.Location = new System.Drawing.Point(307, 25);
+            this.label92.Name = "label92";
+            this.label92.Size = new System.Drawing.Size(47, 12);
+            this.label92.TabIndex = 10;
+            this.label92.Text = "用户名:";
+            // 
+            // picture_sftp_host
+            // 
+            this.picture_sftp_host.Location = new System.Drawing.Point(119, 20);
+            this.picture_sftp_host.Name = "picture_sftp_host";
+            this.picture_sftp_host.Size = new System.Drawing.Size(147, 21);
+            this.picture_sftp_host.TabIndex = 9;
+            // 
+            // label93
+            // 
+            this.label93.AutoSize = true;
+            this.label93.Location = new System.Drawing.Point(18, 25);
+            this.label93.Name = "label93";
+            this.label93.Size = new System.Drawing.Size(95, 12);
+            this.label93.TabIndex = 8;
+            this.label93.Text = "SFTP服务器地址:";
+            // 
+            // textBox14
+            // 
+            this.textBox14.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.textBox14.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBox14.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.textBox14.Location = new System.Drawing.Point(10, 1);
+            this.textBox14.Name = "textBox14";
+            this.textBox14.Size = new System.Drawing.Size(80, 14);
+            this.textBox14.TabIndex = 0;
+            this.textBox14.Text = "图片信息收集";
+            // 
+            // groupBox10
+            // 
+            this.groupBox10.Controls.Add(this.boot_stop);
+            this.groupBox10.Controls.Add(this.label88);
+            this.groupBox10.Controls.Add(this.label87);
+            this.groupBox10.Controls.Add(this.label86);
+            this.groupBox10.Controls.Add(this.start_size);
+            this.groupBox10.Controls.Add(this.label85);
+            this.groupBox10.Controls.Add(this.boot_upload);
+            this.groupBox10.Controls.Add(this.boot_start);
+            this.groupBox10.Controls.Add(this.start_sftp_pwd);
+            this.groupBox10.Controls.Add(this.label82);
+            this.groupBox10.Controls.Add(this.start_sftp_name);
+            this.groupBox10.Controls.Add(this.label83);
+            this.groupBox10.Controls.Add(this.start_sftp_host);
+            this.groupBox10.Controls.Add(this.label84);
+            this.groupBox10.Controls.Add(this.textBox10);
+            this.groupBox10.Location = new System.Drawing.Point(17, 223);
+            this.groupBox10.Name = "groupBox10";
+            this.groupBox10.Size = new System.Drawing.Size(693, 126);
+            this.groupBox10.TabIndex = 1;
+            this.groupBox10.TabStop = false;
+            // 
+            // boot_stop
+            // 
+            this.boot_stop.Location = new System.Drawing.Point(505, 90);
+            this.boot_stop.Name = "boot_stop";
+            this.boot_stop.Size = new System.Drawing.Size(75, 23);
+            this.boot_stop.TabIndex = 17;
+            this.boot_stop.Text = "停止";
+            this.boot_stop.UseVisualStyleBackColor = true;
+            this.boot_stop.Click += new System.EventHandler(this.boot_stop_Click);
+            // 
+            // label88
+            // 
+            this.label88.AutoSize = true;
+            this.label88.ForeColor = System.Drawing.Color.Red;
+            this.label88.Location = new System.Drawing.Point(389, 26);
+            this.label88.Name = "label88";
+            this.label88.Size = new System.Drawing.Size(11, 12);
+            this.label88.TabIndex = 21;
+            this.label88.Text = "*";
+            // 
+            // label87
+            // 
+            this.label87.AutoSize = true;
+            this.label87.ForeColor = System.Drawing.Color.Red;
+            this.label87.Location = new System.Drawing.Point(398, 26);
+            this.label87.Name = "label87";
+            this.label87.Size = new System.Drawing.Size(269, 12);
+            this.label87.TabIndex = 20;
+            this.label87.Text = "采集开机信息，需要在启动后重启机顶盒才能生效";
+            // 
+            // label86
+            // 
+            this.label86.AutoSize = true;
+            this.label86.Location = new System.Drawing.Point(155, 25);
+            this.label86.Name = "label86";
+            this.label86.Size = new System.Drawing.Size(95, 12);
+            this.label86.TabIndex = 19;
+            this.label86.Text = "M   (不大于10M)";
+            // 
+            // start_size
+            // 
+            this.start_size.Location = new System.Drawing.Point(119, 20);
+            this.start_size.Name = "start_size";
+            this.start_size.Size = new System.Drawing.Size(33, 21);
+            this.start_size.TabIndex = 18;
+            // 
+            // label85
+            // 
+            this.label85.AutoSize = true;
+            this.label85.Location = new System.Drawing.Point(18, 25);
+            this.label85.Name = "label85";
+            this.label85.Size = new System.Drawing.Size(59, 12);
+            this.label85.TabIndex = 17;
+            this.label85.Text = "抓包大小:";
+            // 
+            // boot_upload
+            // 
+            this.boot_upload.Location = new System.Drawing.Point(595, 90);
+            this.boot_upload.Name = "boot_upload";
+            this.boot_upload.Size = new System.Drawing.Size(75, 23);
+            this.boot_upload.TabIndex = 16;
+            this.boot_upload.Text = "上传";
+            this.boot_upload.UseVisualStyleBackColor = true;
+            this.boot_upload.Click += new System.EventHandler(this.start_upload_Click);
+            // 
+            // boot_start
+            // 
+            this.boot_start.Location = new System.Drawing.Point(415, 90);
+            this.boot_start.Name = "boot_start";
+            this.boot_start.Size = new System.Drawing.Size(75, 23);
+            this.boot_start.TabIndex = 14;
+            this.boot_start.Text = "启动";
+            this.boot_start.UseVisualStyleBackColor = true;
+            this.boot_start.Click += new System.EventHandler(this.boot_start_Click);
+            // 
+            // start_sftp_pwd
+            // 
+            this.start_sftp_pwd.Location = new System.Drawing.Point(556, 57);
+            this.start_sftp_pwd.Name = "start_sftp_pwd";
+            this.start_sftp_pwd.Size = new System.Drawing.Size(115, 21);
+            this.start_sftp_pwd.TabIndex = 13;
+            this.start_sftp_pwd.UseSystemPasswordChar = true;
+            // 
+            // label82
+            // 
+            this.label82.AutoSize = true;
+            this.label82.Location = new System.Drawing.Point(518, 62);
+            this.label82.Name = "label82";
+            this.label82.Size = new System.Drawing.Size(35, 12);
+            this.label82.TabIndex = 12;
+            this.label82.Text = "密码:";
+            // 
+            // start_sftp_name
+            // 
+            this.start_sftp_name.Location = new System.Drawing.Point(356, 57);
+            this.start_sftp_name.Name = "start_sftp_name";
+            this.start_sftp_name.Size = new System.Drawing.Size(115, 21);
+            this.start_sftp_name.TabIndex = 11;
+            // 
+            // label83
+            // 
+            this.label83.AutoSize = true;
+            this.label83.Location = new System.Drawing.Point(307, 62);
+            this.label83.Name = "label83";
+            this.label83.Size = new System.Drawing.Size(47, 12);
+            this.label83.TabIndex = 10;
+            this.label83.Text = "用户名:";
+            // 
+            // start_sftp_host
+            // 
+            this.start_sftp_host.Location = new System.Drawing.Point(119, 57);
+            this.start_sftp_host.Name = "start_sftp_host";
+            this.start_sftp_host.Size = new System.Drawing.Size(147, 21);
+            this.start_sftp_host.TabIndex = 9;
+            // 
+            // label84
+            // 
+            this.label84.AutoSize = true;
+            this.label84.Location = new System.Drawing.Point(18, 62);
+            this.label84.Name = "label84";
+            this.label84.Size = new System.Drawing.Size(95, 12);
+            this.label84.TabIndex = 8;
+            this.label84.Text = "SFTP服务器地址:";
+            // 
+            // textBox10
+            // 
+            this.textBox10.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.textBox10.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBox10.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.textBox10.Location = new System.Drawing.Point(10, 1);
+            this.textBox10.Name = "textBox10";
+            this.textBox10.Size = new System.Drawing.Size(80, 14);
+            this.textBox10.TabIndex = 0;
+            this.textBox10.Text = "开机信息收集";
+            // 
+            // groupBox9
+            // 
+            this.groupBox9.Controls.Add(this.info_upload);
+            this.groupBox9.Controls.Add(this.info_stop);
+            this.groupBox9.Controls.Add(this.info_start);
+            this.groupBox9.Controls.Add(this.info_sftp_pwd);
+            this.groupBox9.Controls.Add(this.label81);
+            this.groupBox9.Controls.Add(this.info_sftp_name);
+            this.groupBox9.Controls.Add(this.label80);
+            this.groupBox9.Controls.Add(this.info_stfp_host);
+            this.groupBox9.Controls.Add(this.label79);
+            this.groupBox9.Controls.Add(this.textBox4);
+            this.groupBox9.Controls.Add(this.info_tcpdump);
+            this.groupBox9.Controls.Add(this.checkBox5);
+            this.groupBox9.Controls.Add(this.checkBox4);
+            this.groupBox9.Controls.Add(this.checkBox3);
+            this.groupBox9.Controls.Add(this.info_allpick);
+            this.groupBox9.Controls.Add(this.textBox3);
+            this.groupBox9.Controls.Add(this.textBox1);
+            this.groupBox9.Location = new System.Drawing.Point(17, 10);
+            this.groupBox9.Name = "groupBox9";
+            this.groupBox9.Size = new System.Drawing.Size(693, 198);
+            this.groupBox9.TabIndex = 0;
+            this.groupBox9.TabStop = false;
+            // 
+            // info_upload
+            // 
+            this.info_upload.Location = new System.Drawing.Point(595, 161);
+            this.info_upload.Name = "info_upload";
+            this.info_upload.Size = new System.Drawing.Size(75, 23);
+            this.info_upload.TabIndex = 16;
+            this.info_upload.Text = "上传";
+            this.info_upload.UseVisualStyleBackColor = true;
+            this.info_upload.Click += new System.EventHandler(this.info_upload_Click);
+            // 
+            // info_stop
+            // 
+            this.info_stop.Location = new System.Drawing.Point(505, 161);
+            this.info_stop.Name = "info_stop";
+            this.info_stop.Size = new System.Drawing.Size(75, 23);
+            this.info_stop.TabIndex = 15;
+            this.info_stop.Text = "停止";
+            this.info_stop.UseVisualStyleBackColor = true;
+            this.info_stop.Click += new System.EventHandler(this.info_stop_Click);
+            // 
+            // info_start
+            // 
+            this.info_start.Location = new System.Drawing.Point(415, 161);
+            this.info_start.Name = "info_start";
+            this.info_start.Size = new System.Drawing.Size(75, 23);
+            this.info_start.TabIndex = 14;
+            this.info_start.Text = "启动";
+            this.info_start.UseVisualStyleBackColor = true;
+            this.info_start.Click += new System.EventHandler(this.info_start_Click);
+            // 
+            // info_sftp_pwd
+            // 
+            this.info_sftp_pwd.Location = new System.Drawing.Point(556, 127);
+            this.info_sftp_pwd.Name = "info_sftp_pwd";
+            this.info_sftp_pwd.Size = new System.Drawing.Size(115, 21);
+            this.info_sftp_pwd.TabIndex = 13;
+            this.info_sftp_pwd.UseSystemPasswordChar = true;
+            // 
+            // label81
+            // 
+            this.label81.AutoSize = true;
+            this.label81.Location = new System.Drawing.Point(518, 132);
+            this.label81.Name = "label81";
+            this.label81.Size = new System.Drawing.Size(35, 12);
+            this.label81.TabIndex = 12;
+            this.label81.Text = "密码:";
+            // 
+            // info_sftp_name
+            // 
+            this.info_sftp_name.Location = new System.Drawing.Point(356, 127);
+            this.info_sftp_name.Name = "info_sftp_name";
+            this.info_sftp_name.Size = new System.Drawing.Size(115, 21);
+            this.info_sftp_name.TabIndex = 11;
+            // 
+            // label80
+            // 
+            this.label80.AutoSize = true;
+            this.label80.Location = new System.Drawing.Point(307, 132);
+            this.label80.Name = "label80";
+            this.label80.Size = new System.Drawing.Size(47, 12);
+            this.label80.TabIndex = 10;
+            this.label80.Text = "用户名:";
+            // 
+            // info_stfp_host
+            // 
+            this.info_stfp_host.Location = new System.Drawing.Point(119, 127);
+            this.info_stfp_host.Name = "info_stfp_host";
+            this.info_stfp_host.Size = new System.Drawing.Size(147, 21);
+            this.info_stfp_host.TabIndex = 9;
+            // 
+            // label79
+            // 
+            this.label79.AutoSize = true;
+            this.label79.Location = new System.Drawing.Point(18, 132);
+            this.label79.Name = "label79";
+            this.label79.Size = new System.Drawing.Size(95, 12);
+            this.label79.TabIndex = 8;
+            this.label79.Text = "SFTP服务器地址:";
+            // 
+            // textBox4
+            // 
+            this.textBox4.Enabled = false;
+            this.textBox4.Location = new System.Drawing.Point(119, 98);
+            this.textBox4.Name = "textBox4";
+            this.textBox4.Size = new System.Drawing.Size(552, 21);
+            this.textBox4.TabIndex = 7;
+            this.textBox4.Text = "tcpdump -i eth0 -s 0";
+            // 
+            // info_tcpdump
+            // 
+            this.info_tcpdump.AutoSize = true;
+            this.info_tcpdump.Location = new System.Drawing.Point(18, 100);
+            this.info_tcpdump.Name = "info_tcpdump";
+            this.info_tcpdump.Size = new System.Drawing.Size(48, 16);
+            this.info_tcpdump.TabIndex = 6;
+            this.info_tcpdump.Text = "抓包";
+            this.info_tcpdump.UseVisualStyleBackColor = true;
+            // 
+            // checkBox5
+            // 
+            this.checkBox5.AutoSize = true;
+            this.checkBox5.Checked = true;
+            this.checkBox5.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBox5.Enabled = false;
+            this.checkBox5.ForeColor = System.Drawing.SystemColors.ButtonShadow;
+            this.checkBox5.Location = new System.Drawing.Point(256, 75);
+            this.checkBox5.Name = "checkBox5";
+            this.checkBox5.Size = new System.Drawing.Size(108, 16);
+            this.checkBox5.TabIndex = 5;
+            this.checkBox5.Text = "机顶盒配置文件";
+            this.checkBox5.UseVisualStyleBackColor = true;
+            // 
+            // checkBox4
+            // 
+            this.checkBox4.AutoSize = true;
+            this.checkBox4.Checked = true;
+            this.checkBox4.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBox4.Enabled = false;
+            this.checkBox4.ForeColor = System.Drawing.SystemColors.AppWorkspace;
+            this.checkBox4.Location = new System.Drawing.Point(138, 75);
+            this.checkBox4.Name = "checkBox4";
+            this.checkBox4.Size = new System.Drawing.Size(108, 16);
+            this.checkBox4.TabIndex = 4;
+            this.checkBox4.Text = "机顶盒网络信息";
+            this.checkBox4.UseVisualStyleBackColor = true;
+            // 
+            // checkBox3
+            // 
+            this.checkBox3.AutoSize = true;
+            this.checkBox3.Checked = true;
+            this.checkBox3.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBox3.Enabled = false;
+            this.checkBox3.ForeColor = System.Drawing.SystemColors.AppWorkspace;
+            this.checkBox3.Location = new System.Drawing.Point(18, 75);
+            this.checkBox3.Name = "checkBox3";
+            this.checkBox3.Size = new System.Drawing.Size(108, 16);
+            this.checkBox3.TabIndex = 3;
+            this.checkBox3.Text = "机顶盒全量日志";
+            this.checkBox3.UseVisualStyleBackColor = true;
+            // 
+            // info_allpick
+            // 
+            this.info_allpick.AutoSize = true;
+            this.info_allpick.Location = new System.Drawing.Point(18, 50);
+            this.info_allpick.Name = "info_allpick";
+            this.info_allpick.Size = new System.Drawing.Size(48, 16);
+            this.info_allpick.TabIndex = 2;
+            this.info_allpick.Text = "全选";
+            this.info_allpick.UseVisualStyleBackColor = true;
+            this.info_allpick.CheckedChanged += new System.EventHandler(this.info_allpick_CheckedChanged);
+            // 
+            // textBox3
+            // 
+            this.textBox3.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.textBox3.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBox3.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.textBox3.Location = new System.Drawing.Point(18, 25);
+            this.textBox3.Name = "textBox3";
+            this.textBox3.Size = new System.Drawing.Size(108, 14);
+            this.textBox3.TabIndex = 1;
+            this.textBox3.Text = "一键信息收集";
+            // 
+            // textBox1
+            // 
+            this.textBox1.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBox1.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.textBox1.Location = new System.Drawing.Point(10, 1);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(108, 14);
+            this.textBox1.TabIndex = 0;
+            this.textBox1.Text = "故障定位信息收集";
+            // 
+            // tabPage5
+            // 
+            this.tabPage5.Controls.Add(this.panel_play_data);
+            this.tabPage5.Location = new System.Drawing.Point(4, 22);
+            this.tabPage5.Name = "tabPage5";
+            this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage5.Size = new System.Drawing.Size(725, 455);
+            this.tabPage5.TabIndex = 0;
+            this.tabPage5.Text = "可视化定位";
+            this.tabPage5.UseVisualStyleBackColor = true;
+            // 
+            // panel_play_data
+            // 
+            this.panel_play_data.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.panel_play_data.Controls.Add(this.label96);
+            this.panel_play_data.Controls.Add(this.label95);
+            this.panel_play_data.Controls.Add(this.labe_cpu);
+            this.panel_play_data.Controls.Add(this.splitContainer1);
+            this.panel_play_data.Controls.Add(this.button6);
+            this.panel_play_data.Controls.Add(this.button5);
+            this.panel_play_data.Controls.Add(this.label90);
+            this.panel_play_data.Controls.Add(this.label89);
+            this.panel_play_data.Location = new System.Drawing.Point(0, 3);
+            this.panel_play_data.Name = "panel_play_data";
+            this.panel_play_data.Size = new System.Drawing.Size(733, 452);
+            this.panel_play_data.TabIndex = 0;
+            // 
+            // label96
+            // 
+            this.label96.AutoSize = true;
+            this.label96.Location = new System.Drawing.Point(166, 21);
+            this.label96.Name = "label96";
+            this.label96.Size = new System.Drawing.Size(23, 12);
+            this.label96.TabIndex = 10;
+            this.label96.Text = "Mem";
+            // 
+            // label95
+            // 
+            this.label95.AutoSize = true;
+            this.label95.Location = new System.Drawing.Point(140, 21);
+            this.label95.Name = "label95";
+            this.label95.Size = new System.Drawing.Size(29, 12);
+            this.label95.TabIndex = 9;
+            this.label95.Text = "Mem:";
+            // 
+            // labe_cpu
+            // 
+            this.labe_cpu.AutoSize = true;
+            this.labe_cpu.Location = new System.Drawing.Point(94, 20);
+            this.labe_cpu.Name = "labe_cpu";
+            this.labe_cpu.Size = new System.Drawing.Size(29, 12);
+            this.labe_cpu.TabIndex = 8;
+            this.labe_cpu.Text = "Cpu:";
+            // 
+            // splitContainer1
+            // 
+            this.splitContainer1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.splitContainer1.Location = new System.Drawing.Point(8, 43);
+            this.splitContainer1.Name = "splitContainer1";
+            // 
+            // splitContainer1.Panel1
+            // 
+            this.splitContainer1.Panel1.AutoScroll = true;
+            // 
+            // splitContainer1.Panel2
+            // 
+            this.splitContainer1.Panel2.AutoScroll = true;
+            this.splitContainer1.Size = new System.Drawing.Size(711, 409);
+            this.splitContainer1.SplitterDistance = 346;
+            this.splitContainer1.TabIndex = 7;
+            // 
+            // button6
+            // 
+            this.button6.Location = new System.Drawing.Point(615, 14);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(81, 23);
+            this.button6.TabIndex = 6;
+            this.button6.Text = "导出参数(E)";
+            this.button6.UseVisualStyleBackColor = true;
+            // 
+            // button5
+            // 
+            this.button5.Location = new System.Drawing.Point(552, 14);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(56, 23);
+            this.button5.TabIndex = 5;
+            this.button5.Text = "刷新(R)";
+            this.button5.UseVisualStyleBackColor = true;
+            // 
+            // label90
+            // 
+            this.label90.AutoSize = true;
+            this.label90.Location = new System.Drawing.Point(69, 20);
+            this.label90.Name = "label90";
+            this.label90.Size = new System.Drawing.Size(29, 12);
+            this.label90.TabIndex = 1;
+            this.label90.Text = "Cpu:";
+            // 
+            // label89
+            // 
+            this.label89.AutoSize = true;
+            this.label89.Location = new System.Drawing.Point(12, 20);
+            this.label89.Name = "label89";
+            this.label89.Size = new System.Drawing.Size(41, 12);
+            this.label89.TabIndex = 0;
+            this.label89.Text = "System";
+            // 
             // text_status
             // 
             this.text_status.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.text_status.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.text_status.Location = new System.Drawing.Point(7, 522);
             this.text_status.Name = "text_status";
-            this.text_status.ReadOnly = true;
             this.text_status.Size = new System.Drawing.Size(300, 14);
             this.text_status.TabIndex = 60;
             // 
@@ -2341,6 +2998,20 @@
             this.groupBox4.PerformLayout();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
+            this.tabPage4.ResumeLayout(false);
+            this.tabControl2.ResumeLayout(false);
+            this.tabPage6.ResumeLayout(false);
+            this.panel_info.ResumeLayout(false);
+            this.groupBox11.ResumeLayout(false);
+            this.groupBox11.PerformLayout();
+            this.groupBox10.ResumeLayout(false);
+            this.groupBox10.PerformLayout();
+            this.groupBox9.ResumeLayout(false);
+            this.groupBox9.PerformLayout();
+            this.tabPage5.ResumeLayout(false);
+            this.panel_play_data.ResumeLayout(false);
+            this.panel_play_data.PerformLayout();
+            this.splitContainer1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2373,7 +3044,7 @@
             DataModel.table1List.Add(new DataModel("NTPDomain", "", text_ntp, 3));
             DataModel.table1List.Add(new DataModel("bakNTPDomain", "", text_ntp_backup, 3));
             DataModel.table1List.Add(new DataModel("timeZone", "", null, 3));
-            DataModel.table1List.Add(new DataModel("localTime", "", text_time, 1)); ;
+            DataModel.table1List.Add(new DataModel("localTime", "", text_time, 1)); 
             DataModel.table1List.Add(new DataModel("ManagementDomain", "", text_managerdomain, 3));
             DataModel.table1List.Add(new DataModel("TVMSHeartbitUrl", "", text_tvmsaddress, 3));
             DataModel.table1List.Add(new DataModel("sqmURL", "", text_sqmaddress, 3));
@@ -2421,6 +3092,18 @@
             DataModel.rbtlist.Add(management_off);
             DataModel.rbtlist.Add(heartbit_on);
             DataModel.rbtlist.Add(heartbit_off);
+
+            DataModel.info_textList.Add(info_sftp_name);
+            DataModel.info_textList.Add(info_sftp_pwd);
+            DataModel.info_textList.Add(info_stfp_host);
+            DataModel.info_textList.Add(start_sftp_name);
+            DataModel.info_textList.Add(start_sftp_name);
+            DataModel.info_textList.Add(start_sftp_name);
+            DataModel.info_textList.Add(picture_sftp_name);
+            DataModel.info_textList.Add(picture_sftp_name);
+            DataModel.info_textList.Add(picture_sftp_name);
+
+            DataModel.playInfoList.Add(new DataModel("localTime", "", null, 1));
         }
 
         private System.Windows.Forms.Label label1;
@@ -2494,7 +3177,7 @@
         private System.Windows.Forms.Label label20;
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.Label label18;
-        private System.Windows.Forms.TextBox text_status;
+        private System.Windows.Forms.Label text_status;
         private System.Windows.Forms.ComboBox comboBox_name;
         private System.Windows.Forms.Label label36;
         private System.Windows.Forms.Label label35;
@@ -2625,6 +3308,63 @@
         private System.Windows.Forms.TextBox edt_dhcppassword;
         private System.Windows.Forms.Label label77;
         private System.Windows.Forms.Panel panel_static;
+        private System.Windows.Forms.TabPage tabPage4;
+        private System.Windows.Forms.TabControl tabControl2;
+        private System.Windows.Forms.TabPage tabPage5;
+        private System.Windows.Forms.TabPage tabPage6;
+        private System.Windows.Forms.Panel panel_info;
+        private System.Windows.Forms.GroupBox groupBox9;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Label label79;
+        private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.CheckBox info_tcpdump;
+        private System.Windows.Forms.CheckBox checkBox5;
+        private System.Windows.Forms.CheckBox checkBox4;
+        private System.Windows.Forms.CheckBox checkBox3;
+        private System.Windows.Forms.CheckBox info_allpick;
+        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.Label label80;
+        private System.Windows.Forms.TextBox info_stfp_host;
+        private System.Windows.Forms.TextBox info_sftp_pwd;
+        private System.Windows.Forms.Label label81;
+        private System.Windows.Forms.TextBox info_sftp_name;
+        private System.Windows.Forms.Button info_upload;
+        private System.Windows.Forms.Button info_stop;
+        private System.Windows.Forms.Button info_start;
+        private System.Windows.Forms.Panel panel_play_data;
+        private System.Windows.Forms.GroupBox groupBox11;
+        private System.Windows.Forms.Button picture_upload;
+        private System.Windows.Forms.TextBox picture_sftp_pwd;
+        private System.Windows.Forms.Label label91;
+        private System.Windows.Forms.TextBox picture_sftp_name;
+        private System.Windows.Forms.Label label92;
+        private System.Windows.Forms.TextBox picture_sftp_host;
+        private System.Windows.Forms.Label label93;
+        private System.Windows.Forms.TextBox textBox14;
+        private System.Windows.Forms.GroupBox groupBox10;
+        private System.Windows.Forms.Label label87;
+        private System.Windows.Forms.Label label86;
+        private System.Windows.Forms.TextBox start_size;
+        private System.Windows.Forms.Label label85;
+        private System.Windows.Forms.Button boot_upload;
+        private System.Windows.Forms.Button boot_start;
+        private System.Windows.Forms.TextBox start_sftp_pwd;
+        private System.Windows.Forms.Label label82;
+        private System.Windows.Forms.TextBox start_sftp_name;
+        private System.Windows.Forms.Label label83;
+        private System.Windows.Forms.TextBox start_sftp_host;
+        private System.Windows.Forms.Label label84;
+        private System.Windows.Forms.TextBox textBox10;
+        private System.Windows.Forms.Label label90;
+        private System.Windows.Forms.Label label89;
+        private System.Windows.Forms.Label label88;
+        private System.Windows.Forms.SplitContainer splitContainer1;
+        private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Label label96;
+        private System.Windows.Forms.Label label95;
+        private System.Windows.Forms.Label labe_cpu;
+        private System.Windows.Forms.Button boot_stop;
     }
 }
 

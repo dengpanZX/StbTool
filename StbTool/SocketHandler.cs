@@ -46,8 +46,8 @@ namespace StbTool
         {
             byte[] data = new byte[1024];
             client = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-            //IPEndPoint ie = new IPEndPoint(IPAddress.Parse(ipAddress), port);
-            IPEndPoint ie = new IPEndPoint(IPAddress.Parse("114.1.3.238"), port);
+            IPEndPoint ie = new IPEndPoint(IPAddress.Parse(ipAddress), port);
+            //IPEndPoint ie = new IPEndPoint(IPAddress.Parse("114.1.3.238"), port);
             TimeoutObject = new ManualResetEvent(false);
             GetMessageObject = new ManualResetEvent(false);
             try
@@ -68,8 +68,8 @@ namespace StbTool
                 return "100initialize^connection"; //超时连接
             }          
             int recv;  
-           // string msg = createMd5(name + password);
-            string msg = createMd5("huawei.287aW");
+            string msg = createMd5(name + password);
+            //string msg = createMd5("root.Yx684");
             string sessionID = msg.Substring(0,16).ToLower();
             string indefycode = createMd5(sessionID + "huawei").Substring(0,8);
             client.Send(Encoding.ASCII.GetBytes(indefycode + sessionID + "initialize^connection^null"));
@@ -139,29 +139,6 @@ namespace StbTool
             {
                 TimeoutObject.Set();
             }
-        }
-
-        //发送重启命令
-        public void sendRebootCmd()
-        {
-            int recv = 0;
-            byte[] data = new byte[1024];
-            GetMessageObject.Reset();
-            //client.Send(Encoding.ASCII.GetBytes(mTcpHead + "ioctl^reboot^null"));
-            client.Send(Encoding.ASCII.GetBytes(mTcpHead + "ioctl^getAllDebugInfo^null"));
-            recv = client.Receive(data);
-            while (recv > 0)
-            {
-                string getdata = Encoding.UTF8.GetString(data, 0, recv);
-                Console.WriteLine(getdata + "<<<" + getdata);
-                recv = client.Receive(data);
-            }
-        }
-
-        //发送恢复出厂命令
-        public void resetFactory()
-        {
-            client.Send(Encoding.ASCII.GetBytes(mTcpHead + "ioctl^restore_setting^null"));
         }
 
         //创建心跳线程，处理盒子端主动断开的情景
@@ -235,7 +212,11 @@ namespace StbTool
             if (mOperate.Equals("write") && mListIndex == 2 && MainForm.netType != null)
             {
                 //网络修改后单独在最后发送，避免修改网络后又数据未修改成功
-                client.Send(Encoding.ASCII.GetBytes(mTcpHead + mOperate + "^" + "connecttype" + "^null^" + MainForm.netType));     
+               // sendIoctlMessage(mOperate + "^" + "connecttype" + "^null^" + MainForm.netType);
+                ioctlMessage = mOperate + "^" + "connecttype" + "^null^" + MainForm.netType;
+                Thread sendNetMsg = new Thread(sendNetworkMessage);
+                sendNetMsg.Start();
+                return;
             }
             if (mOperate.Equals("read"))
             {
@@ -250,6 +231,78 @@ namespace StbTool
                 mainForm.updateUI(tmpList, mListIndex);
             }
             GetMessageObject.Set(); //放开心跳线程的阻塞
+        }
+
+        string ioctlMessage = "";
+        public void sendIoctlMessage(string msg)
+        {
+            if (msg == string.Empty)
+                return;
+            ioctlMessage = msg;
+            Thread sendIoctl = new Thread(sendIoctlMessage);
+            sendIoctl.Start();
+        }
+
+        //发送操作信息
+        private void sendIoctlMessage()
+        {
+            int recv = 0;
+            byte[] data = new byte[1024];
+            GetMessageObject.Reset();
+            client.Send(Encoding.ASCII.GetBytes(mTcpHead + ioctlMessage));
+            recv = client.Receive(data);
+            string getdata = Encoding.UTF8.GetString(data, 0, recv);
+            Console.WriteLine(getdata + "<<<" + getdata);
+            ioctlResult(getdata);
+            GetMessageObject.Set();
+        }
+
+        //单独处理网络状态修改
+        private void sendNetworkMessage()
+        {
+            byte[] data = new byte[1024];
+            GetMessageObject.Reset();
+            client.Send(Encoding.ASCII.GetBytes(mTcpHead + ioctlMessage));
+            Thread.Sleep(1000);
+            mainForm.disconnect();
+        }
+        //处理ioctl消息的结果
+        private void ioctlResult(string getdata)
+        {
+            if (ioctlMessage.Contains("DebugInfo"))
+            {
+                if (getdata.Equals("200ioctl^startDebugInfo"))
+                {
+                    mainForm.updateButtonEnable("info", false); //将启动按钮设置不可用
+                }
+                else if (getdata.Equals("200ioctl^stopDebugInfo"))
+                {
+                    mainForm.updateButtonEnable("info", true); //将启动按钮设置可用200ioctl^UploadDebugInfo
+                }
+                else if (getdata.Equals("200ioctl^UploadDebugInfo"))
+                {
+                    mainForm.updateButtonEnable("info_upload", true); //将启动按钮设置可用
+                }
+                else
+                {
+                    mainForm.updateButtonEnable("info_started", true); //已经开启了收集信息
+                }
+            }
+            else
+            {
+                if (getdata.Equals("200ioctl^starStartupInfo"))
+                {
+                    mainForm.updateButtonEnable("start", false); //将启动按钮设置不可用
+                }
+                else if (getdata.Equals("200ioctl^stopStartupInfo"))
+                {
+                    mainForm.updateButtonEnable("start", true); //将启动按钮设置可用200ioctl^UploadDebugInfo
+                }
+                else if (getdata.Equals("200ioctl^UploadStartupInfo"))
+                {
+                    mainForm.updateButtonEnable("start_upload", true); //将启动按钮设置可用
+                }
+            }
         }
     }
 }

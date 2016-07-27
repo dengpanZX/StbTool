@@ -18,7 +18,8 @@ namespace StbTool
         public static List<RadioButton> rbtlist = new List<RadioButton>(); //radioButton的队列，方便数据清空
         public static List<string> timezoneList = new List<string>(); //GMT时区队列
         public static List<string> timezoneUTCList = new List<string>(); //UTC时区队列
-
+        public static List<DataModel> playInfoList = new List<DataModel>(); //可视化定位数据队列
+        public static List<TextBox> info_textList = new List<TextBox>();  //一键信息收集text队列
         public DataModel(string name, string value, Object text, int attribute)
         {
             this.name = name;

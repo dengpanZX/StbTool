@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Windows.Forms;
 using System.IO;
+using System.Text.RegularExpressions;
 
 namespace StbTool
 {
@@ -116,6 +117,12 @@ namespace StbTool
             //关闭此StreamReader对象 
             sr.Close();
             fs.Close();
+        }
+
+        //判断字符串是否为IP
+        public static bool IsCorrectIP(string ip)
+        {
+            return Regex.IsMatch(ip, @"^((2[0-4]\d|25[0-5]|[01]?\d\d?)\.){3}(2[0-4]\d|25[0-5]|[01]?\d\d?)$");
         }
     }
 }
