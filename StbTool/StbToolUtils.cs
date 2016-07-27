@@ -77,6 +77,24 @@ namespace StbTool
             fs.Close();
         }
 
+        public static void WritePlayInfoToTextFile(string txtFile)
+        {
+            //创建一个文件流，用以写入或者创建一个StreamWriter 
+            FileStream fs = new FileStream(txtFile, FileMode.OpenOrCreate, FileAccess.Write);
+            StreamWriter sw = new StreamWriter(fs);
+            sw.Flush();
+            // 使用StreamWriter来往文件中写入内容 
+            sw.BaseStream.Seek(0, SeekOrigin.Begin);
+            foreach (DataModel model in DataModel.playInfo1List)
+            {
+                sw.WriteLine(model.getName() + ":" + model.getValue());
+            }
+            //关闭此文件t 
+            sw.Flush();
+            sw.Close();
+            fs.Close();
+        }
+
 
         //读取文本文件转换为List 
         public static void ReadTextFileToList(string fileName)

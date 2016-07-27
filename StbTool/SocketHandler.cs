@@ -7,6 +7,7 @@ using System.Threading;
 using System.Security;
 using System.Windows.Forms;
 using System.Security.Cryptography;
+using System.IO;
 
 namespace StbTool
 {
@@ -30,6 +31,7 @@ namespace StbTool
         {
             try
             {
+                playInfoRunning = false;
                 client.Shutdown(SocketShutdown.Both);
                 client.Disconnect(true);
                 IsConnectionSuccessful = false;
@@ -46,8 +48,8 @@ namespace StbTool
         {
             byte[] data = new byte[1024];
             client = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-            IPEndPoint ie = new IPEndPoint(IPAddress.Parse(ipAddress), port);
-            //IPEndPoint ie = new IPEndPoint(IPAddress.Parse("114.1.3.238"), port);
+            //IPEndPoint ie = new IPEndPoint(IPAddress.Parse(ipAddress), port);
+            IPEndPoint ie = new IPEndPoint(IPAddress.Parse("114.1.3.238"), port);
             TimeoutObject = new ManualResetEvent(false);
             GetMessageObject = new ManualResetEvent(false);
             try
@@ -68,8 +70,8 @@ namespace StbTool
                 return "100initialize^connection"; //超时连接
             }          
             int recv;  
-            string msg = createMd5(name + password);
-            //string msg = createMd5("root.Yx684");
+            //string msg = createMd5(name + password);
+            string msg = createMd5("huawei28780808");
             string sessionID = msg.Substring(0,16).ToLower();
             string indefycode = createMd5(sessionID + "huawei").Substring(0,8);
             client.Send(Encoding.ASCII.GetBytes(indefycode + sessionID + "initialize^connection^null"));
@@ -252,7 +254,7 @@ namespace StbTool
             client.Send(Encoding.ASCII.GetBytes(mTcpHead + ioctlMessage));
             recv = client.Receive(data);
             string getdata = Encoding.UTF8.GetString(data, 0, recv);
-            Console.WriteLine(getdata + "<<<" + getdata);
+            Console.WriteLine(getdata + "<<<");
             ioctlResult(getdata);
             GetMessageObject.Set();
         }
@@ -269,6 +271,16 @@ namespace StbTool
         //处理ioctl消息的结果
         private void ioctlResult(string getdata)
         {
+            if (getdata.Contains("404"))
+            {
+                mainForm.updateButtonEnable("404", true); //文件不存在
+                return;
+            }
+            else if (getdata.Contains("500"))
+            {
+                mainForm.updateButtonEnable("500", true); //无法连接sftp服务器
+                return;
+            }
             if (ioctlMessage.Contains("DebugInfo"))
             {
                 if (getdata.Equals("200ioctl^startDebugInfo"))
@@ -288,7 +300,7 @@ namespace StbTool
                     mainForm.updateButtonEnable("info_started", true); //已经开启了收集信息
                 }
             }
-            else
+            else if (ioctlMessage.Contains("StartupInfo"))
             {
                 if (getdata.Equals("200ioctl^starStartupInfo"))
                 {
@@ -302,6 +314,106 @@ namespace StbTool
                 {
                     mainForm.updateButtonEnable("start_upload", true); //将启动按钮设置可用
                 }
+            }
+            else if (ioctlMessage.Contains("Screencap"))
+            {
+                if (getdata.Equals("200ioctl^UploadScreencap"))
+                {
+                    mainForm.updateButtonEnable("picture_upload", true); //将启动按钮设置可用
+                }
+            }
+        }
+
+        private bool playInfoRunning = false;
+        //收集可视化定位信息
+        public void sendPlayInfoMsg()
+        {
+            playInfoRunning = true;
+            Thread sendPlayInfo = new Thread(sendPlayInfoThread);
+            sendPlayInfo.Start();
+        }
+
+        public void stopPlayInfoMsg()
+        {
+            playInfoRunning = false;
+        }
+
+        //收集可视化信息的线程
+        private void sendPlayInfoThread()
+        {
+            while (playInfoRunning)
+            {
+                int recv = 0;
+                if (mainForm == null)
+                    break;
+                mainForm.updateStatus("正在进行可视化信息收集");
+                byte[] data = new byte[1024];
+                GetMessageObject.Reset();
+                try
+                {
+                    client.Send(Encoding.ASCII.GetBytes(mTcpHead + "read^ParasListMain^null"));
+                    recv = client.Receive(data);
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                    mainForm.disconnect();
+                }
+                string getdata = Encoding.UTF8.GetString(data, 0, recv);
+                Console.WriteLine(getdata);
+                resultPlayInfo(getdata);
+                GetMessageObject.Set();
+                Thread.Sleep(3000);
+            }
+        }
+
+        private void resultPlayInfo(string getdata)
+        {
+            StringReader stringRead = new StringReader(getdata);
+            string str = stringRead.ReadLine();
+            int listindex = 0;
+            while (str != string.Empty && str != null)
+            {
+                if (str.Contains("read^ParasListMain"))
+                {
+                    if (!str.Contains("200"))
+                    {
+                        mainForm.updateResultMeg("可视化信息收集失败");
+                        break;
+                    }
+                    string CpuUsedRate = str.Substring(22);
+                    if (CpuUsedRate.Equals("unknown"))
+                    {
+                        mainForm.updateResultMeg("可视化信息收集失败");
+                        break;
+                    }
+                }
+                string name = DataModel.playInfo1List[listindex].getName();
+                int strindex = str.IndexOf(name); //获取name在一行数据中的位置
+                if (strindex < 0)
+                {
+                    listindex++;
+                    str = stringRead.ReadLine();
+                    continue;
+                }
+                else
+                {
+                    string result = str.Substring(strindex + name.Length + 1);
+                    Console.WriteLine("<<<<<<<<<<" + str.Substring(strindex + name.Length + 1));
+                    DataModel.playInfo1List[listindex].setValue(result);
+                    listindex++;
+                    str = stringRead.ReadLine();
+                }
+            }
+            Console.WriteLine("<<<<<<<<<<<<<<<<index :" + listindex);
+            if (listindex == 31)
+            {
+                mainForm.updateResultMeg("可视化信息收集成功");
+                mainForm.updatePlayInfoUI();
+            }
+            else
+            {
+                mainForm.updateResultMeg("可视化信息收集失败");
             }
         }
     }

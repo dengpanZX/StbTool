@@ -277,12 +277,75 @@
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.tabPage5 = new System.Windows.Forms.TabPage();
             this.panel_play_data = new System.Windows.Forms.Panel();
-            this.label96 = new System.Windows.Forms.Label();
+            this.label119 = new System.Windows.Forms.Label();
+            this.label_mem = new System.Windows.Forms.Label();
             this.label95 = new System.Windows.Forms.Label();
             this.labe_cpu = new System.Windows.Forms.Label();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.button6 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
+            this.label_value = new System.Windows.Forms.Panel();
+            this.EcmError1 = new System.Windows.Forms.Label();
+            this.SynchronisationError1 = new System.Windows.Forms.Label();
+            this.ContinuityError1 = new System.Windows.Forms.Label();
+            this.PacketDisorder1 = new System.Windows.Forms.Label();
+            this.PacketLost1 = new System.Windows.Forms.Label();
+            this.DiffAvPlayTime1 = new System.Windows.Forms.Label();
+            this.StreamDF1 = new System.Windows.Forms.Label();
+            this.SubtitleLangage1 = new System.Windows.Forms.Label();
+            this.AudioSamplingRate1 = new System.Windows.Forms.Label();
+            this.Audiochannels1 = new System.Windows.Forms.Label();
+            this.AudioBitRate1 = new System.Windows.Forms.Label();
+            this.AudioCodec1 = new System.Windows.Forms.Label();
+            this.PictureCode1 = new System.Windows.Forms.Label();
+            this.VideoAspect1 = new System.Windows.Forms.Label();
+            this.VideoResolution1 = new System.Windows.Forms.Label();
+            this.VideoCodec1 = new System.Windows.Forms.Label();
+            this.TransportProtocol1 = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.label117 = new System.Windows.Forms.Label();
+            this.label116 = new System.Windows.Forms.Label();
+            this.label115 = new System.Windows.Forms.Label();
+            this.label114 = new System.Windows.Forms.Label();
+            this.label113 = new System.Windows.Forms.Label();
+            this.label112 = new System.Windows.Forms.Label();
+            this.label111 = new System.Windows.Forms.Label();
+            this.label109 = new System.Windows.Forms.Label();
+            this.label104 = new System.Windows.Forms.Label();
+            this.label103 = new System.Windows.Forms.Label();
+            this.label102 = new System.Windows.Forms.Label();
+            this.label101 = new System.Windows.Forms.Label();
+            this.label100 = new System.Windows.Forms.Label();
+            this.label99 = new System.Windows.Forms.Label();
+            this.label98 = new System.Windows.Forms.Label();
+            this.label97 = new System.Windows.Forms.Label();
+            this.label94 = new System.Windows.Forms.Label();
+            this.panel12 = new System.Windows.Forms.Panel();
+            this.AudioDecoderUnderflow1 = new System.Windows.Forms.Label();
+            this.VideoDecodeError1 = new System.Windows.Forms.Label();
+            this.AudioDecoderUsedSize1 = new System.Windows.Forms.Label();
+            this.AudioDecoderBufSize1 = new System.Windows.Forms.Label();
+            this.VideoDecoderUsedSize1 = new System.Windows.Forms.Label();
+            this.VideoDecoderBufSize1 = new System.Windows.Forms.Label();
+            this.AudioDecoderPtsError1 = new System.Windows.Forms.Label();
+            this.AudioDecoderDrop1 = new System.Windows.Forms.Label();
+            this.AudioDecoderError1 = new System.Windows.Forms.Label();
+            this.VideoDecoderPtsError1 = new System.Windows.Forms.Label();
+            this.VideoDecoderUnderflow1 = new System.Windows.Forms.Label();
+            this.VideoDecoderDrop1 = new System.Windows.Forms.Label();
+            this.panel11 = new System.Windows.Forms.Panel();
+            this.label110 = new System.Windows.Forms.Label();
+            this.label118 = new System.Windows.Forms.Label();
+            this.label96 = new System.Windows.Forms.Label();
+            this.label105 = new System.Windows.Forms.Label();
+            this.label106 = new System.Windows.Forms.Label();
+            this.label107 = new System.Windows.Forms.Label();
+            this.label108 = new System.Windows.Forms.Label();
+            this.label129 = new System.Windows.Forms.Label();
+            this.label130 = new System.Windows.Forms.Label();
+            this.label131 = new System.Windows.Forms.Label();
+            this.label132 = new System.Windows.Forms.Label();
+            this.label133 = new System.Windows.Forms.Label();
+            this.playinfo_export = new System.Windows.Forms.Button();
+            this.playInfo_fresh = new System.Windows.Forms.Button();
             this.label90 = new System.Windows.Forms.Label();
             this.label89 = new System.Windows.Forms.Label();
             this.text_status = new System.Windows.Forms.Label();
@@ -320,7 +383,13 @@
             this.groupBox9.SuspendLayout();
             this.tabPage5.SuspendLayout();
             this.panel_play_data.SuspendLayout();
+            this.splitContainer1.Panel1.SuspendLayout();
+            this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
+            this.label_value.SuspendLayout();
+            this.panel1.SuspendLayout();
+            this.panel12.SuspendLayout();
+            this.panel11.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -1085,9 +1154,9 @@
             this.text_password.Location = new System.Drawing.Point(442, 20);
             this.text_password.MaxLength = 32;
             this.text_password.Name = "text_password";
+            this.text_password.PasswordChar = '*';
             this.text_password.Size = new System.Drawing.Size(83, 21);
             this.text_password.TabIndex = 5;
-            this.text_password.UseSystemPasswordChar = true;
             // 
             // label5
             // 
@@ -1350,9 +1419,9 @@
             // 
             this.edt_connect_password.Location = new System.Drawing.Point(390, 117);
             this.edt_connect_password.Name = "edt_connect_password";
+            this.edt_connect_password.PasswordChar = '*';
             this.edt_connect_password.Size = new System.Drawing.Size(128, 21);
             this.edt_connect_password.TabIndex = 9;
-            this.edt_connect_password.UseSystemPasswordChar = true;
             // 
             // label71
             // 
@@ -1592,9 +1661,9 @@
             // 
             this.edt_log_address.Location = new System.Drawing.Point(111, 53);
             this.edt_log_address.Name = "edt_log_address";
+            this.edt_log_address.PasswordChar = '*';
             this.edt_log_address.Size = new System.Drawing.Size(408, 21);
             this.edt_log_address.TabIndex = 8;
-            this.edt_log_address.UseSystemPasswordChar = true;
             // 
             // groupBox6
             // 
@@ -1765,6 +1834,7 @@
             // 
             this.edt_dhcppassword.Location = new System.Drawing.Point(391, 11);
             this.edt_dhcppassword.Name = "edt_dhcppassword";
+            this.edt_dhcppassword.PasswordChar = '*';
             this.edt_dhcppassword.Size = new System.Drawing.Size(128, 21);
             this.edt_dhcppassword.TabIndex = 20;
             // 
@@ -1888,6 +1958,7 @@
             // 
             this.edt_pppoepassword.Location = new System.Drawing.Point(391, 11);
             this.edt_pppoepassword.Name = "edt_pppoepassword";
+            this.edt_pppoepassword.PasswordChar = '*';
             this.edt_pppoepassword.Size = new System.Drawing.Size(128, 21);
             this.edt_pppoepassword.TabIndex = 20;
             // 
@@ -2215,9 +2286,9 @@
             // 
             this.edt_user_password.Location = new System.Drawing.Point(345, 27);
             this.edt_user_password.Name = "edt_user_password";
+            this.edt_user_password.PasswordChar = '*';
             this.edt_user_password.Size = new System.Drawing.Size(165, 21);
             this.edt_user_password.TabIndex = 7;
-            this.edt_user_password.UseSystemPasswordChar = true;
             // 
             // edt_authaddress
             // 
@@ -2406,14 +2477,15 @@
             this.picture_upload.TabIndex = 16;
             this.picture_upload.Text = "上传";
             this.picture_upload.UseVisualStyleBackColor = true;
+            this.picture_upload.Click += new System.EventHandler(this.picture_upload_Click);
             // 
             // picture_sftp_pwd
             // 
             this.picture_sftp_pwd.Location = new System.Drawing.Point(556, 20);
             this.picture_sftp_pwd.Name = "picture_sftp_pwd";
+            this.picture_sftp_pwd.PasswordChar = '*';
             this.picture_sftp_pwd.Size = new System.Drawing.Size(115, 21);
             this.picture_sftp_pwd.TabIndex = 13;
-            this.picture_sftp_pwd.UseSystemPasswordChar = true;
             // 
             // label91
             // 
@@ -2569,9 +2641,9 @@
             // 
             this.start_sftp_pwd.Location = new System.Drawing.Point(556, 57);
             this.start_sftp_pwd.Name = "start_sftp_pwd";
+            this.start_sftp_pwd.PasswordChar = '*';
             this.start_sftp_pwd.Size = new System.Drawing.Size(115, 21);
             this.start_sftp_pwd.TabIndex = 13;
-            this.start_sftp_pwd.UseSystemPasswordChar = true;
             // 
             // label82
             // 
@@ -2684,9 +2756,9 @@
             // 
             this.info_sftp_pwd.Location = new System.Drawing.Point(556, 127);
             this.info_sftp_pwd.Name = "info_sftp_pwd";
+            this.info_sftp_pwd.PasswordChar = '*';
             this.info_sftp_pwd.Size = new System.Drawing.Size(115, 21);
             this.info_sftp_pwd.TabIndex = 13;
-            this.info_sftp_pwd.UseSystemPasswordChar = true;
             // 
             // label81
             // 
@@ -2837,12 +2909,13 @@
             // panel_play_data
             // 
             this.panel_play_data.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.panel_play_data.Controls.Add(this.label96);
+            this.panel_play_data.Controls.Add(this.label119);
+            this.panel_play_data.Controls.Add(this.label_mem);
             this.panel_play_data.Controls.Add(this.label95);
             this.panel_play_data.Controls.Add(this.labe_cpu);
             this.panel_play_data.Controls.Add(this.splitContainer1);
-            this.panel_play_data.Controls.Add(this.button6);
-            this.panel_play_data.Controls.Add(this.button5);
+            this.panel_play_data.Controls.Add(this.playinfo_export);
+            this.panel_play_data.Controls.Add(this.playInfo_fresh);
             this.panel_play_data.Controls.Add(this.label90);
             this.panel_play_data.Controls.Add(this.label89);
             this.panel_play_data.Location = new System.Drawing.Point(0, 3);
@@ -2850,32 +2923,38 @@
             this.panel_play_data.Size = new System.Drawing.Size(733, 452);
             this.panel_play_data.TabIndex = 0;
             // 
-            // label96
+            // label119
             // 
-            this.label96.AutoSize = true;
-            this.label96.Location = new System.Drawing.Point(166, 21);
-            this.label96.Name = "label96";
-            this.label96.Size = new System.Drawing.Size(23, 12);
-            this.label96.TabIndex = 10;
-            this.label96.Text = "Mem";
+            this.label119.AutoSize = true;
+            this.label119.Location = new System.Drawing.Point(138, 20);
+            this.label119.Name = "label119";
+            this.label119.Size = new System.Drawing.Size(29, 12);
+            this.label119.TabIndex = 11;
+            this.label119.Text = "Mem:";
+            // 
+            // label_mem
+            // 
+            this.label_mem.AutoSize = true;
+            this.label_mem.Location = new System.Drawing.Point(166, 21);
+            this.label_mem.Name = "label_mem";
+            this.label_mem.Size = new System.Drawing.Size(0, 12);
+            this.label_mem.TabIndex = 10;
             // 
             // label95
             // 
             this.label95.AutoSize = true;
             this.label95.Location = new System.Drawing.Point(140, 21);
             this.label95.Name = "label95";
-            this.label95.Size = new System.Drawing.Size(29, 12);
+            this.label95.Size = new System.Drawing.Size(0, 12);
             this.label95.TabIndex = 9;
-            this.label95.Text = "Mem:";
             // 
             // labe_cpu
             // 
             this.labe_cpu.AutoSize = true;
             this.labe_cpu.Location = new System.Drawing.Point(94, 20);
             this.labe_cpu.Name = "labe_cpu";
-            this.labe_cpu.Size = new System.Drawing.Size(29, 12);
+            this.labe_cpu.Size = new System.Drawing.Size(0, 12);
             this.labe_cpu.TabIndex = 8;
-            this.labe_cpu.Text = "Cpu:";
             // 
             // splitContainer1
             // 
@@ -2886,31 +2965,616 @@
             // splitContainer1.Panel1
             // 
             this.splitContainer1.Panel1.AutoScroll = true;
+            this.splitContainer1.Panel1.Controls.Add(this.label_value);
+            this.splitContainer1.Panel1.Controls.Add(this.panel1);
             // 
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.AutoScroll = true;
+            this.splitContainer1.Panel2.Controls.Add(this.panel12);
+            this.splitContainer1.Panel2.Controls.Add(this.panel11);
             this.splitContainer1.Size = new System.Drawing.Size(711, 409);
             this.splitContainer1.SplitterDistance = 346;
             this.splitContainer1.TabIndex = 7;
             // 
-            // button6
+            // label_value
             // 
-            this.button6.Location = new System.Drawing.Point(615, 14);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(81, 23);
-            this.button6.TabIndex = 6;
-            this.button6.Text = "导出参数(E)";
-            this.button6.UseVisualStyleBackColor = true;
+            this.label_value.Controls.Add(this.EcmError1);
+            this.label_value.Controls.Add(this.SynchronisationError1);
+            this.label_value.Controls.Add(this.ContinuityError1);
+            this.label_value.Controls.Add(this.PacketDisorder1);
+            this.label_value.Controls.Add(this.PacketLost1);
+            this.label_value.Controls.Add(this.DiffAvPlayTime1);
+            this.label_value.Controls.Add(this.StreamDF1);
+            this.label_value.Controls.Add(this.SubtitleLangage1);
+            this.label_value.Controls.Add(this.AudioSamplingRate1);
+            this.label_value.Controls.Add(this.Audiochannels1);
+            this.label_value.Controls.Add(this.AudioBitRate1);
+            this.label_value.Controls.Add(this.AudioCodec1);
+            this.label_value.Controls.Add(this.PictureCode1);
+            this.label_value.Controls.Add(this.VideoAspect1);
+            this.label_value.Controls.Add(this.VideoResolution1);
+            this.label_value.Controls.Add(this.VideoCodec1);
+            this.label_value.Controls.Add(this.TransportProtocol1);
+            this.label_value.Location = new System.Drawing.Point(148, 0);
+            this.label_value.Name = "label_value";
+            this.label_value.Size = new System.Drawing.Size(154, 395);
+            this.label_value.TabIndex = 1;
             // 
-            // button5
+            // EcmError1
             // 
-            this.button5.Location = new System.Drawing.Point(552, 14);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(56, 23);
-            this.button5.TabIndex = 5;
-            this.button5.Text = "刷新(R)";
-            this.button5.UseVisualStyleBackColor = true;
+            this.EcmError1.AutoSize = true;
+            this.EcmError1.Location = new System.Drawing.Point(0, 335);
+            this.EcmError1.Name = "EcmError1";
+            this.EcmError1.Size = new System.Drawing.Size(0, 12);
+            this.EcmError1.TabIndex = 21;
+            // 
+            // SynchronisationError1
+            // 
+            this.SynchronisationError1.AutoSize = true;
+            this.SynchronisationError1.Location = new System.Drawing.Point(0, 315);
+            this.SynchronisationError1.Name = "SynchronisationError1";
+            this.SynchronisationError1.Size = new System.Drawing.Size(0, 12);
+            this.SynchronisationError1.TabIndex = 20;
+            // 
+            // ContinuityError1
+            // 
+            this.ContinuityError1.AutoSize = true;
+            this.ContinuityError1.Location = new System.Drawing.Point(0, 295);
+            this.ContinuityError1.Name = "ContinuityError1";
+            this.ContinuityError1.Size = new System.Drawing.Size(0, 12);
+            this.ContinuityError1.TabIndex = 19;
+            // 
+            // PacketDisorder1
+            // 
+            this.PacketDisorder1.AutoSize = true;
+            this.PacketDisorder1.Location = new System.Drawing.Point(0, 275);
+            this.PacketDisorder1.Name = "PacketDisorder1";
+            this.PacketDisorder1.Size = new System.Drawing.Size(0, 12);
+            this.PacketDisorder1.TabIndex = 18;
+            // 
+            // PacketLost1
+            // 
+            this.PacketLost1.AutoSize = true;
+            this.PacketLost1.Location = new System.Drawing.Point(0, 255);
+            this.PacketLost1.Name = "PacketLost1";
+            this.PacketLost1.Size = new System.Drawing.Size(0, 12);
+            this.PacketLost1.TabIndex = 17;
+            // 
+            // DiffAvPlayTime1
+            // 
+            this.DiffAvPlayTime1.AutoSize = true;
+            this.DiffAvPlayTime1.Location = new System.Drawing.Point(0, 235);
+            this.DiffAvPlayTime1.Name = "DiffAvPlayTime1";
+            this.DiffAvPlayTime1.Size = new System.Drawing.Size(0, 12);
+            this.DiffAvPlayTime1.TabIndex = 16;
+            // 
+            // StreamDF1
+            // 
+            this.StreamDF1.AutoSize = true;
+            this.StreamDF1.Location = new System.Drawing.Point(0, 215);
+            this.StreamDF1.Name = "StreamDF1";
+            this.StreamDF1.Size = new System.Drawing.Size(0, 12);
+            this.StreamDF1.TabIndex = 15;
+            // 
+            // SubtitleLangage1
+            // 
+            this.SubtitleLangage1.AutoSize = true;
+            this.SubtitleLangage1.Location = new System.Drawing.Point(0, 195);
+            this.SubtitleLangage1.Name = "SubtitleLangage1";
+            this.SubtitleLangage1.Size = new System.Drawing.Size(0, 12);
+            this.SubtitleLangage1.TabIndex = 13;
+            // 
+            // AudioSamplingRate1
+            // 
+            this.AudioSamplingRate1.AutoSize = true;
+            this.AudioSamplingRate1.Location = new System.Drawing.Point(0, 175);
+            this.AudioSamplingRate1.Name = "AudioSamplingRate1";
+            this.AudioSamplingRate1.Size = new System.Drawing.Size(0, 12);
+            this.AudioSamplingRate1.TabIndex = 8;
+            // 
+            // Audiochannels1
+            // 
+            this.Audiochannels1.AutoSize = true;
+            this.Audiochannels1.Location = new System.Drawing.Point(0, 155);
+            this.Audiochannels1.Name = "Audiochannels1";
+            this.Audiochannels1.Size = new System.Drawing.Size(0, 12);
+            this.Audiochannels1.TabIndex = 7;
+            // 
+            // AudioBitRate1
+            // 
+            this.AudioBitRate1.AutoSize = true;
+            this.AudioBitRate1.Location = new System.Drawing.Point(0, 135);
+            this.AudioBitRate1.Name = "AudioBitRate1";
+            this.AudioBitRate1.Size = new System.Drawing.Size(0, 12);
+            this.AudioBitRate1.TabIndex = 6;
+            // 
+            // AudioCodec1
+            // 
+            this.AudioCodec1.AutoSize = true;
+            this.AudioCodec1.Location = new System.Drawing.Point(0, 115);
+            this.AudioCodec1.Name = "AudioCodec1";
+            this.AudioCodec1.Size = new System.Drawing.Size(0, 12);
+            this.AudioCodec1.TabIndex = 5;
+            // 
+            // PictureCode1
+            // 
+            this.PictureCode1.AutoSize = true;
+            this.PictureCode1.Location = new System.Drawing.Point(0, 95);
+            this.PictureCode1.Name = "PictureCode1";
+            this.PictureCode1.Size = new System.Drawing.Size(0, 12);
+            this.PictureCode1.TabIndex = 4;
+            // 
+            // VideoAspect1
+            // 
+            this.VideoAspect1.AutoSize = true;
+            this.VideoAspect1.Location = new System.Drawing.Point(0, 75);
+            this.VideoAspect1.Name = "VideoAspect1";
+            this.VideoAspect1.Size = new System.Drawing.Size(0, 12);
+            this.VideoAspect1.TabIndex = 3;
+            // 
+            // VideoResolution1
+            // 
+            this.VideoResolution1.AutoSize = true;
+            this.VideoResolution1.Location = new System.Drawing.Point(0, 55);
+            this.VideoResolution1.Name = "VideoResolution1";
+            this.VideoResolution1.Size = new System.Drawing.Size(0, 12);
+            this.VideoResolution1.TabIndex = 2;
+            // 
+            // VideoCodec1
+            // 
+            this.VideoCodec1.AutoSize = true;
+            this.VideoCodec1.Location = new System.Drawing.Point(0, 35);
+            this.VideoCodec1.Name = "VideoCodec1";
+            this.VideoCodec1.Size = new System.Drawing.Size(0, 12);
+            this.VideoCodec1.TabIndex = 1;
+            // 
+            // TransportProtocol1
+            // 
+            this.TransportProtocol1.AutoSize = true;
+            this.TransportProtocol1.Location = new System.Drawing.Point(0, 15);
+            this.TransportProtocol1.Name = "TransportProtocol1";
+            this.TransportProtocol1.Size = new System.Drawing.Size(0, 12);
+            this.TransportProtocol1.TabIndex = 0;
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.label117);
+            this.panel1.Controls.Add(this.label116);
+            this.panel1.Controls.Add(this.label115);
+            this.panel1.Controls.Add(this.label114);
+            this.panel1.Controls.Add(this.label113);
+            this.panel1.Controls.Add(this.label112);
+            this.panel1.Controls.Add(this.label111);
+            this.panel1.Controls.Add(this.label109);
+            this.panel1.Controls.Add(this.label104);
+            this.panel1.Controls.Add(this.label103);
+            this.panel1.Controls.Add(this.label102);
+            this.panel1.Controls.Add(this.label101);
+            this.panel1.Controls.Add(this.label100);
+            this.panel1.Controls.Add(this.label99);
+            this.panel1.Controls.Add(this.label98);
+            this.panel1.Controls.Add(this.label97);
+            this.panel1.Controls.Add(this.label94);
+            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(154, 395);
+            this.panel1.TabIndex = 0;
+            // 
+            // label117
+            // 
+            this.label117.AutoSize = true;
+            this.label117.Location = new System.Drawing.Point(15, 335);
+            this.label117.Name = "label117";
+            this.label117.Size = new System.Drawing.Size(59, 12);
+            this.label117.TabIndex = 21;
+            this.label117.Text = "EcmError:";
+            // 
+            // label116
+            // 
+            this.label116.AutoSize = true;
+            this.label116.Location = new System.Drawing.Point(15, 315);
+            this.label116.Name = "label116";
+            this.label116.Size = new System.Drawing.Size(131, 12);
+            this.label116.TabIndex = 20;
+            this.label116.Text = "SynchronisationError:";
+            // 
+            // label115
+            // 
+            this.label115.AutoSize = true;
+            this.label115.Location = new System.Drawing.Point(15, 295);
+            this.label115.Name = "label115";
+            this.label115.Size = new System.Drawing.Size(101, 12);
+            this.label115.TabIndex = 19;
+            this.label115.Text = "ContinuityError:";
+            // 
+            // label114
+            // 
+            this.label114.AutoSize = true;
+            this.label114.Location = new System.Drawing.Point(15, 275);
+            this.label114.Name = "label114";
+            this.label114.Size = new System.Drawing.Size(95, 12);
+            this.label114.TabIndex = 18;
+            this.label114.Text = "PacketDisorder:";
+            // 
+            // label113
+            // 
+            this.label113.AutoSize = true;
+            this.label113.Location = new System.Drawing.Point(15, 255);
+            this.label113.Name = "label113";
+            this.label113.Size = new System.Drawing.Size(71, 12);
+            this.label113.TabIndex = 17;
+            this.label113.Text = "PacketLost:";
+            // 
+            // label112
+            // 
+            this.label112.AutoSize = true;
+            this.label112.Location = new System.Drawing.Point(15, 235);
+            this.label112.Name = "label112";
+            this.label112.Size = new System.Drawing.Size(95, 12);
+            this.label112.TabIndex = 16;
+            this.label112.Text = "DiffAvPlayTime:";
+            // 
+            // label111
+            // 
+            this.label111.AutoSize = true;
+            this.label111.Location = new System.Drawing.Point(15, 215);
+            this.label111.Name = "label111";
+            this.label111.Size = new System.Drawing.Size(59, 12);
+            this.label111.TabIndex = 15;
+            this.label111.Text = "StreamDF:";
+            // 
+            // label109
+            // 
+            this.label109.AutoSize = true;
+            this.label109.Location = new System.Drawing.Point(15, 195);
+            this.label109.Name = "label109";
+            this.label109.Size = new System.Drawing.Size(101, 12);
+            this.label109.TabIndex = 13;
+            this.label109.Text = "SubtitleLangage:";
+            // 
+            // label104
+            // 
+            this.label104.AutoSize = true;
+            this.label104.Location = new System.Drawing.Point(15, 175);
+            this.label104.Name = "label104";
+            this.label104.Size = new System.Drawing.Size(113, 12);
+            this.label104.TabIndex = 8;
+            this.label104.Text = "AudioSamplingRate:";
+            // 
+            // label103
+            // 
+            this.label103.AutoSize = true;
+            this.label103.Location = new System.Drawing.Point(15, 155);
+            this.label103.Name = "label103";
+            this.label103.Size = new System.Drawing.Size(89, 12);
+            this.label103.TabIndex = 7;
+            this.label103.Text = "AudioChannels:";
+            // 
+            // label102
+            // 
+            this.label102.AutoSize = true;
+            this.label102.Location = new System.Drawing.Point(15, 135);
+            this.label102.Name = "label102";
+            this.label102.Size = new System.Drawing.Size(83, 12);
+            this.label102.TabIndex = 6;
+            this.label102.Text = "AudioBitRate:";
+            // 
+            // label101
+            // 
+            this.label101.AutoSize = true;
+            this.label101.Location = new System.Drawing.Point(15, 115);
+            this.label101.Name = "label101";
+            this.label101.Size = new System.Drawing.Size(71, 12);
+            this.label101.TabIndex = 5;
+            this.label101.Text = "AudioCodec:";
+            // 
+            // label100
+            // 
+            this.label100.AutoSize = true;
+            this.label100.Location = new System.Drawing.Point(15, 95);
+            this.label100.Name = "label100";
+            this.label100.Size = new System.Drawing.Size(77, 12);
+            this.label100.TabIndex = 4;
+            this.label100.Text = "PictureCode:";
+            // 
+            // label99
+            // 
+            this.label99.AutoSize = true;
+            this.label99.Location = new System.Drawing.Point(15, 75);
+            this.label99.Name = "label99";
+            this.label99.Size = new System.Drawing.Size(77, 12);
+            this.label99.TabIndex = 3;
+            this.label99.Text = "VideoAspect:";
+            // 
+            // label98
+            // 
+            this.label98.AutoSize = true;
+            this.label98.Location = new System.Drawing.Point(15, 55);
+            this.label98.Name = "label98";
+            this.label98.Size = new System.Drawing.Size(101, 12);
+            this.label98.TabIndex = 2;
+            this.label98.Text = "VideoResolution:";
+            // 
+            // label97
+            // 
+            this.label97.AutoSize = true;
+            this.label97.Location = new System.Drawing.Point(15, 35);
+            this.label97.Name = "label97";
+            this.label97.Size = new System.Drawing.Size(71, 12);
+            this.label97.TabIndex = 1;
+            this.label97.Text = "VideoCodec:";
+            // 
+            // label94
+            // 
+            this.label94.AutoSize = true;
+            this.label94.Location = new System.Drawing.Point(15, 15);
+            this.label94.Name = "label94";
+            this.label94.Size = new System.Drawing.Size(113, 12);
+            this.label94.TabIndex = 0;
+            this.label94.Text = "TransportProtocol:";
+            // 
+            // panel12
+            // 
+            this.panel12.Controls.Add(this.AudioDecoderUnderflow1);
+            this.panel12.Controls.Add(this.VideoDecodeError1);
+            this.panel12.Controls.Add(this.AudioDecoderUsedSize1);
+            this.panel12.Controls.Add(this.AudioDecoderBufSize1);
+            this.panel12.Controls.Add(this.VideoDecoderUsedSize1);
+            this.panel12.Controls.Add(this.VideoDecoderBufSize1);
+            this.panel12.Controls.Add(this.AudioDecoderPtsError1);
+            this.panel12.Controls.Add(this.AudioDecoderDrop1);
+            this.panel12.Controls.Add(this.AudioDecoderError1);
+            this.panel12.Controls.Add(this.VideoDecoderPtsError1);
+            this.panel12.Controls.Add(this.VideoDecoderUnderflow1);
+            this.panel12.Controls.Add(this.VideoDecoderDrop1);
+            this.panel12.Location = new System.Drawing.Point(148, 0);
+            this.panel12.Name = "panel12";
+            this.panel12.Size = new System.Drawing.Size(154, 385);
+            this.panel12.TabIndex = 2;
+            // 
+            // AudioDecoderUnderflow1
+            // 
+            this.AudioDecoderUnderflow1.AutoSize = true;
+            this.AudioDecoderUnderflow1.Location = new System.Drawing.Point(0, 135);
+            this.AudioDecoderUnderflow1.Name = "AudioDecoderUnderflow1";
+            this.AudioDecoderUnderflow1.Size = new System.Drawing.Size(0, 12);
+            this.AudioDecoderUnderflow1.TabIndex = 33;
+            // 
+            // VideoDecodeError1
+            // 
+            this.VideoDecodeError1.AutoSize = true;
+            this.VideoDecodeError1.Location = new System.Drawing.Point(0, 15);
+            this.VideoDecodeError1.Name = "VideoDecodeError1";
+            this.VideoDecodeError1.Size = new System.Drawing.Size(0, 12);
+            this.VideoDecodeError1.TabIndex = 22;
+            // 
+            // AudioDecoderUsedSize1
+            // 
+            this.AudioDecoderUsedSize1.AutoSize = true;
+            this.AudioDecoderUsedSize1.Location = new System.Drawing.Point(0, 235);
+            this.AudioDecoderUsedSize1.Name = "AudioDecoderUsedSize1";
+            this.AudioDecoderUsedSize1.Size = new System.Drawing.Size(0, 12);
+            this.AudioDecoderUsedSize1.TabIndex = 32;
+            // 
+            // AudioDecoderBufSize1
+            // 
+            this.AudioDecoderBufSize1.AutoSize = true;
+            this.AudioDecoderBufSize1.Location = new System.Drawing.Point(0, 215);
+            this.AudioDecoderBufSize1.Name = "AudioDecoderBufSize1";
+            this.AudioDecoderBufSize1.Size = new System.Drawing.Size(0, 12);
+            this.AudioDecoderBufSize1.TabIndex = 31;
+            // 
+            // VideoDecoderUsedSize1
+            // 
+            this.VideoDecoderUsedSize1.AutoSize = true;
+            this.VideoDecoderUsedSize1.Location = new System.Drawing.Point(0, 195);
+            this.VideoDecoderUsedSize1.Name = "VideoDecoderUsedSize1";
+            this.VideoDecoderUsedSize1.Size = new System.Drawing.Size(0, 12);
+            this.VideoDecoderUsedSize1.TabIndex = 30;
+            // 
+            // VideoDecoderBufSize1
+            // 
+            this.VideoDecoderBufSize1.AutoSize = true;
+            this.VideoDecoderBufSize1.Location = new System.Drawing.Point(0, 175);
+            this.VideoDecoderBufSize1.Name = "VideoDecoderBufSize1";
+            this.VideoDecoderBufSize1.Size = new System.Drawing.Size(0, 12);
+            this.VideoDecoderBufSize1.TabIndex = 29;
+            // 
+            // AudioDecoderPtsError1
+            // 
+            this.AudioDecoderPtsError1.AutoSize = true;
+            this.AudioDecoderPtsError1.Location = new System.Drawing.Point(0, 155);
+            this.AudioDecoderPtsError1.Name = "AudioDecoderPtsError1";
+            this.AudioDecoderPtsError1.Size = new System.Drawing.Size(0, 12);
+            this.AudioDecoderPtsError1.TabIndex = 28;
+            // 
+            // AudioDecoderDrop1
+            // 
+            this.AudioDecoderDrop1.AutoSize = true;
+            this.AudioDecoderDrop1.Location = new System.Drawing.Point(0, 115);
+            this.AudioDecoderDrop1.Name = "AudioDecoderDrop1";
+            this.AudioDecoderDrop1.Size = new System.Drawing.Size(0, 12);
+            this.AudioDecoderDrop1.TabIndex = 27;
+            // 
+            // AudioDecoderError1
+            // 
+            this.AudioDecoderError1.AutoSize = true;
+            this.AudioDecoderError1.Location = new System.Drawing.Point(0, 95);
+            this.AudioDecoderError1.Name = "AudioDecoderError1";
+            this.AudioDecoderError1.Size = new System.Drawing.Size(0, 12);
+            this.AudioDecoderError1.TabIndex = 26;
+            // 
+            // VideoDecoderPtsError1
+            // 
+            this.VideoDecoderPtsError1.AutoSize = true;
+            this.VideoDecoderPtsError1.Location = new System.Drawing.Point(0, 75);
+            this.VideoDecoderPtsError1.Name = "VideoDecoderPtsError1";
+            this.VideoDecoderPtsError1.Size = new System.Drawing.Size(0, 12);
+            this.VideoDecoderPtsError1.TabIndex = 25;
+            // 
+            // VideoDecoderUnderflow1
+            // 
+            this.VideoDecoderUnderflow1.AutoSize = true;
+            this.VideoDecoderUnderflow1.Location = new System.Drawing.Point(0, 55);
+            this.VideoDecoderUnderflow1.Name = "VideoDecoderUnderflow1";
+            this.VideoDecoderUnderflow1.Size = new System.Drawing.Size(0, 12);
+            this.VideoDecoderUnderflow1.TabIndex = 24;
+            // 
+            // VideoDecoderDrop1
+            // 
+            this.VideoDecoderDrop1.AutoSize = true;
+            this.VideoDecoderDrop1.Location = new System.Drawing.Point(0, 35);
+            this.VideoDecoderDrop1.Name = "VideoDecoderDrop1";
+            this.VideoDecoderDrop1.Size = new System.Drawing.Size(0, 12);
+            this.VideoDecoderDrop1.TabIndex = 23;
+            // 
+            // panel11
+            // 
+            this.panel11.Controls.Add(this.label110);
+            this.panel11.Controls.Add(this.label118);
+            this.panel11.Controls.Add(this.label96);
+            this.panel11.Controls.Add(this.label105);
+            this.panel11.Controls.Add(this.label106);
+            this.panel11.Controls.Add(this.label107);
+            this.panel11.Controls.Add(this.label108);
+            this.panel11.Controls.Add(this.label129);
+            this.panel11.Controls.Add(this.label130);
+            this.panel11.Controls.Add(this.label131);
+            this.panel11.Controls.Add(this.label132);
+            this.panel11.Controls.Add(this.label133);
+            this.panel11.Location = new System.Drawing.Point(0, 0);
+            this.panel11.Name = "panel11";
+            this.panel11.Size = new System.Drawing.Size(154, 385);
+            this.panel11.TabIndex = 1;
+            // 
+            // label110
+            // 
+            this.label110.AutoSize = true;
+            this.label110.Location = new System.Drawing.Point(17, 135);
+            this.label110.Name = "label110";
+            this.label110.Size = new System.Drawing.Size(131, 12);
+            this.label110.TabIndex = 33;
+            this.label110.Text = "AudioDecoderUnderflow";
+            // 
+            // label118
+            // 
+            this.label118.AutoSize = true;
+            this.label118.Location = new System.Drawing.Point(15, 15);
+            this.label118.Name = "label118";
+            this.label118.Size = new System.Drawing.Size(113, 12);
+            this.label118.TabIndex = 22;
+            this.label118.Text = "VideoDecoderError:";
+            // 
+            // label96
+            // 
+            this.label96.AutoSize = true;
+            this.label96.Location = new System.Drawing.Point(15, 235);
+            this.label96.Name = "label96";
+            this.label96.Size = new System.Drawing.Size(131, 12);
+            this.label96.TabIndex = 32;
+            this.label96.Text = "AudioDecoderUsedSize:";
+            // 
+            // label105
+            // 
+            this.label105.AutoSize = true;
+            this.label105.Location = new System.Drawing.Point(15, 215);
+            this.label105.Name = "label105";
+            this.label105.Size = new System.Drawing.Size(125, 12);
+            this.label105.TabIndex = 31;
+            this.label105.Text = "AudioDecoderBufSize:";
+            // 
+            // label106
+            // 
+            this.label106.AutoSize = true;
+            this.label106.Location = new System.Drawing.Point(15, 195);
+            this.label106.Name = "label106";
+            this.label106.Size = new System.Drawing.Size(131, 12);
+            this.label106.TabIndex = 30;
+            this.label106.Text = "VideoDecoderUsedSize:";
+            // 
+            // label107
+            // 
+            this.label107.AutoSize = true;
+            this.label107.Location = new System.Drawing.Point(15, 175);
+            this.label107.Name = "label107";
+            this.label107.Size = new System.Drawing.Size(125, 12);
+            this.label107.TabIndex = 29;
+            this.label107.Text = "VideoDecoderBufSize:";
+            // 
+            // label108
+            // 
+            this.label108.AutoSize = true;
+            this.label108.Location = new System.Drawing.Point(15, 155);
+            this.label108.Name = "label108";
+            this.label108.Size = new System.Drawing.Size(131, 12);
+            this.label108.TabIndex = 28;
+            this.label108.Text = "AudioDecoderPtsError:";
+            // 
+            // label129
+            // 
+            this.label129.AutoSize = true;
+            this.label129.Location = new System.Drawing.Point(15, 115);
+            this.label129.Name = "label129";
+            this.label129.Size = new System.Drawing.Size(107, 12);
+            this.label129.TabIndex = 27;
+            this.label129.Text = "AudioDecoderDrop:";
+            // 
+            // label130
+            // 
+            this.label130.AutoSize = true;
+            this.label130.Location = new System.Drawing.Point(15, 95);
+            this.label130.Name = "label130";
+            this.label130.Size = new System.Drawing.Size(113, 12);
+            this.label130.TabIndex = 26;
+            this.label130.Text = "AudioDecoderError:";
+            // 
+            // label131
+            // 
+            this.label131.AutoSize = true;
+            this.label131.Location = new System.Drawing.Point(15, 75);
+            this.label131.Name = "label131";
+            this.label131.Size = new System.Drawing.Size(131, 12);
+            this.label131.TabIndex = 25;
+            this.label131.Text = "VideoDecoderPtsError:";
+            // 
+            // label132
+            // 
+            this.label132.AutoSize = true;
+            this.label132.Location = new System.Drawing.Point(15, 55);
+            this.label132.Name = "label132";
+            this.label132.Size = new System.Drawing.Size(137, 12);
+            this.label132.TabIndex = 24;
+            this.label132.Text = "VideoDecoderUnderflow:";
+            // 
+            // label133
+            // 
+            this.label133.AutoSize = true;
+            this.label133.Location = new System.Drawing.Point(15, 35);
+            this.label133.Name = "label133";
+            this.label133.Size = new System.Drawing.Size(107, 12);
+            this.label133.TabIndex = 23;
+            this.label133.Text = "VideoDecoderDrop:";
+            // 
+            // playinfo_export
+            // 
+            this.playinfo_export.Location = new System.Drawing.Point(615, 14);
+            this.playinfo_export.Name = "playinfo_export";
+            this.playinfo_export.Size = new System.Drawing.Size(81, 23);
+            this.playinfo_export.TabIndex = 6;
+            this.playinfo_export.Text = "导出参数(E)";
+            this.playinfo_export.UseVisualStyleBackColor = true;
+            this.playinfo_export.Click += new System.EventHandler(this.playinfo_export_Click);
+            // 
+            // playInfo_fresh
+            // 
+            this.playInfo_fresh.Location = new System.Drawing.Point(552, 14);
+            this.playInfo_fresh.Name = "playInfo_fresh";
+            this.playInfo_fresh.Size = new System.Drawing.Size(56, 23);
+            this.playInfo_fresh.TabIndex = 5;
+            this.playInfo_fresh.Text = "刷新(R)";
+            this.playInfo_fresh.UseVisualStyleBackColor = true;
+            this.playInfo_fresh.Click += new System.EventHandler(this.playInfo_fresh_Click);
             // 
             // label90
             // 
@@ -2947,6 +3611,7 @@
             this.Controls.Add(this.text_status);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.label1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -3011,7 +3676,17 @@
             this.tabPage5.ResumeLayout(false);
             this.panel_play_data.ResumeLayout(false);
             this.panel_play_data.PerformLayout();
+            this.splitContainer1.Panel1.ResumeLayout(false);
+            this.splitContainer1.Panel2.ResumeLayout(false);
             this.splitContainer1.ResumeLayout(false);
+            this.label_value.ResumeLayout(false);
+            this.label_value.PerformLayout();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
+            this.panel12.ResumeLayout(false);
+            this.panel12.PerformLayout();
+            this.panel11.ResumeLayout(false);
+            this.panel11.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -3099,11 +3774,42 @@
             DataModel.info_textList.Add(start_sftp_name);
             DataModel.info_textList.Add(start_sftp_name);
             DataModel.info_textList.Add(start_sftp_name);
+            DataModel.info_textList.Add(picture_sftp_host);
             DataModel.info_textList.Add(picture_sftp_name);
-            DataModel.info_textList.Add(picture_sftp_name);
-            DataModel.info_textList.Add(picture_sftp_name);
+            DataModel.info_textList.Add(picture_sftp_pwd);
 
-            DataModel.playInfoList.Add(new DataModel("localTime", "", null, 1));
+            DataModel.playInfo1List.Add(new DataModel("Cpu", "", labe_cpu, 1));
+            DataModel.playInfo1List.Add(new DataModel("Mem", "", label_mem, 1));
+          
+            DataModel.playInfo1List.Add(new DataModel("VideoCodec", "", VideoCodec1, 1));
+            DataModel.playInfo1List.Add(new DataModel("VideoResolution", "", VideoResolution1, 1));
+            DataModel.playInfo1List.Add(new DataModel("VideoAspect", "", VideoAspect1, 1));
+            DataModel.playInfo1List.Add(new DataModel("PictureCode", "", PictureCode1, 1));
+            DataModel.playInfo1List.Add(new DataModel("AudioCodec", "", AudioCodec1, 1));
+            DataModel.playInfo1List.Add(new DataModel("AudioBitRate", "", AudioBitRate1, 1));
+            DataModel.playInfo1List.Add(new DataModel("AudioChannels", "", Audiochannels1, 1));
+            DataModel.playInfo1List.Add(new DataModel("AudioSamplingRate", "", AudioSamplingRate1, 1));
+            DataModel.playInfo1List.Add(new DataModel("SubtitleLanguage", "", SubtitleLangage1, 1));
+            DataModel.playInfo1List.Add(new DataModel("PacketLost", "", PacketLost1, 1));
+            DataModel.playInfo1List.Add(new DataModel("PacketDisorder", "", PacketDisorder1, 1));     
+            DataModel.playInfo1List.Add(new DataModel("StreamDF", "", StreamDF1, 1));
+            DataModel.playInfo1List.Add(new DataModel("TransportProtocol", "", TransportProtocol1, 1));   
+            DataModel.playInfo1List.Add(new DataModel("ContinuityError", "", ContinuityError1, 1));
+            DataModel.playInfo1List.Add(new DataModel("SynchronisationError", "", SynchronisationError1, 1));
+            DataModel.playInfo1List.Add(new DataModel("EcmError", "", EcmError1, 1));
+            DataModel.playInfo1List.Add(new DataModel("DiffAvPlayTime", "", DiffAvPlayTime1, 1));
+            DataModel.playInfo1List.Add(new DataModel("VideoDecoderBufSize", "", VideoDecoderBufSize1, 1));
+            DataModel.playInfo1List.Add(new DataModel("VideoDecoderUsedSize", "", VideoDecoderUsedSize1, 1));
+            DataModel.playInfo1List.Add(new DataModel("AudioDecoderBufSize", "", AudioDecoderBufSize1, 1));
+            DataModel.playInfo1List.Add(new DataModel("AudioDecoderUsedSize", "", AudioDecoderUsedSize1, 1));
+            DataModel.playInfo1List.Add(new DataModel("VideoDecoderError", "", VideoDecodeError1, 1));
+            DataModel.playInfo1List.Add(new DataModel("VideoDecoderDrop", "", VideoDecoderDrop1, 1));
+            DataModel.playInfo1List.Add(new DataModel("VideoDecoderUnderflow", "", VideoDecoderUnderflow1, 1));
+            DataModel.playInfo1List.Add(new DataModel("VideoDecoderPtsError", "", VideoDecoderPtsError1, 1));
+            DataModel.playInfo1List.Add(new DataModel("AudioDecoderError", "", AudioDecoderError1, 1));
+            DataModel.playInfo1List.Add(new DataModel("AudioDecoderDrop", "", AudioDecoderDrop1, 1));
+            DataModel.playInfo1List.Add(new DataModel("AudioDecoderUnderflow", "", AudioDecoderUnderflow1, 1));
+            DataModel.playInfo1List.Add(new DataModel("AudioDecoderPtsError", "", AudioDecoderPtsError1, 1));
         }
 
         private System.Windows.Forms.Label label1;
@@ -3359,12 +4065,75 @@
         private System.Windows.Forms.Label label89;
         private System.Windows.Forms.Label label88;
         private System.Windows.Forms.SplitContainer splitContainer1;
-        private System.Windows.Forms.Button button6;
-        private System.Windows.Forms.Button button5;
-        private System.Windows.Forms.Label label96;
+        private System.Windows.Forms.Button playinfo_export;
+        private System.Windows.Forms.Button playInfo_fresh;
+        private System.Windows.Forms.Label label_mem;
         private System.Windows.Forms.Label label95;
         private System.Windows.Forms.Label labe_cpu;
         private System.Windows.Forms.Button boot_stop;
+        private System.Windows.Forms.Panel label_value;
+        private System.Windows.Forms.Label VideoDecodeError1;
+        private System.Windows.Forms.Label EcmError1;
+        private System.Windows.Forms.Label SynchronisationError1;
+        private System.Windows.Forms.Label ContinuityError1;
+        private System.Windows.Forms.Label PacketDisorder1;
+        private System.Windows.Forms.Label PacketLost1;
+        private System.Windows.Forms.Label DiffAvPlayTime1;
+        private System.Windows.Forms.Label StreamDF1;
+        private System.Windows.Forms.Label SubtitleLangage1;
+        private System.Windows.Forms.Label AudioSamplingRate1;
+        private System.Windows.Forms.Label Audiochannels1;
+        private System.Windows.Forms.Label AudioBitRate1;
+        private System.Windows.Forms.Label AudioCodec1;
+        private System.Windows.Forms.Label PictureCode1;
+        private System.Windows.Forms.Label VideoAspect1;
+        private System.Windows.Forms.Label VideoResolution1;
+        private System.Windows.Forms.Label VideoCodec1;
+        private System.Windows.Forms.Label TransportProtocol1;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Label label118;
+        private System.Windows.Forms.Label label117;
+        private System.Windows.Forms.Label label116;
+        private System.Windows.Forms.Label label115;
+        private System.Windows.Forms.Label label114;
+        private System.Windows.Forms.Label label113;
+        private System.Windows.Forms.Label label112;
+        private System.Windows.Forms.Label label111;
+        private System.Windows.Forms.Label label109;
+        private System.Windows.Forms.Label label104;
+        private System.Windows.Forms.Label label103;
+        private System.Windows.Forms.Label label102;
+        private System.Windows.Forms.Label label101;
+        private System.Windows.Forms.Label label100;
+        private System.Windows.Forms.Label label99;
+        private System.Windows.Forms.Label label98;
+        private System.Windows.Forms.Label label97;
+        private System.Windows.Forms.Label label94;
+        private System.Windows.Forms.Panel panel12;
+        private System.Windows.Forms.Label AudioDecoderUsedSize1;
+        private System.Windows.Forms.Label AudioDecoderBufSize1;
+        private System.Windows.Forms.Label VideoDecoderUsedSize1;
+        private System.Windows.Forms.Label VideoDecoderBufSize1;
+        private System.Windows.Forms.Label AudioDecoderPtsError1;
+        private System.Windows.Forms.Label AudioDecoderDrop1;
+        private System.Windows.Forms.Label AudioDecoderError1;
+        private System.Windows.Forms.Label VideoDecoderPtsError1;
+        private System.Windows.Forms.Label VideoDecoderUnderflow1;
+        private System.Windows.Forms.Label VideoDecoderDrop1;
+        private System.Windows.Forms.Panel panel11;
+        private System.Windows.Forms.Label label96;
+        private System.Windows.Forms.Label label105;
+        private System.Windows.Forms.Label label106;
+        private System.Windows.Forms.Label label107;
+        private System.Windows.Forms.Label label108;
+        private System.Windows.Forms.Label label129;
+        private System.Windows.Forms.Label label130;
+        private System.Windows.Forms.Label label131;
+        private System.Windows.Forms.Label label132;
+        private System.Windows.Forms.Label label133;
+        private System.Windows.Forms.Label AudioDecoderUnderflow1;
+        private System.Windows.Forms.Label label110;
+        private System.Windows.Forms.Label label119;
     }
 }
 

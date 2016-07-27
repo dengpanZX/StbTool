@@ -17,8 +17,8 @@ namespace StbTool
         public static string netType = null; //获取网络的连接状态
         private List<DataModel> mModifyList = new List<DataModel>(); //提交时获取的修改队列
         private Thread resultThread; //通过线程打印执行结果
-        public static bool isOperationSuccessful = false; //通过修改状态打印执行结果
-        public static  string resultMsg; //打印的结果
+        public  bool isOperationSuccessful = false; //通过修改状态打印执行结果
+        public  string resultMsg; //打印的结果
         private bool isResultRunning; //控制打印结果的线程执行
         public MainForm()
         {
@@ -193,19 +193,19 @@ namespace StbTool
                 text_ip4.Text.ToString() == string.Empty)
             {
                 text_status.Text = "错误，IP为空!";
-                return;
+              //  return;
             }
 
             if (comboBox_name.Text.ToString() == string.Empty)
             {
                 text_status.Text = "错误，用户名为空!";
-                return;
+               // return;
             }
 
             if (text_password.Text.ToString() == string.Empty)
             {
                 text_status.Text = "错误，密码为空!";
-                return;
+              //  return;
             }
             string ip = text_ip1.Text.ToString() + "." + text_ip2.Text.ToString() + "." + text_ip3.Text.ToString() + "." + text_ip4.Text.ToString();
             if (!mConnectStatus)
@@ -281,7 +281,7 @@ namespace StbTool
             if (!mConnectStatus)
                 return;
             DialogResult dr;
-            dr = MessageBox.Show("重启机顶盒可能会影响客户当前使用，请确定您已经征得客户同意！", "重启机顶盒", MessageBoxButtons.OK,
+            dr = MessageBox.Show("重启机顶盒可能会影响客户当前使用，请确定您已经征得客户同意！", "重启机顶盒", MessageBoxButtons.OKCancel,
             MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1);
             if (dr == DialogResult.OK)
             {
@@ -295,7 +295,7 @@ namespace StbTool
             if (!mConnectStatus)
                 return;
             DialogResult dr;
-            dr = MessageBox.Show("恢复出厂可能会影响客户当前使用，请确定您已经征得客户同意！", "恢复出厂", MessageBoxButtons.OK,
+            dr = MessageBox.Show("恢复出厂可能会影响客户当前使用，请确定您已经征得客户同意！", "恢复出厂", MessageBoxButtons.OKCancel,
             MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1);
             if (dr == DialogResult.OK)
             {
@@ -537,9 +537,15 @@ namespace StbTool
             }
             mSocket.initSendData(mModifyList, 2, "write");
             mSocket.sendMessage();
-            resultMsg = "操作成功";
-            isOperationSuccessful = true;
+            updateResultMeg("操作成功");
             isImportData2 = false;
+        }
+
+        //更新状态栏打印信息
+        public void updateResultMeg(string msg)
+        {
+            resultMsg = msg;
+            isOperationSuccessful = true;
         }
 
         //线程打印操作的处理结果
@@ -579,7 +585,7 @@ namespace StbTool
         }
 
         //通过Invoke处理非UI线程调用的执行结果
-        private void updateStatus(string msg)
+        public void updateStatus(string msg)
         {
             this.Invoke((MethodInvoker)delegate
             {
@@ -593,37 +599,34 @@ namespace StbTool
         //更新按钮状态
         public void updateButtonEnable(string str, Boolean enable)
         {
-            Button btn = null;         
-            if (str.Equals("info")) //一键信息收集启动键
+            Button btn = null;
+            if (str.Equals("404")) //上传文件不存在
+            {
+                resultMsg = "上传文件不存在";
+            }
+            else if (str.Equals("500")) //无法连接sftp服务器
+            {
+                resultMsg = "无法连接sftp服务器";
+            }
+            else if (str.Equals("info")) //一键信息收集启动键
             {
                 btn = info_start;;
                 resultMsg = "操作成功";
             }
-            if (str.Equals("start")) //一键信息收集启动键
+            else if (str.Equals("start")) //一键信息收集启动键
             {
                 btn = boot_start; ;
                 resultMsg = "操作成功";
             }
-            if (str.Equals("disconnect")) //一键信息收集启动键
+            else if (str.Equals("disconnect")) //断开连接后设置激活开机信息收集启动键
             {
                 btn = boot_start; ;
             }
-            else if (str.Equals("start_upload")) //开机信息收集上传键
+            else if (str.Equals("info_upload") || str.Equals("start_upload") ||str.Equals("picture_upload")) //开机信息收集上传键
             {
                 if (enable)
                 {
                     resultMsg = "上传成功"; ;
-                }
-                else
-                {
-                    resultMsg = "";
-                }
-            }
-            else if (str.Equals("info_upload")) //一键信息收集上传键
-            {
-                if (enable)
-                {
-                    resultMsg = "上传成功";
                 }
                 else
                 {
@@ -799,8 +802,7 @@ namespace StbTool
                     updateStatus("正在获取数据...");
                     mSocket.initSendData(DataModel.table1List, 1, "read");
                     mSocket.sendMessage();
-                    resultMsg = "操作成功";
-                    isOperationSuccessful = true;
+                    updateResultMeg("操作成功");
                 }
                 isFirstTable = true;
             }
@@ -811,8 +813,7 @@ namespace StbTool
                     updateStatus("正在获取数据...");
                     mSocket.initSendData(DataModel.table2List, 2, "read");
                     mSocket.sendMessage();
-                    resultMsg = "操作成功";
-                    isOperationSuccessful = true;
+                    updateResultMeg("操作成功");
                 }
                 isFirstTable = false;
             }
@@ -904,8 +905,7 @@ namespace StbTool
             if (fName == string.Empty)
                 return;
             StbToolUtils.ReadTextFileToList(fName);
-            resultMsg = "导入参数成功";
-            isOperationSuccessful = true;
+            updateResultMeg("导入参数成功");
             updateUI(DataModel.paramsList1, 1);
             updateUI(DataModel.paramsList2, 2);
             isImportData1 = true;
@@ -921,8 +921,7 @@ namespace StbTool
             if (fName == string.Empty)
                 return;
             StbToolUtils.WriteListToTextFile(fName);
-            resultMsg = "导出参数成功";
-            isOperationSuccessful = true;
+            updateResultMeg("导出参数成功");
         }
 
         //升级获取zip包路径
@@ -1101,6 +1100,114 @@ namespace StbTool
             }
             updateStatus("停止收集");
             mSocket.sendIoctlMessage("ioctl^stopStartupInfo^null");
+        }
+
+        //图片信息收集上传
+        private void picture_upload_Click(object sender, EventArgs e)
+        {
+            if (!mConnectStatus)
+                return;
+
+            string errorMsg = "";
+            if (picture_sftp_host.Text.ToString() == string.Empty)
+            {
+                updateStatus("SFTP地址为空");
+                errorMsg = "SFTP地址为空";
+            }
+            else if (!StbToolUtils.IsCorrectIP(picture_sftp_host.Text.ToString()))
+            {
+                updateStatus("非法的SFTP地址");
+                errorMsg = "非法的SFTP地址";
+            }
+            else if (picture_sftp_name.Text.ToString() == string.Empty)
+            {
+                updateStatus("SFTP用户名为空");
+                errorMsg = "SFTP用户名为空";
+            }
+            else if (picture_sftp_pwd.Text.ToString() == string.Empty)
+            {
+                updateStatus("SFTP密码为空");
+                errorMsg = "SFTP密码为空";
+            }
+            DialogResult dr;
+            if (errorMsg != string.Empty)
+            {
+                dr = MessageBox.Show(errorMsg, "", MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1);
+                return;
+            }
+            else
+            {
+                dr = MessageBox.Show("请确认SFTP服务已经开启", "", MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1);
+            }
+            if (dr == DialogResult.OK)
+            {
+                string sendMsg = "ioctl^UploadScreencap^null^" + picture_sftp_host.Text.ToString() + "^" + picture_sftp_name.Text.ToString() + "^" + picture_sftp_pwd.Text.ToString();
+                updateStatus("开始上传");
+                mSocket.sendIoctlMessage(sendMsg);
+            }
+        }
+
+        private bool isPlayInfoStop = false;
+        //可视化定位刷新按钮
+        private void playInfo_fresh_Click(object sender, EventArgs e)
+        {
+            if (!mConnectStatus)
+                return;
+            if (!isPlayInfoStop)
+            {
+                isPlayInfoStop = true;
+                updatePlayInfoButton(true);
+                mSocket.sendPlayInfoMsg();
+            }
+            else
+            {
+                isPlayInfoStop = false;
+                mSocket.stopPlayInfoMsg();
+                updatePlayInfoButton(false);
+                updateStatus("可视化信息收集已停止");
+            }
+        }
+
+        //更新可视化定位信息收集的刷新按钮状态
+        public void updatePlayInfoButton(bool status)
+        {
+            this.Invoke((MethodInvoker)delegate
+            {
+                lock (this.playInfo_fresh)
+                {
+                    if (status)
+                        playInfo_fresh.Text = "停止";
+                    else
+                        playInfo_fresh.Text = "刷新";
+                }
+            });
+        }
+
+        //更新可视化定位UI的数据
+        public void updatePlayInfoUI()
+        {
+            this.Invoke((MethodInvoker)delegate
+            {
+                foreach (DataModel model in DataModel.playInfo1List)
+                {
+                    lock ((Label)model.getObject())
+                    {
+                        ((Label)model.getObject()).Text = model.getValue();
+                    }
+                }
+            });
+        }
+
+        //可视化定位信息收集导出参数
+        private void playinfo_export_Click(object sender, EventArgs e)
+        {
+            if (!mConnectStatus)
+                return;
+            string fName = StbToolUtils.GetSaveFileName();
+            if (fName == string.Empty)
+                return;
+            StbToolUtils.WritePlayInfoToTextFile(fName);
+            updateResultMeg("导出参数成功");
         }
     }
 }
