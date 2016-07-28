@@ -14,10 +14,9 @@ namespace StbTool
     class SocketHandler
     {
         private const int port = 9003;
-        private Socket client;
+        public static Socket client;
         private string mTcpHead;  //TCP请求的头部
         private static ManualResetEvent TimeoutObject; //在连接后线程阻塞等待连接结果
-        private static ManualResetEvent GetMessageObject; //阻塞心跳线程
         private bool IsConnectionSuccessful; //socket连接状态
         private MainForm mainForm;
         private List<DataModel> mList; //发送数据的队列
@@ -51,7 +50,6 @@ namespace StbTool
             //IPEndPoint ie = new IPEndPoint(IPAddress.Parse(ipAddress), port);
             IPEndPoint ie = new IPEndPoint(IPAddress.Parse("114.1.3.238"), port);
             TimeoutObject = new ManualResetEvent(false);
-            GetMessageObject = new ManualResetEvent(false);
             try
             {
                // client.Connect(ie);    
@@ -71,7 +69,7 @@ namespace StbTool
             }          
             int recv;  
             //string msg = createMd5(name + password);
-            string msg = createMd5("huawei28780808");
+            string msg = createMd5("root.Yx684");
             string sessionID = msg.Substring(0,16).ToLower();
             string indefycode = createMd5(sessionID + "huawei").Substring(0,8);
             client.Send(Encoding.ASCII.GetBytes(indefycode + sessionID + "initialize^connection^null"));
@@ -100,8 +98,6 @@ namespace StbTool
             {
                 initSendData(DataModel.table1List, 1, "read");
                 sendMessage();
-                Thread t = new Thread(createHeartBit);
-                t.Start();
             }
             return getdata.Substring(16);
         }
@@ -143,37 +139,17 @@ namespace StbTool
             }
         }
 
-        //创建心跳线程，处理盒子端主动断开的情景
-        private void createHeartBit()
-        {
-            byte[] data = new byte[1024];
-            int recv = 0;
-            while (IsConnectionSuccessful)
-            {
-                GetMessageObject.WaitOne(); //发送数据请求过程阻塞心跳线程
-                try
-                {
-                    client.Send(Encoding.ASCII.GetBytes(mTcpHead + "heartbit^null"));
-                    recv = client.Receive(data);
-                    string getdata = Encoding.UTF8.GetString(data, 0, recv);
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e);
-                    mainForm.disconnect();
-                }
-                Thread.Sleep(1000);
-            }
-
-        }
-
-        //发送数据请求
         public void sendMessage()
+        {
+            Thread sendNetMsg = new Thread(sendMessageThread);
+            sendNetMsg.Start();
+        }
+        //第一个tab和第二个tab的读写操作，发送数据请求
+        public void sendMessageThread()
         {
             byte[] data = new byte[1024];
             int recv = 0;
             List<DataModel> tmpList = new List<DataModel>();
-            GetMessageObject.Reset();
             foreach (DataModel model in mList)
             {
                 try
@@ -195,7 +171,7 @@ namespace StbTool
                 catch (Exception e)
                 {
                     Console.WriteLine(e);
-                    GetMessageObject.Set();
+                    mainForm.disconnect();
                     break;
                 }
                 string getdata = Encoding.UTF8.GetString(data, 0, recv);
@@ -207,8 +183,11 @@ namespace StbTool
                         model.setValue("");
                     else
                         model.setValue(value);
-                    Console.WriteLine(value);
                     tmpList.Add(model); //将接收的数据保存在队列
+                }
+                else if (getdata.Contains("200write"))
+                {
+                    mainForm.updateResultMeg("操作成功");
                 }
             }
             if (mOperate.Equals("write") && mListIndex == 2 && MainForm.netType != null)
@@ -224,15 +203,18 @@ namespace StbTool
             {
                 if (mListIndex == 1)
                 {
+                    if (tmpList.Count > 0 && tmpList.Count == DataModel.table1List.Count)
+                        mainForm.updateResultMeg("操作成功");
                     DataModel.table1List = tmpList;
                 }
                 else if (mListIndex == 2)
                 {
+                    if (tmpList.Count > 0 && tmpList.Count == DataModel.table2List.Count)
+                        mainForm.updateResultMeg("操作成功");
                     DataModel.table2List = tmpList;
                 }
                 mainForm.updateUI(tmpList, mListIndex);
             }
-            GetMessageObject.Set(); //放开心跳线程的阻塞
         }
 
         string ioctlMessage = "";
@@ -250,20 +232,17 @@ namespace StbTool
         {
             int recv = 0;
             byte[] data = new byte[1024];
-            GetMessageObject.Reset();
             client.Send(Encoding.ASCII.GetBytes(mTcpHead + ioctlMessage));
             recv = client.Receive(data);
             string getdata = Encoding.UTF8.GetString(data, 0, recv);
             Console.WriteLine(getdata + "<<<");
             ioctlResult(getdata);
-            GetMessageObject.Set();
         }
 
         //单独处理网络状态修改
         private void sendNetworkMessage()
         {
             byte[] data = new byte[1024];
-            GetMessageObject.Reset();
             client.Send(Encoding.ASCII.GetBytes(mTcpHead + ioctlMessage));
             Thread.Sleep(1000);
             mainForm.disconnect();
@@ -348,7 +327,6 @@ namespace StbTool
                     break;
                 mainForm.updateStatus("正在进行可视化信息收集");
                 byte[] data = new byte[1024];
-                GetMessageObject.Reset();
                 try
                 {
                     client.Send(Encoding.ASCII.GetBytes(mTcpHead + "read^ParasListMain^null"));
@@ -362,7 +340,6 @@ namespace StbTool
                 string getdata = Encoding.UTF8.GetString(data, 0, recv);
                 Console.WriteLine(getdata);
                 resultPlayInfo(getdata);
-                GetMessageObject.Set();
                 Thread.Sleep(3000);
             }
         }
@@ -399,13 +376,11 @@ namespace StbTool
                 else
                 {
                     string result = str.Substring(strindex + name.Length + 1);
-                    Console.WriteLine("<<<<<<<<<<" + str.Substring(strindex + name.Length + 1));
                     DataModel.playInfo1List[listindex].setValue(result);
                     listindex++;
                     str = stringRead.ReadLine();
                 }
             }
-            Console.WriteLine("<<<<<<<<<<<<<<<<index :" + listindex);
             if (listindex == 31)
             {
                 mainForm.updateResultMeg("可视化信息收集成功");
@@ -415,6 +390,36 @@ namespace StbTool
             {
                 mainForm.updateResultMeg("可视化信息收集失败");
             }
+        }
+
+        //发送升级消息
+        public int sendUpgradeMsg(string upgradePath)
+        {
+            int recv = 0;
+            byte[] data = new byte[1024];
+            FileInfo fileInfo = new FileInfo(upgradePath);
+            client.Send(Encoding.ASCII.GetBytes(mTcpHead + "inform^set_upgradelength^null^" + fileInfo.Length));
+            recv = client.Receive(data);
+            string result = Encoding.UTF8.GetString(data, 0, recv);
+            client.Send(Encoding.ASCII.GetBytes(mTcpHead + "ioctl^upgrade^null"));
+            try
+            {
+                recv = client.Receive(data);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                mainForm.disconnect();
+            }
+            string getdata = Encoding.UTF8.GetString(data, 0, recv);
+            if (getdata.Contains("200ioctl^upgrade^"))
+            {
+                string port = getdata.Substring(17);
+                Console.WriteLine(port);
+                return Convert.ToInt32(port);
+
+            }
+            return 0;
         }
     }
 }

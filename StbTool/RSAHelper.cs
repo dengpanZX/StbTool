@@ -19,9 +19,7 @@ namespace StbTool
 
                 //public and private key data.
                 RSACryptoServiceProvider RSA = new RSACryptoServiceProvider();
-                Console.WriteLine("1111111111111111111");
                 RSA.FromXmlString(privateKey);
-                Console.WriteLine("22222222222222222222");
 
                 byte[] encryptedData;
 

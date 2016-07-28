@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.label1 = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage3 = new System.Windows.Forms.TabPage();
@@ -219,14 +220,14 @@
             this.edt_authaddress = new System.Windows.Forms.TextBox();
             this.edt_authaddress_backup = new System.Windows.Forms.TextBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.software_version = new System.Windows.Forms.Label();
+            this.upgrade_status = new System.Windows.Forms.TextBox();
+            this.force_upgrade = new System.Windows.Forms.CheckBox();
+            this.btn_upgrade = new System.Windows.Forms.Button();
             this.btn_select_updatezip = new System.Windows.Forms.Button();
             this.text_upgrade_path = new System.Windows.Forms.TextBox();
             this.label39 = new System.Windows.Forms.Label();
             this.label38 = new System.Windows.Forms.Label();
-            this.text_current_softversion = new System.Windows.Forms.TextBox();
             this.label37 = new System.Windows.Forms.Label();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.tabControl2 = new System.Windows.Forms.TabControl();
@@ -349,6 +350,7 @@
             this.label90 = new System.Windows.Forms.Label();
             this.label89 = new System.Windows.Forms.Label();
             this.text_status = new System.Windows.Forms.Label();
+            this.upgrade_progress = new System.Windows.Forms.ProgressBar();
             this.tabControl1.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -1337,7 +1339,7 @@
             this.panel2.Controls.Add(this.groupBox4);
             this.panel2.Location = new System.Drawing.Point(0, 3);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(580, 950);
+            this.panel2.Size = new System.Drawing.Size(580, 795);
             this.panel2.TabIndex = 0;
             // 
             // groupBox8
@@ -1355,7 +1357,7 @@
             this.groupBox8.Controls.Add(this.edt_connect_name);
             this.groupBox8.Controls.Add(this.panel9);
             this.groupBox8.Controls.Add(this.edt_acsaddress);
-            this.groupBox8.Location = new System.Drawing.Point(13, 764);
+            this.groupBox8.Location = new System.Drawing.Point(13, 609);
             this.groupBox8.Name = "groupBox8";
             this.groupBox8.Size = new System.Drawing.Size(547, 157);
             this.groupBox8.TabIndex = 65;
@@ -1532,7 +1534,7 @@
             this.groupBox7.Controls.Add(this.panel7);
             this.groupBox7.Controls.Add(this.label65);
             this.groupBox7.Controls.Add(this.edt_log_address);
-            this.groupBox7.Location = new System.Drawing.Point(13, 626);
+            this.groupBox7.Location = new System.Drawing.Point(13, 471);
             this.groupBox7.Name = "groupBox7";
             this.groupBox7.Size = new System.Drawing.Size(547, 125);
             this.groupBox7.TabIndex = 68;
@@ -1678,7 +1680,7 @@
             this.groupBox6.Controls.Add(this.label62);
             this.groupBox6.Controls.Add(this.edt_ntp_bak);
             this.groupBox6.Controls.Add(this.edt_timezone);
-            this.groupBox6.Location = new System.Drawing.Point(13, 436);
+            this.groupBox6.Location = new System.Drawing.Point(13, 281);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Size = new System.Drawing.Size(547, 180);
             this.groupBox6.TabIndex = 64;
@@ -1798,7 +1800,7 @@
             this.groupBox5.Controls.Add(this.panel5);
             this.groupBox5.Location = new System.Drawing.Point(13, 140);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(547, 285);
+            this.groupBox5.Size = new System.Drawing.Size(547, 130);
             this.groupBox5.TabIndex = 70;
             this.groupBox5.TabStop = false;
             // 
@@ -1808,16 +1810,16 @@
             this.panel_dhcp.Controls.Add(this.edt_dhcpaccount);
             this.panel_dhcp.Controls.Add(this.edt_dhcppassword);
             this.panel_dhcp.Controls.Add(this.label77);
-            this.panel_dhcp.Location = new System.Drawing.Point(0, 56);
+            this.panel_dhcp.Location = new System.Drawing.Point(6, 56);
             this.panel_dhcp.Name = "panel_dhcp";
-            this.panel_dhcp.Size = new System.Drawing.Size(547, 74);
+            this.panel_dhcp.Size = new System.Drawing.Size(535, 70);
             this.panel_dhcp.TabIndex = 65;
             this.panel_dhcp.Visible = false;
             // 
             // label76
             // 
             this.label76.AutoSize = true;
-            this.label76.Location = new System.Drawing.Point(28, 15);
+            this.label76.Location = new System.Drawing.Point(22, 15);
             this.label76.Name = "label76";
             this.label76.Size = new System.Drawing.Size(59, 12);
             this.label76.TabIndex = 14;
@@ -1825,14 +1827,14 @@
             // 
             // edt_dhcpaccount
             // 
-            this.edt_dhcpaccount.Location = new System.Drawing.Point(110, 11);
+            this.edt_dhcpaccount.Location = new System.Drawing.Point(104, 11);
             this.edt_dhcpaccount.Name = "edt_dhcpaccount";
             this.edt_dhcpaccount.Size = new System.Drawing.Size(141, 21);
             this.edt_dhcpaccount.TabIndex = 16;
             // 
             // edt_dhcppassword
             // 
-            this.edt_dhcppassword.Location = new System.Drawing.Point(391, 11);
+            this.edt_dhcppassword.Location = new System.Drawing.Point(385, 11);
             this.edt_dhcppassword.Name = "edt_dhcppassword";
             this.edt_dhcppassword.PasswordChar = '*';
             this.edt_dhcppassword.Size = new System.Drawing.Size(128, 21);
@@ -1841,7 +1843,7 @@
             // label77
             // 
             this.label77.AutoSize = true;
-            this.label77.Location = new System.Drawing.Point(319, 15);
+            this.label77.Location = new System.Drawing.Point(313, 15);
             this.label77.Name = "label77";
             this.label77.Size = new System.Drawing.Size(59, 12);
             this.label77.TabIndex = 18;
@@ -1857,15 +1859,15 @@
             this.panel_static.Controls.Add(this.edt_gateway);
             this.panel_static.Controls.Add(this.label50);
             this.panel_static.Controls.Add(this.label49);
-            this.panel_static.Location = new System.Drawing.Point(0, 56);
+            this.panel_static.Location = new System.Drawing.Point(6, 56);
             this.panel_static.Name = "panel_static";
-            this.panel_static.Size = new System.Drawing.Size(547, 70);
+            this.panel_static.Size = new System.Drawing.Size(535, 70);
             this.panel_static.TabIndex = 64;
             // 
             // label47
             // 
             this.label47.AutoSize = true;
-            this.label47.Location = new System.Drawing.Point(28, 14);
+            this.label47.Location = new System.Drawing.Point(22, 14);
             this.label47.Name = "label47";
             this.label47.Size = new System.Drawing.Size(47, 12);
             this.label47.TabIndex = 13;
@@ -1874,7 +1876,7 @@
             // label48
             // 
             this.label48.AutoSize = true;
-            this.label48.Location = new System.Drawing.Point(28, 44);
+            this.label48.Location = new System.Drawing.Point(22, 44);
             this.label48.Name = "label48";
             this.label48.Size = new System.Drawing.Size(59, 12);
             this.label48.TabIndex = 14;
@@ -1882,28 +1884,28 @@
             // 
             // edt_ip
             // 
-            this.edt_ip.Location = new System.Drawing.Point(110, 11);
+            this.edt_ip.Location = new System.Drawing.Point(104, 11);
             this.edt_ip.Name = "edt_ip";
             this.edt_ip.Size = new System.Drawing.Size(141, 21);
             this.edt_ip.TabIndex = 15;
             // 
             // edt_mask
             // 
-            this.edt_mask.Location = new System.Drawing.Point(110, 40);
+            this.edt_mask.Location = new System.Drawing.Point(104, 40);
             this.edt_mask.Name = "edt_mask";
             this.edt_mask.Size = new System.Drawing.Size(141, 21);
             this.edt_mask.TabIndex = 16;
             // 
             // edt_dhcpserver
             // 
-            this.edt_dhcpserver.Location = new System.Drawing.Point(391, 40);
+            this.edt_dhcpserver.Location = new System.Drawing.Point(385, 40);
             this.edt_dhcpserver.Name = "edt_dhcpserver";
             this.edt_dhcpserver.Size = new System.Drawing.Size(128, 21);
             this.edt_dhcpserver.TabIndex = 20;
             // 
             // edt_gateway
             // 
-            this.edt_gateway.Location = new System.Drawing.Point(391, 11);
+            this.edt_gateway.Location = new System.Drawing.Point(385, 11);
             this.edt_gateway.Name = "edt_gateway";
             this.edt_gateway.Size = new System.Drawing.Size(128, 21);
             this.edt_gateway.TabIndex = 19;
@@ -1911,7 +1913,7 @@
             // label50
             // 
             this.label50.AutoSize = true;
-            this.label50.Location = new System.Drawing.Point(319, 44);
+            this.label50.Location = new System.Drawing.Point(313, 44);
             this.label50.Name = "label50";
             this.label50.Size = new System.Drawing.Size(65, 12);
             this.label50.TabIndex = 18;
@@ -1920,7 +1922,7 @@
             // label49
             // 
             this.label49.AutoSize = true;
-            this.label49.Location = new System.Drawing.Point(319, 14);
+            this.label49.Location = new System.Drawing.Point(313, 14);
             this.label49.Name = "label49";
             this.label49.Size = new System.Drawing.Size(59, 12);
             this.label49.TabIndex = 17;
@@ -1932,16 +1934,16 @@
             this.panel_pppoe.Controls.Add(this.edt_pppoeaccount);
             this.panel_pppoe.Controls.Add(this.edt_pppoepassword);
             this.panel_pppoe.Controls.Add(this.label78);
-            this.panel_pppoe.Location = new System.Drawing.Point(0, 56);
+            this.panel_pppoe.Location = new System.Drawing.Point(6, 56);
             this.panel_pppoe.Name = "panel_pppoe";
-            this.panel_pppoe.Size = new System.Drawing.Size(547, 74);
+            this.panel_pppoe.Size = new System.Drawing.Size(535, 70);
             this.panel_pppoe.TabIndex = 66;
             this.panel_pppoe.Visible = false;
             // 
             // label75
             // 
             this.label75.AutoSize = true;
-            this.label75.Location = new System.Drawing.Point(28, 15);
+            this.label75.Location = new System.Drawing.Point(22, 15);
             this.label75.Name = "label75";
             this.label75.Size = new System.Drawing.Size(59, 12);
             this.label75.TabIndex = 14;
@@ -1949,14 +1951,14 @@
             // 
             // edt_pppoeaccount
             // 
-            this.edt_pppoeaccount.Location = new System.Drawing.Point(110, 11);
+            this.edt_pppoeaccount.Location = new System.Drawing.Point(104, 11);
             this.edt_pppoeaccount.Name = "edt_pppoeaccount";
             this.edt_pppoeaccount.Size = new System.Drawing.Size(141, 21);
             this.edt_pppoeaccount.TabIndex = 16;
             // 
             // edt_pppoepassword
             // 
-            this.edt_pppoepassword.Location = new System.Drawing.Point(391, 11);
+            this.edt_pppoepassword.Location = new System.Drawing.Point(385, 11);
             this.edt_pppoepassword.Name = "edt_pppoepassword";
             this.edt_pppoepassword.PasswordChar = '*';
             this.edt_pppoepassword.Size = new System.Drawing.Size(128, 21);
@@ -1965,7 +1967,7 @@
             // label78
             // 
             this.label78.AutoSize = true;
-            this.label78.Location = new System.Drawing.Point(319, 15);
+            this.label78.Location = new System.Drawing.Point(313, 15);
             this.label78.Name = "label78";
             this.label78.Size = new System.Drawing.Size(59, 12);
             this.label78.TabIndex = 18;
@@ -2047,6 +2049,7 @@
             this.checkBox_visualip.TabIndex = 21;
             this.checkBox_visualip.Text = "启用虚拟IP(LAN)";
             this.checkBox_visualip.UseVisualStyleBackColor = true;
+            this.checkBox_visualip.Visible = false;
             // 
             // label51
             // 
@@ -2056,6 +2059,7 @@
             this.label51.Size = new System.Drawing.Size(59, 12);
             this.label51.TabIndex = 61;
             this.label51.Text = "接入方式:";
+            this.label51.Visible = false;
             // 
             // label52
             // 
@@ -2065,6 +2069,7 @@
             this.label52.Size = new System.Drawing.Size(47, 12);
             this.label52.TabIndex = 63;
             this.label52.Text = "IP地址:";
+            this.label52.Visible = false;
             // 
             // panel4
             // 
@@ -2077,6 +2082,7 @@
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(226, 25);
             this.panel4.TabIndex = 61;
+            this.panel4.Visible = false;
             // 
             // rbt_vs_pppoe
             // 
@@ -2117,6 +2123,7 @@
             this.edt_vs_ip.Name = "edt_vs_ip";
             this.edt_vs_ip.Size = new System.Drawing.Size(141, 21);
             this.edt_vs_ip.TabIndex = 16;
+            this.edt_vs_ip.Visible = false;
             // 
             // label54
             // 
@@ -2126,6 +2133,7 @@
             this.label54.Size = new System.Drawing.Size(59, 12);
             this.label54.TabIndex = 15;
             this.label54.Text = "子网掩码:";
+            this.label54.Visible = false;
             // 
             // edt_vs_mask
             // 
@@ -2133,6 +2141,7 @@
             this.edt_vs_mask.Name = "edt_vs_mask";
             this.edt_vs_mask.Size = new System.Drawing.Size(141, 21);
             this.edt_vs_mask.TabIndex = 17;
+            this.edt_vs_mask.Visible = false;
             // 
             // label53
             // 
@@ -2142,6 +2151,7 @@
             this.label53.Size = new System.Drawing.Size(59, 12);
             this.label53.TabIndex = 18;
             this.label53.Text = "默认网关:";
+            this.label53.Visible = false;
             // 
             // label55
             // 
@@ -2151,6 +2161,7 @@
             this.label55.Size = new System.Drawing.Size(65, 12);
             this.label55.TabIndex = 19;
             this.label55.Text = "DNS服务器:";
+            this.label55.Visible = false;
             // 
             // edt_vs_gateway
             // 
@@ -2158,6 +2169,7 @@
             this.edt_vs_gateway.Name = "edt_vs_gateway";
             this.edt_vs_gateway.Size = new System.Drawing.Size(128, 21);
             this.edt_vs_gateway.TabIndex = 20;
+            this.edt_vs_gateway.Visible = false;
             // 
             // edt_vs_dhcpserver
             // 
@@ -2165,6 +2177,7 @@
             this.edt_vs_dhcpserver.Name = "edt_vs_dhcpserver";
             this.edt_vs_dhcpserver.Size = new System.Drawing.Size(128, 21);
             this.edt_vs_dhcpserver.TabIndex = 21;
+            this.edt_vs_dhcpserver.Visible = false;
             // 
             // label56
             // 
@@ -2174,6 +2187,7 @@
             this.label56.Size = new System.Drawing.Size(59, 12);
             this.label56.TabIndex = 62;
             this.label56.Text = "双栈开关:";
+            this.label56.Visible = false;
             // 
             // panel5
             // 
@@ -2185,6 +2199,7 @@
             this.panel5.Name = "panel5";
             this.panel5.Size = new System.Drawing.Size(106, 25);
             this.panel5.TabIndex = 62;
+            this.panel5.Visible = false;
             // 
             // double_stack_off
             // 
@@ -2307,14 +2322,14 @@
             // tabPage2
             // 
             this.tabPage2.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.tabPage2.Controls.Add(this.textBox2);
-            this.tabPage2.Controls.Add(this.checkBox1);
-            this.tabPage2.Controls.Add(this.button1);
+            this.tabPage2.Controls.Add(this.software_version);
+            this.tabPage2.Controls.Add(this.upgrade_status);
+            this.tabPage2.Controls.Add(this.force_upgrade);
+            this.tabPage2.Controls.Add(this.btn_upgrade);
             this.tabPage2.Controls.Add(this.btn_select_updatezip);
             this.tabPage2.Controls.Add(this.text_upgrade_path);
             this.tabPage2.Controls.Add(this.label39);
             this.tabPage2.Controls.Add(this.label38);
-            this.tabPage2.Controls.Add(this.text_current_softversion);
             this.tabPage2.Controls.Add(this.label37);
             this.tabPage2.Location = new System.Drawing.Point(4, 36);
             this.tabPage2.Name = "tabPage2";
@@ -2323,35 +2338,44 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "升级";
             // 
-            // textBox2
+            // software_version
             // 
-            this.textBox2.BackColor = System.Drawing.Color.White;
-            this.textBox2.Enabled = false;
-            this.textBox2.Location = new System.Drawing.Point(23, 162);
-            this.textBox2.Multiline = true;
-            this.textBox2.Name = "textBox2";
-            this.textBox2.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox2.Size = new System.Drawing.Size(693, 309);
-            this.textBox2.TabIndex = 57;
+            this.software_version.AutoSize = true;
+            this.software_version.Location = new System.Drawing.Point(154, 26);
+            this.software_version.Name = "software_version";
+            this.software_version.Size = new System.Drawing.Size(0, 12);
+            this.software_version.TabIndex = 58;
             // 
-            // checkBox1
+            // upgrade_status
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(154, 99);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(216, 16);
-            this.checkBox1.TabIndex = 56;
-            this.checkBox1.Text = "当前版本与目标版本相同也强制升级";
-            this.checkBox1.UseVisualStyleBackColor = true;
+            this.upgrade_status.BackColor = System.Drawing.Color.White;
+            this.upgrade_status.Location = new System.Drawing.Point(23, 162);
+            this.upgrade_status.Multiline = true;
+            this.upgrade_status.Name = "upgrade_status";
+            this.upgrade_status.ReadOnly = true;
+            this.upgrade_status.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.upgrade_status.Size = new System.Drawing.Size(693, 309);
+            this.upgrade_status.TabIndex = 57;
             // 
-            // button1
+            // force_upgrade
             // 
-            this.button1.Location = new System.Drawing.Point(641, 99);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 55;
-            this.button1.Text = "升级";
-            this.button1.UseVisualStyleBackColor = true;
+            this.force_upgrade.AutoSize = true;
+            this.force_upgrade.Location = new System.Drawing.Point(154, 99);
+            this.force_upgrade.Name = "force_upgrade";
+            this.force_upgrade.Size = new System.Drawing.Size(216, 16);
+            this.force_upgrade.TabIndex = 56;
+            this.force_upgrade.Text = "当前版本与目标版本相同也强制升级";
+            this.force_upgrade.UseVisualStyleBackColor = true;
+            // 
+            // btn_upgrade
+            // 
+            this.btn_upgrade.Location = new System.Drawing.Point(641, 99);
+            this.btn_upgrade.Name = "btn_upgrade";
+            this.btn_upgrade.Size = new System.Drawing.Size(75, 23);
+            this.btn_upgrade.TabIndex = 55;
+            this.btn_upgrade.Text = "升级";
+            this.btn_upgrade.UseVisualStyleBackColor = true;
+            this.btn_upgrade.Click += new System.EventHandler(this.btn_upgrade_Click);
             // 
             // btn_select_updatezip
             // 
@@ -2392,19 +2416,10 @@
             this.label38.TabIndex = 51;
             this.label38.Text = "目标版本文件:";
             // 
-            // text_current_softversion
-            // 
-            this.text_current_softversion.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.text_current_softversion.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.text_current_softversion.Location = new System.Drawing.Point(154, 26);
-            this.text_current_softversion.Name = "text_current_softversion";
-            this.text_current_softversion.Size = new System.Drawing.Size(182, 14);
-            this.text_current_softversion.TabIndex = 50;
-            // 
             // label37
             // 
             this.label37.AutoSize = true;
-            this.label37.Location = new System.Drawing.Point(29, 26);
+            this.label37.Location = new System.Drawing.Point(38, 26);
             this.label37.Name = "label37";
             this.label37.Size = new System.Drawing.Size(83, 12);
             this.label37.TabIndex = 0;
@@ -3602,20 +3617,30 @@
             this.text_status.Size = new System.Drawing.Size(300, 14);
             this.text_status.TabIndex = 60;
             // 
+            // upgrade_progress
+            // 
+            this.upgrade_progress.Location = new System.Drawing.Point(195, 525);
+            this.upgrade_progress.Name = "upgrade_progress";
+            this.upgrade_progress.Size = new System.Drawing.Size(500, 10);
+            this.upgrade_progress.TabIndex = 61;
+            this.upgrade_progress.Visible = false;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.WhiteSmoke;
             this.ClientSize = new System.Drawing.Size(734, 541);
+            this.Controls.Add(this.upgrade_progress);
             this.Controls.Add(this.text_status);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "工具";
+            this.Text = "海博STB工具";
             this.Activated += new System.EventHandler(this.MainForm_Activated);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormClosedEvent);
             this.tabControl1.ResumeLayout(false);
@@ -3777,6 +3802,8 @@
             DataModel.info_textList.Add(picture_sftp_host);
             DataModel.info_textList.Add(picture_sftp_name);
             DataModel.info_textList.Add(picture_sftp_pwd);
+            DataModel.info_textList.Add(text_upgrade_path);
+            DataModel.info_textList.Add(upgrade_status);
 
             DataModel.playInfo1List.Add(new DataModel("Cpu", "", labe_cpu, 1));
             DataModel.playInfo1List.Add(new DataModel("Mem", "", label_mem, 1));
@@ -3892,11 +3919,10 @@
         private System.Windows.Forms.TextBox text_ip3;
         private System.Windows.Forms.TextBox text_ip2;
         private System.Windows.Forms.TextBox text_ip1;
-        private System.Windows.Forms.TextBox text_current_softversion;
         private System.Windows.Forms.Label label37;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.CheckBox checkBox1;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.TextBox upgrade_status;
+        private System.Windows.Forms.CheckBox force_upgrade;
+        private System.Windows.Forms.Button btn_upgrade;
         private System.Windows.Forms.Button btn_select_updatezip;
         private System.Windows.Forms.TextBox text_upgrade_path;
         private System.Windows.Forms.Label label39;
@@ -4134,6 +4160,8 @@
         private System.Windows.Forms.Label AudioDecoderUnderflow1;
         private System.Windows.Forms.Label label110;
         private System.Windows.Forms.Label label119;
+        private System.Windows.Forms.Label software_version;
+        private System.Windows.Forms.ProgressBar upgrade_progress;
     }
 }
 

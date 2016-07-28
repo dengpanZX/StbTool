@@ -17,9 +17,16 @@ namespace StbTool
         public static string netType = null; //获取网络的连接状态
         private List<DataModel> mModifyList = new List<DataModel>(); //提交时获取的修改队列
         private Thread resultThread; //通过线程打印执行结果
-        public  bool isOperationSuccessful = false; //通过修改状态打印执行结果
-        public  string resultMsg; //打印的结果
+        public bool isOperationSuccessful = false; //通过修改状态打印执行结果
+        public string resultMsg; //打印的结果
         private bool isResultRunning; //控制打印结果的线程执行
+        public string stb_softVersion; //软件版本信息，提供给升级模块
+        private UpgradeSocket upgradesocket; //发送升级数据的socket
+        private int timezone_index; //记录时区的位置
+        private bool isInUpgrade = false; //记录是否处于升级状态
+        //声明API函数
+        [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true, EntryPoint = "EnableWindow")]
+        static extern long EnableWindow(IntPtr hwnd, bool fEnable);
         public MainForm()
         {
             InitializeComponent();
@@ -164,17 +171,17 @@ namespace StbTool
 
         private void btn_serversetting_Click(object sender, EventArgs e)
         {
-            panel_scroll_to(431);
+            panel_scroll_to(276);
         }
 
         private void btn_performlog_Click(object sender, EventArgs e)
         {
-            panel_scroll_to(621);
+            panel_scroll_to(466);
         }
 
         private void btn_networkmanager_Click(object sender, EventArgs e)
         {
-            panel_scroll_to(759);
+            panel_scroll_to(604);
         }
         //第二个面板按键的跳转  end
 
@@ -193,19 +200,19 @@ namespace StbTool
                 text_ip4.Text.ToString() == string.Empty)
             {
                 text_status.Text = "错误，IP为空!";
-              //  return;
+                // return;
             }
 
             if (comboBox_name.Text.ToString() == string.Empty)
             {
                 text_status.Text = "错误，用户名为空!";
-               // return;
+                //  return;
             }
 
             if (text_password.Text.ToString() == string.Empty)
             {
                 text_status.Text = "错误，密码为空!";
-              //  return;
+                //  return;
             }
             string ip = text_ip1.Text.ToString() + "." + text_ip2.Text.ToString() + "." + text_ip3.Text.ToString() + "." + text_ip4.Text.ToString();
             if (!mConnectStatus)
@@ -238,7 +245,7 @@ namespace StbTool
             }
             else if (msg.Contains("100"))
             {
-                resultMsg = "没有数据连接超时！";
+                resultMsg = "建立网络连接失败，请确保网络通达！";
             }
             else if (msg.Contains("400"))
             {
@@ -310,7 +317,12 @@ namespace StbTool
             mConnectStatus = false;
             isImportData2 = false;
             isImportData1 = false;
+            isInUpgrade = false;
+            updateUpgradeButton(true);
+            resuntlTimeSpan = 500;
             updateButtonEnable("disconnect", true);
+            if (upgradesocket != null)
+                upgradesocket.stopThread(); //停止下载的线程
             // 非UI线程通知主线程修改UI状态
             this.Invoke((MethodInvoker)delegate
                   {
@@ -347,8 +359,9 @@ namespace StbTool
                                         if (model.getValue().Equals(DataModel.timezoneUTCList[index]))
                                         {
                                             comboBox_timezone.SelectedIndex = index;
+                                            timezone_index = index;
                                             if (comboBox_timezone.Text.ToString() == string.Empty)
-                                                comboBox_timezone.SelectedText =DataModel.timezoneList[index];
+                                                comboBox_timezone.SelectedText = DataModel.timezoneList[index];
                                             break;
                                         }
                                     }
@@ -380,6 +393,10 @@ namespace StbTool
                             }
                             else
                             {
+                                if (model.getName().Equals("SoftwareVersion"))
+                                {
+                                    stb_softVersion = model.getValue();
+                                }
                                 lock ((TextBox)model.getObject())
                                 {
                                     ((TextBox)model.getObject()).Text = model.getValue();
@@ -454,6 +471,7 @@ namespace StbTool
                                             if (model.getValue().Equals(DataModel.timezoneUTCList[index]))
                                             {
                                                 edt_timezone.SelectedIndex = index;
+                                                timezone_index = index;
                                                 if (edt_timezone.Text.ToString() == string.Empty)
                                                     edt_timezone.SelectedText = DataModel.timezoneList[index];
                                                 break;
@@ -481,11 +499,10 @@ namespace StbTool
         {
             if (!mConnectStatus)
                 return;
+            clearTable1();
             updateStatus("正在更新数据...");
             mSocket.initSendData(DataModel.table1List, 1, "read");
             mSocket.sendMessage();
-            resultMsg = "操作成功";
-            isOperationSuccessful = true;
             isImportData1 = false;
         }
 
@@ -494,11 +511,10 @@ namespace StbTool
         {
             if (!mConnectStatus)
                 return;
+            clearTable2();
             updateStatus("正在更新数据...");
             mSocket.initSendData(DataModel.table2List, 2, "read");
             mSocket.sendMessage();
-            resultMsg = "操作成功";
-            isOperationSuccessful = true;
             isImportData2 = false;
         }
 
@@ -517,8 +533,6 @@ namespace StbTool
             }
             mSocket.initSendData(mModifyList, 1, "write");
             mSocket.sendMessage();
-            resultMsg = "操作成功";
-            isOperationSuccessful = true;
             isImportData1 = false;
         }
 
@@ -537,7 +551,6 @@ namespace StbTool
             }
             mSocket.initSendData(mModifyList, 2, "write");
             mSocket.sendMessage();
-            updateResultMeg("操作成功");
             isImportData2 = false;
         }
 
@@ -548,6 +561,7 @@ namespace StbTool
             isOperationSuccessful = true;
         }
 
+        private int resuntlTimeSpan = 500;
         //线程打印操作的处理结果
         private void printResult()
         {
@@ -555,7 +569,7 @@ namespace StbTool
             {
                 if (isOperationSuccessful)
                 {
-                    Thread.Sleep(500);
+                    Thread.Sleep(resuntlTimeSpan);
                     updateStatus(resultMsg);
                     isOperationSuccessful = false;
                     resultMsg = "";
@@ -610,7 +624,7 @@ namespace StbTool
             }
             else if (str.Equals("info")) //一键信息收集启动键
             {
-                btn = info_start;;
+                btn = info_start; ;
                 resultMsg = "操作成功";
             }
             else if (str.Equals("start")) //一键信息收集启动键
@@ -622,7 +636,7 @@ namespace StbTool
             {
                 btn = boot_start; ;
             }
-            else if (str.Equals("info_upload") || str.Equals("start_upload") ||str.Equals("picture_upload")) //开机信息收集上传键
+            else if (str.Equals("info_upload") || str.Equals("start_upload") || str.Equals("picture_upload")) //开机信息收集上传键
             {
                 if (enable)
                 {
@@ -675,8 +689,8 @@ namespace StbTool
                 {
                     value = comboBox_timezone.Text.ToString();
                     //兼容时区中UTC和GMT
-                    if (value.Equals(DataModel.timezoneList[comboBox_timezone.SelectedIndex]) &&
-                        model.getValue().Equals(DataModel.timezoneUTCList[comboBox_timezone.SelectedIndex]))
+                    if (value.Equals(DataModel.timezoneList[timezone_index]) &&
+                        model.getValue().Equals(DataModel.timezoneUTCList[timezone_index]))
                     {
                         value = model.getValue();
                     }
@@ -685,7 +699,6 @@ namespace StbTool
                 {
                     value = ((TextBox)model.getObject()).Text.ToString();
                 }
-                Console.WriteLine(value + "<<<<<<<<<<<<<" + model.getValue());
                 if (!value.Equals(model.getValue()) && !model.getName().Equals("connecttype") && !model.getName().Equals("localTime"))  //网络状态已经转换,避免每次都可以提交
                 {
                     model.setValue(value);
@@ -762,8 +775,8 @@ namespace StbTool
                     if (model.getName().Equals("timeZone"))
                     {
                         tempValue = edt_timezone.Text.ToString();
-                        if (tempValue.Equals(DataModel.timezoneList[edt_timezone.SelectedIndex]) &&
-                        model.getValue().Equals(DataModel.timezoneUTCList[edt_timezone.SelectedIndex]))
+                        if (tempValue.Equals(DataModel.timezoneList[timezone_index]) &&
+                        model.getValue().Equals(DataModel.timezoneUTCList[timezone_index]))
                         {
                             tempValue = model.getValue();
                         }
@@ -779,56 +792,58 @@ namespace StbTool
             DataModel.table2List = tempList;
         }
 
-        //未连接成功不让页面切换
+        //升级过程中不让页面切换
         private void tabControl1_Selecting(object sender, TabControlCancelEventArgs e)
         {
-            if (!mConnectStatus && isFirstTable)
+            if (isInUpgrade)
             {
-                //e.Cancel = true;
+                e.Cancel = true;
             }
         }
 
         //tableConrol页面切换
-        private static bool isFirstTable = true;
         private bool isImportData1 = false;
         private bool isImportData2 = false; //在导入参数执行后不刷新页面数据
         private void tabControl1_Selected(object sender, TabControlEventArgs e)
         {
-            updateStatus("");               
+            if (SocketHandler.client == null)
+                return;
+            if (!SocketHandler.client.Connected)
+            {
+                updateStatus("连接已断开");
+                return;
+            }
             if (e.TabPage == tabPage3)
             {
                 if (mConnectStatus && !isImportData1)
                 {
                     updateStatus("正在获取数据...");
+                    clearTable1();
                     mSocket.initSendData(DataModel.table1List, 1, "read");
                     mSocket.sendMessage();
-                    updateResultMeg("操作成功");
                 }
-                isFirstTable = true;
             }
             else if (e.TabPage == tabPage1)
             {
                 if (mConnectStatus && !isImportData2)
                 {
                     updateStatus("正在获取数据...");
+                    clearTable2();
                     mSocket.initSendData(DataModel.table2List, 2, "read");
                     mSocket.sendMessage();
-                    updateResultMeg("操作成功");
                 }
-                isFirstTable = false;
             }
             else if (e.TabPage == tabPage4)
             {
                 tabControl2.SelectedIndex = 0;
             }
-            else
+            else if (e.TabPage == tabPage2)
             {
-                isFirstTable = false;
+                software_version.Text = stb_softVersion;
             }
         }
 
-        //断开连接清除数据
-        private void clearData()
+        private void clearTable1()
         {
             this.Invoke((MethodInvoker)delegate
             {
@@ -845,6 +860,13 @@ namespace StbTool
                 {
                     comboBox_timezone.Text = "";
                 }
+            });
+        }
+
+        private void clearTable2()
+        {
+            this.Invoke((MethodInvoker)delegate
+            {
                 lock (this.edt_timezone)
                 {
                     edt_timezone.Text = "";
@@ -865,6 +887,16 @@ namespace StbTool
                         rbt.Checked = false;
                     }
                 }
+            });
+        }
+
+        //断开连接清除数据
+        private void clearData()
+        {
+            clearTable1();
+            clearTable2();
+            this.Invoke((MethodInvoker)delegate
+            {              
                 foreach (TextBox textbox in DataModel.info_textList)
                 {
                     lock (textbox)
@@ -879,6 +911,10 @@ namespace StbTool
                 lock (info_tcpdump)
                 {
                     info_tcpdump.Checked = false;
+                }
+                lock (this.upgrade_progress)
+                {
+                    upgrade_progress.Visible = false;
                 }
             });
         }
@@ -922,15 +958,6 @@ namespace StbTool
                 return;
             StbToolUtils.WriteListToTextFile(fName);
             updateResultMeg("导出参数成功");
-        }
-
-        //升级获取zip包路径
-        private void btn_select_updatezip_Click(object sender, EventArgs e)
-        {
-            if (!mConnectStatus)
-                return;
-            string fName = StbToolUtils.GetUpgradeZipFileName();
-            text_upgrade_path.Text = fName;
         }
 
         //一键收集按全选后抓包选项也选上
@@ -1005,12 +1032,12 @@ namespace StbTool
             DialogResult dr;
             if (errorMsg != string.Empty)
             {
-                dr = MessageBox.Show(errorMsg, "", MessageBoxButtons.OK,MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1);
+                dr = MessageBox.Show(errorMsg, "", MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1);
                 return;
             }
             else
             {
-                dr = MessageBox.Show("请确认SFTP服务已经开启", "", MessageBoxButtons.OK,MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1);
+                dr = MessageBox.Show("请确认SFTP服务已经开启", "", MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1);
             }
             if (dr == DialogResult.OK)
             {
@@ -1046,7 +1073,7 @@ namespace StbTool
         {
             if (!mConnectStatus)
                 return;
-            
+
             string errorMsg = "";
             if (start_sftp_host.Text.ToString() == string.Empty)
             {
@@ -1071,12 +1098,12 @@ namespace StbTool
             DialogResult dr;
             if (errorMsg != string.Empty)
             {
-                dr = MessageBox.Show(errorMsg, "", MessageBoxButtons.OK,MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1);
+                dr = MessageBox.Show(errorMsg, "", MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1);
                 return;
             }
             else
             {
-                dr = MessageBox.Show("请确认SFTP服务已经开启", "", MessageBoxButtons.OK,MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1);
+                dr = MessageBox.Show("请确认SFTP服务已经开启", "", MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1);
             }
             if (dr == DialogResult.OK)
             {
@@ -1091,7 +1118,7 @@ namespace StbTool
         {
             if (!mConnectStatus)
                 return;
-           if (boot_start.Enabled)
+            if (boot_start.Enabled)
             {
                 updateStatus("");
                 resultMsg = "已经停止";
@@ -1208,6 +1235,82 @@ namespace StbTool
                 return;
             StbToolUtils.WritePlayInfoToTextFile(fName);
             updateResultMeg("导出参数成功");
+        }
+
+        string upgradePath = "";
+        //升级获取zip包路径
+        private void btn_select_updatezip_Click(object sender, EventArgs e)
+        {
+            if (!mConnectStatus)
+                return;
+            upgradePath = StbToolUtils.GetUpgradeZipFileName();
+            text_upgrade_path.Text = upgradePath;
+        }
+
+        //升级按钮的处理
+        private void btn_upgrade_Click(object sender, EventArgs e)
+        {
+            if (!mConnectStatus || upgradePath == string.Empty)
+                return;
+            int port = mSocket.sendUpgradeMsg(upgradePath);
+            if (port != 0)
+            {
+                upgradesocket = new UpgradeSocket(this);
+                upgradesocket.startUpgrade("114.1.3.238", port, upgradePath);
+                upgrade_progress.Visible = true;
+                resuntlTimeSpan = 50;
+                isInUpgrade = true;
+                updateUpgradeButton(false);
+            }
+        }
+
+        //更新升级按钮状态
+        private void updateUpgradeButton(bool status)
+        {
+            this.Invoke((MethodInvoker)delegate
+            {
+                lock (this.btn_select_updatezip)
+                {
+                    btn_select_updatezip.Enabled = status;
+                }
+                lock (this.btn_upgrade)
+                {
+                    btn_upgrade.Enabled = status;
+                }
+            });
+        }
+
+        //升级时更新页面状态
+        public void upgrade_result(int progress)
+        {
+            this.Invoke((MethodInvoker)delegate
+            {
+                lock (this.upgrade_status)
+                {
+                    upgrade_status.AppendText("正在发送文件..." + progress + "%\n");
+                }
+                lock (this.upgrade_progress)
+                {
+                    upgrade_progress.Value = progress;
+                }
+                if (progress == 100)
+                {
+                    lock (this.upgrade_progress)
+                    {
+                        upgrade_progress.Visible = false;
+                    }
+                    updateResultMeg("升级成功");
+                    resuntlTimeSpan = 500;
+                    updateUpgradeButton(true);
+                    isInUpgrade = false;
+                    Thread.Sleep(2000);
+                    disconnect();
+                }
+                else
+                {
+                    updateResultMeg("正在发送文件..." + progress + "%");
+                }
+            });
         }
     }
 }
