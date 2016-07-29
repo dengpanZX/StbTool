@@ -24,6 +24,7 @@ namespace StbTool
         private UpgradeSocket upgradesocket; //发送升级数据的socket
         private int timezone_index; //记录时区的位置
         private bool isInUpgrade = false; //记录是否处于升级状态
+        private DateTime time = new DateTime();
         private string ipAdrees;
         //声明API函数
         [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true, EntryPoint = "EnableWindow")]
@@ -38,6 +39,8 @@ namespace StbTool
             isResultRunning = true;
             resultThread = new Thread(printResult);
             resultThread.Start();
+            Thread start_time = new Thread(timeThread);
+            start_time.Start();
         }
 
         //设置默认的焦点
@@ -201,19 +204,19 @@ namespace StbTool
                 text_ip4.Text.ToString() == string.Empty)
             {
                 text_status.Text = "错误，IP为空!";
-                    return;
+                return;
             }
 
             if (comboBox_name.Text.ToString() == string.Empty)
             {
                 text_status.Text = "错误，用户名为空!";
-                    return;
+                return;
             }
 
             if (text_password.Text.ToString() == string.Empty)
             {
                 text_status.Text = "错误，密码为空!";
-                  return;
+                return;
             }
             ipAdrees = text_ip1.Text.ToString() + "." + text_ip2.Text.ToString() + "." + text_ip3.Text.ToString() + "." + text_ip4.Text.ToString();
             if (!mConnectStatus)
@@ -240,7 +243,7 @@ namespace StbTool
             lock (thisLock)
             {
                 string msg = mSocket.startConnectStb(connect_name, connect_password, ipAdrees);
-                if(msg == string.Empty)
+                if (msg == string.Empty)
                     updateResultMeg("建立网络连接失败，请确保网络通达或远程连接是否已打开！");
                 else
                     messageHandler(msg);
@@ -324,6 +327,28 @@ namespace StbTool
             disconnectThread.Start(); //在重启后断开连接
         }
 
+        //设置当前时间的运行
+        private void timeThread()
+        {
+            Console.WriteLine("" + time.Year);
+            while (isResultRunning)
+            {
+                if (!time.Year.ToString().Equals("1"))
+                {
+                    this.Invoke((MethodInvoker)delegate
+                    {
+                         lock (text_time)
+                        {
+                            text_time.Text = time.ToString();
+                         }
+
+                    });
+                    time = time.AddSeconds(1);
+                }
+                Thread.Sleep(1000);
+            }
+        }
+
         //恢复出厂按键处理
         private void btn_reset_Click(object sender, EventArgs e)
         {
@@ -350,6 +375,7 @@ namespace StbTool
             isInUpgrade = false;
             updateUpgradeButton(true);
             resuntlTimeSpan = 500;
+            time = new DateTime();
             updateButtonEnable("disconnect", true);
             if (upgradesocket != null)
                 upgradesocket.stopThread(); //停止下载的线程
@@ -413,12 +439,9 @@ namespace StbTool
                             }
                             else if (model.getName().Equals("localTime"))
                             {
-                                string time = time_format(model.getValue());
-                                lock ((TextBox)model.getObject())
-                                {
-
-                                    ((TextBox)model.getObject()).Text = time;
-                                }
+                                Console.WriteLine(model.getValue() + "<<" + System.Globalization.CultureInfo.CurrentCulture);
+                                if (model.getValue() != string.Empty)
+                                    time = DateTime.ParseExact(model.getValue(), "yyyyMMddHHmmss", System.Globalization.CultureInfo.CurrentCulture);
                             }
                             else
                             {
@@ -925,7 +948,7 @@ namespace StbTool
             clearTable1();
             clearTable2();
             this.Invoke((MethodInvoker)delegate
-            {              
+            {
                 foreach (TextBox textbox in DataModel.info_textList)
                 {
                     lock (textbox)
@@ -950,21 +973,6 @@ namespace StbTool
                     force_upgrade.Checked = false;
                 }
             });
-        }
-
-        //格式化获取的时间
-        private string time_format(string time)
-        {
-            if (time == string.Empty)
-                return "";
-            string year = time.Substring(0, 4);
-            string month = time.Substring(4, 2);
-            string day = time.Substring(6, 2);
-            string hour = time.Substring(8, 2);
-            string minute = time.Substring(10, 2);
-            string second = time.Substring(12, 2);
-            time = year + "-" + month + "-" + day + " " + hour + ":" + minute + ":" + second;
-            return time;
         }
 
         //导入参数

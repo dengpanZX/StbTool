@@ -455,7 +455,7 @@
             this.groupBox3.Controls.Add(this.label33);
             this.groupBox3.Location = new System.Drawing.Point(6, 389);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(687, 54);
+            this.groupBox3.Size = new System.Drawing.Size(697, 54);
             this.groupBox3.TabIndex = 69;
             this.groupBox3.TabStop = false;
             // 
@@ -520,7 +520,7 @@
             this.groupBox2.Controls.Add(this.text_ntp_backup);
             this.groupBox2.Controls.Add(this.text_upgradeaddress_backup);
             this.groupBox2.Controls.Add(this.text_ntp);
-            this.groupBox2.Location = new System.Drawing.Point(302, 53);
+            this.groupBox2.Location = new System.Drawing.Point(312, 53);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(391, 330);
             this.groupBox2.TabIndex = 55;
@@ -803,7 +803,7 @@
             this.groupBox1.Controls.Add(this.text_softversion);
             this.groupBox1.Location = new System.Drawing.Point(6, 53);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(290, 330);
+            this.groupBox1.Size = new System.Drawing.Size(300, 330);
             this.groupBox1.TabIndex = 68;
             this.groupBox1.TabStop = false;
             // 
@@ -972,7 +972,7 @@
             this.text_stbid.Location = new System.Drawing.Point(100, 43);
             this.text_stbid.Name = "text_stbid";
             this.text_stbid.ReadOnly = true;
-            this.text_stbid.Size = new System.Drawing.Size(182, 14);
+            this.text_stbid.Size = new System.Drawing.Size(192, 14);
             this.text_stbid.TabIndex = 52;
             // 
             // text_stbmac
@@ -1123,7 +1123,7 @@
             // 
             // btn_fresh
             // 
-            this.btn_fresh.Location = new System.Drawing.Point(633, 449);
+            this.btn_fresh.Location = new System.Drawing.Point(630, 449);
             this.btn_fresh.Name = "btn_fresh";
             this.btn_fresh.Size = new System.Drawing.Size(75, 23);
             this.btn_fresh.TabIndex = 50;
@@ -1133,7 +1133,7 @@
             // 
             // btn_commit
             // 
-            this.btn_commit.Location = new System.Drawing.Point(534, 449);
+            this.btn_commit.Location = new System.Drawing.Point(540, 449);
             this.btn_commit.Name = "btn_commit";
             this.btn_commit.Size = new System.Drawing.Size(75, 23);
             this.btn_commit.TabIndex = 49;
