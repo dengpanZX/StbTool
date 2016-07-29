@@ -31,7 +31,7 @@ namespace StbTool
         public MainForm()
         {
             InitializeComponent();
-            initListData();
+            initUiList();
             mSocket = new SocketHandler(this);
             DataModel.initTimeZone();
             initConbobox();
@@ -218,6 +218,7 @@ namespace StbTool
             ipAdrees = text_ip1.Text.ToString() + "." + text_ip2.Text.ToString() + "." + text_ip3.Text.ToString() + "." + text_ip4.Text.ToString();
             if (!mConnectStatus)
             {
+                initParamListData();
                 text_status.Text = "正在连接...";
                 connect_name = comboBox_name.Text.ToString();
                 connect_password = text_password.Text.ToString();
@@ -319,6 +320,8 @@ namespace StbTool
             {
                 mSocket.sendIoctlMessage("ioctl^reboot^null");
             }
+            Thread disconnectThread = new Thread(afterUpgradeDisconnect);
+            disconnectThread.Start(); //在重启后断开连接
         }
 
         //恢复出厂按键处理
@@ -333,6 +336,8 @@ namespace StbTool
             {
                 mSocket.sendIoctlMessage("ioctl^restore_setting^null");
             }
+            Thread disconnectThread = new Thread(afterUpgradeDisconnect);
+            disconnectThread.Start(); //在恢复出厂后断开连接
         }
 
         //断开连接处理
@@ -401,10 +406,9 @@ namespace StbTool
                                     nettype = "PPPoE";
                                 else if ("2".Equals(model.getValue()))
                                     nettype = "DHCP";
-                                lock ((TextBox)model.getObject())
+                                lock (text_nettype)
                                 {
-
-                                    ((TextBox)model.getObject()).Text = nettype;
+                                    text_nettype.Text = nettype;
                                 }
                             }
                             else if (model.getName().Equals("localTime"))
@@ -951,6 +955,8 @@ namespace StbTool
         //格式化获取的时间
         private string time_format(string time)
         {
+            if (time == string.Empty)
+                return "";
             string year = time.Substring(0, 4);
             string month = time.Substring(4, 2);
             string day = time.Substring(6, 2);

@@ -183,8 +183,8 @@ namespace StbTool
                     break;
                 }
                 string getdata = Encoding.UTF8.GetString(data, 0, recv);
-                //Console.WriteLine(getdata + "<<<" + model.getName());
-                if (getdata.Contains("200read"))
+                Console.WriteLine(getdata + "<<<" + model.getName());
+                if (getdata.Contains("200read^" + model.getName()))
                 {
                     string value = getdata.Substring(9 + model.getName().Length);
                     if (value.Equals("null"))
@@ -213,15 +213,16 @@ namespace StbTool
                 {
                     if (tmpList.Count > 0 && tmpList.Count == DataModel.table1List.Count)
                         mainForm.updateResultMeg("操作成功");
-                    DataModel.table1List = tmpList;
+                    //DataModel.table1List = tmpList;
+                    mainForm.updateUI(DataModel.table1List, mListIndex);
                 }
                 else if (mListIndex == 2)
                 {
                     if (tmpList.Count > 0 && tmpList.Count == DataModel.table2List.Count)
                         mainForm.updateResultMeg("操作成功");
-                    DataModel.table2List = tmpList;
+                    //DataModel.table2List = tmpList;
+                    mainForm.updateUI(DataModel.table2List, mListIndex);
                 }
-                mainForm.updateUI(tmpList, mListIndex);
             }
         }
 

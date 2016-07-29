@@ -3614,7 +3614,7 @@
             this.text_status.BackColor = System.Drawing.Color.WhiteSmoke;
             this.text_status.Location = new System.Drawing.Point(7, 522);
             this.text_status.Name = "text_status";
-            this.text_status.Size = new System.Drawing.Size(300, 14);
+            this.text_status.Size = new System.Drawing.Size(500, 14);
             this.text_status.TabIndex = 60;
             // 
             // upgrade_progress
@@ -3719,8 +3719,9 @@
 
         #endregion
 
-        private void initListData()
+        private void initParamListData()
         {
+            DataModel.table1List.Clear();
             DataModel.table1List.Add(new DataModel("STB_model", "", text_stbtype, 1));
             DataModel.table1List.Add(new DataModel("STBIDNUM", "", text_stbid, 1));
             DataModel.table1List.Add(new DataModel("MACAddress", "", text_stbmac, 1));
@@ -3750,7 +3751,7 @@
             DataModel.table1List.Add(new DataModel("sqmURL", "", text_sqmaddress, 3));
 
 
-
+            DataModel.table2List.Clear();
             DataModel.table2List.Add(new DataModel("ntvuseraccount", "", edt_iptv_account, 3));
             DataModel.table2List.Add(new DataModel("ntvuserpassword", "", edt_user_password, 3));
             DataModel.table2List.Add(new DataModel("Main_HomepageUrl", "", edt_authaddress, 3));
@@ -3781,6 +3782,10 @@
             DataModel.table2List.Add(new DataModel("TMSEnable", "", null, 3)); //tms开关
             DataModel.table2List.Add(new DataModel("TMSHeartBit", "", null, 3)); //tms心跳开关
 
+        }
+
+        private void initUiList()
+        {
             DataModel.rbtlist.Add(rbt_static);
             DataModel.rbtlist.Add(rbt_pppoe);
             DataModel.rbtlist.Add(rbt_dhcp);
@@ -3796,9 +3801,10 @@
             DataModel.info_textList.Add(info_sftp_name);
             DataModel.info_textList.Add(info_sftp_pwd);
             DataModel.info_textList.Add(info_stfp_host);
+            DataModel.info_textList.Add(start_size);
+            DataModel.info_textList.Add(start_sftp_host);
             DataModel.info_textList.Add(start_sftp_name);
-            DataModel.info_textList.Add(start_sftp_name);
-            DataModel.info_textList.Add(start_sftp_name);
+            DataModel.info_textList.Add(start_sftp_pwd);
             DataModel.info_textList.Add(picture_sftp_host);
             DataModel.info_textList.Add(picture_sftp_name);
             DataModel.info_textList.Add(picture_sftp_pwd);
