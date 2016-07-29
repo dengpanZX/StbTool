@@ -24,6 +24,7 @@ namespace StbTool
         private UpgradeSocket upgradesocket; //发送升级数据的socket
         private int timezone_index; //记录时区的位置
         private bool isInUpgrade = false; //记录是否处于升级状态
+        private string ipAdrees;
         //声明API函数
         [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true, EntryPoint = "EnableWindow")]
         static extern long EnableWindow(IntPtr hwnd, bool fEnable);
@@ -200,30 +201,48 @@ namespace StbTool
                 text_ip4.Text.ToString() == string.Empty)
             {
                 text_status.Text = "错误，IP为空!";
-                // return;
+                    return;
             }
 
             if (comboBox_name.Text.ToString() == string.Empty)
             {
                 text_status.Text = "错误，用户名为空!";
-                //  return;
+                    return;
             }
 
             if (text_password.Text.ToString() == string.Empty)
             {
                 text_status.Text = "错误，密码为空!";
-                //  return;
+                  return;
             }
-            string ip = text_ip1.Text.ToString() + "." + text_ip2.Text.ToString() + "." + text_ip3.Text.ToString() + "." + text_ip4.Text.ToString();
+            ipAdrees = text_ip1.Text.ToString() + "." + text_ip2.Text.ToString() + "." + text_ip3.Text.ToString() + "." + text_ip4.Text.ToString();
             if (!mConnectStatus)
             {
                 text_status.Text = "正在连接...";
-                string msg = mSocket.startConnectStb(comboBox_name.Text.ToString(), text_password.Text.ToString(), ip);
-                messageHandler(msg);
+                connect_name = comboBox_name.Text.ToString();
+                connect_password = text_password.Text.ToString();
+                Thread connect = new Thread(connectThread);
+                connect.Start();
             }
             else
             {
                 disconnect();
+            }
+        }
+
+        private Object thisLock = new Object();
+        private string connect_name;
+        private string connect_password;
+        //锁住线程，防止多次开启socket
+        private void connectThread()
+        {
+            lock (thisLock)
+            {
+                string msg = mSocket.startConnectStb(connect_name, connect_password, ipAdrees);
+                if(msg == string.Empty)
+                    updateResultMeg("建立网络连接失败，请确保网络通达或远程连接是否已打开！");
+                else
+                    messageHandler(msg);
             }
         }
 
@@ -239,7 +258,13 @@ namespace StbTool
         {
             if (msg.Contains("200"))
             {
-                btn_connect.Text = "断开";
+                this.Invoke((MethodInvoker)delegate
+                {
+                    lock (this.btn_connect)
+                    {
+                        btn_connect.Text = "断开";
+                    }
+                });
                 mConnectStatus = true;
                 resultMsg = "连接成功！";
             }
@@ -916,6 +941,10 @@ namespace StbTool
                 {
                     upgrade_progress.Visible = false;
                 }
+                lock (this.force_upgrade)
+                {
+                    force_upgrade.Checked = false;
+                }
             });
         }
 
@@ -1252,13 +1281,13 @@ namespace StbTool
         {
             if (!mConnectStatus || upgradePath == string.Empty)
                 return;
-            int port = mSocket.sendUpgradeMsg(upgradePath);
+            int port = mSocket.sendUpgradeMsg(upgradePath, force_upgrade.Checked);
             if (port != 0)
             {
                 upgradesocket = new UpgradeSocket(this);
-                upgradesocket.startUpgrade("114.1.3.238", port, upgradePath);
+                upgradesocket.startUpgrade(ipAdrees, port, upgradePath);
                 upgrade_progress.Visible = true;
-                resuntlTimeSpan = 50;
+                resuntlTimeSpan = 0;
                 isInUpgrade = true;
                 updateUpgradeButton(false);
             }
@@ -1277,6 +1306,10 @@ namespace StbTool
                 {
                     btn_upgrade.Enabled = status;
                 }
+                lock (this.force_upgrade)
+                {
+                    force_upgrade.Enabled = status;
+                }
             });
         }
 
@@ -1288,6 +1321,7 @@ namespace StbTool
                 lock (this.upgrade_status)
                 {
                     upgrade_status.AppendText("正在发送文件..." + progress + "%\n");
+                    updateStatus("正在发送文件..." + progress + "%");
                 }
                 lock (this.upgrade_progress)
                 {
@@ -1295,22 +1329,17 @@ namespace StbTool
                 }
                 if (progress == 100)
                 {
-                    lock (this.upgrade_progress)
-                    {
-                        upgrade_progress.Visible = false;
-                    }
                     updateResultMeg("升级成功");
-                    resuntlTimeSpan = 500;
-                    updateUpgradeButton(true);
-                    isInUpgrade = false;
-                    Thread.Sleep(2000);
-                    disconnect();
-                }
-                else
-                {
-                    updateResultMeg("正在发送文件..." + progress + "%");
+                    Thread disconnectThread = new Thread(afterUpgradeDisconnect);
+                    disconnectThread.Start(); //在升级后断开连接
                 }
             });
+        }
+
+        private void afterUpgradeDisconnect()
+        {
+            Thread.Sleep(5000);
+            disconnect();
         }
     }
 }

@@ -42,7 +42,7 @@ namespace StbTool
         {
             FileInfo EzoneFile = new FileInfo(upgradePath);
             FileStream EzoneStream = EzoneFile.OpenRead();
-            int PacketCount = 100;
+            int PacketCount = 99;
             int PacketSize = (int)(EzoneStream.Length / PacketCount);
             int LastDataPacket = (int)(EzoneStream.Length - ((long)(PacketSize * PacketCount)));
             upgradeClient = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
@@ -71,6 +71,7 @@ namespace StbTool
                 EzoneStream.Read(data, 0, data.Length);
                 SendVarData(upgradeClient, data);
             }
+            mainFrom.upgrade_result(100);
             upgradeClient.Close();
             EzoneStream.Close();
         }

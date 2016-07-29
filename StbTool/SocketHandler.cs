@@ -47,8 +47,8 @@ namespace StbTool
         {
             byte[] data = new byte[1024];
             client = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-            //IPEndPoint ie = new IPEndPoint(IPAddress.Parse(ipAddress), port);
-            IPEndPoint ie = new IPEndPoint(IPAddress.Parse("114.1.3.238"), port);
+            IPEndPoint ie = new IPEndPoint(IPAddress.Parse(ipAddress), port);
+            //IPEndPoint ie = new IPEndPoint(IPAddress.Parse("114.1.3.238"), port);
             TimeoutObject = new ManualResetEvent(false);
             try
             {
@@ -58,7 +58,7 @@ namespace StbTool
             catch (SocketException e)
             {
                 Console.WriteLine(e.ToString());
-                return null;
+                return "";
             }
             //线程阻塞10秒判断是否可以连接的地址
             TimeoutObject.WaitOne(10000, false);
@@ -68,12 +68,20 @@ namespace StbTool
                 return "100initialize^connection"; //超时连接
             }          
             int recv;  
-            //string msg = createMd5(name + password);
-            string msg = createMd5("root.Yx684");
+            string msg = createMd5(name + password);
+            //string msg = createMd5("root.Yx684");
             string sessionID = msg.Substring(0,16).ToLower();
             string indefycode = createMd5(sessionID + "huawei").Substring(0,8);
             client.Send(Encoding.ASCII.GetBytes(indefycode + sessionID + "initialize^connection^null"));
-            recv = client.Receive(data);
+            try
+            {
+                recv = client.Receive(data);
+            }
+            catch (SocketException e)
+            {
+                Console.WriteLine(e.ToString());
+                return "";
+            }
             string getdata = Encoding.UTF8.GetString(data, 0, recv);
             if (getdata == String.Empty)
             {
@@ -393,7 +401,7 @@ namespace StbTool
         }
 
         //发送升级消息
-        public int sendUpgradeMsg(string upgradePath)
+        public int sendUpgradeMsg(string upgradePath, bool forceUpgrade)
         {
             int recv = 0;
             byte[] data = new byte[1024];
@@ -401,7 +409,10 @@ namespace StbTool
             client.Send(Encoding.ASCII.GetBytes(mTcpHead + "inform^set_upgradelength^null^" + fileInfo.Length));
             recv = client.Receive(data);
             string result = Encoding.UTF8.GetString(data, 0, recv);
-            client.Send(Encoding.ASCII.GetBytes(mTcpHead + "ioctl^upgrade^null"));
+            if (forceUpgrade)
+                client.Send(Encoding.ASCII.GetBytes(mTcpHead + "ioctl^upgrade^/f"));
+            else
+                client.Send(Encoding.ASCII.GetBytes(mTcpHead + "ioctl^upgrade^null"));
             try
             {
                 recv = client.Receive(data);
