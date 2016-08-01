@@ -897,6 +897,7 @@ namespace StbTool
 
         private void clearTable1()
         {
+            time = new DateTime();
             this.Invoke((MethodInvoker)delegate
             {
                 foreach (DataModel model in DataModel.table1List)
@@ -947,6 +948,7 @@ namespace StbTool
         {
             clearTable1();
             clearTable2();
+            upgradePath = "";
             this.Invoke((MethodInvoker)delegate
             {
                 foreach (TextBox textbox in DataModel.info_textList)
@@ -971,6 +973,10 @@ namespace StbTool
                 lock (this.force_upgrade)
                 {
                     force_upgrade.Checked = false;
+                }
+                lock (this.software_version)
+                {
+                    software_version.Text = "";
                 }
             });
         }
@@ -1293,8 +1299,16 @@ namespace StbTool
         //升级按钮的处理
         private void btn_upgrade_Click(object sender, EventArgs e)
         {
-            if (!mConnectStatus || upgradePath == string.Empty)
+            if (!mConnectStatus)
                 return;
+            if (upgradePath == string.Empty)
+            {
+                updateResultMeg("未指定升级文件");
+                DialogResult dr;
+                dr = MessageBox.Show("未指定升级文件", "错误", MessageBoxButtons.OK, 0, MessageBoxDefaultButton.Button1);
+                return;
+            }
+
             int port = mSocket.sendUpgradeMsg(upgradePath, force_upgrade.Checked);
             if (port != 0)
             {

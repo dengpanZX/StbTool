@@ -32,7 +32,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>bitbug_favicon.ico</ApplicationIcon>
+    <ApplicationIcon>logo.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
     <NoWin32Manifest>true</NoWin32Manifest>
@@ -83,8 +83,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="bitbug_favicon %281%29.ico" />
-    <Content Include="bitbug_favicon.ico" />
+    <Content Include="logo.ico" />
     <Content Include="_favicon.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -212,16 +212,20 @@ namespace StbTool
                 if (mListIndex == 1)
                 {
                     if (tmpList.Count > 0 && tmpList.Count == DataModel.table1List.Count)
+                    {
                         mainForm.updateResultMeg("操作成功");
-                    //DataModel.table1List = tmpList;
-                    mainForm.updateUI(DataModel.table1List, mListIndex);
+                        //DataModel.table1List = tmpList;
+                        mainForm.updateUI(DataModel.table1List, mListIndex);
+                    }
                 }
                 else if (mListIndex == 2)
                 {
                     if (tmpList.Count > 0 && tmpList.Count == DataModel.table2List.Count)
+                    {
                         mainForm.updateResultMeg("操作成功");
-                    //DataModel.table2List = tmpList;
-                    mainForm.updateUI(DataModel.table2List, mListIndex);
+                        //DataModel.table2List = tmpList;
+                        mainForm.updateUI(DataModel.table2List, mListIndex);
+                    }
                 }
             }
         }
