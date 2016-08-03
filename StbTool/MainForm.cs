@@ -322,9 +322,9 @@ namespace StbTool
             if (dr == DialogResult.OK)
             {
                 mSocket.sendIoctlMessage("ioctl^reboot^null");
+                Thread disconnectThread = new Thread(afterUpgradeDisconnect);
+                disconnectThread.Start(); //在重启后断开连接
             }
-            Thread disconnectThread = new Thread(afterUpgradeDisconnect);
-            disconnectThread.Start(); //在重启后断开连接
         }
 
         //设置当前时间的运行
@@ -360,9 +360,9 @@ namespace StbTool
             if (dr == DialogResult.OK)
             {
                 mSocket.sendIoctlMessage("ioctl^restore_setting^null");
+                Thread disconnectThread = new Thread(afterUpgradeDisconnect);
+                disconnectThread.Start(); //在恢复出厂后断开连接
             }
-            Thread disconnectThread = new Thread(afterUpgradeDisconnect);
-            disconnectThread.Start(); //在恢复出厂后断开连接
         }
 
         //断开连接处理
