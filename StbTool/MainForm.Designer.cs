@@ -244,7 +244,6 @@
             this.textBox14 = new System.Windows.Forms.TextBox();
             this.groupBox10 = new System.Windows.Forms.GroupBox();
             this.boot_stop = new System.Windows.Forms.Button();
-            this.label88 = new System.Windows.Forms.Label();
             this.label87 = new System.Windows.Forms.Label();
             this.label86 = new System.Windows.Forms.Label();
             this.start_size = new System.Windows.Forms.TextBox();
@@ -351,6 +350,7 @@
             this.label89 = new System.Windows.Forms.Label();
             this.text_status = new System.Windows.Forms.Label();
             this.upgrade_progress = new System.Windows.Forms.ProgressBar();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.tabControl1.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -392,6 +392,7 @@
             this.panel1.SuspendLayout();
             this.panel12.SuspendLayout();
             this.panel11.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -2556,8 +2557,8 @@
             // 
             // groupBox10
             // 
+            this.groupBox10.Controls.Add(this.pictureBox1);
             this.groupBox10.Controls.Add(this.boot_stop);
-            this.groupBox10.Controls.Add(this.label88);
             this.groupBox10.Controls.Add(this.label87);
             this.groupBox10.Controls.Add(this.label86);
             this.groupBox10.Controls.Add(this.start_size);
@@ -2587,20 +2588,10 @@
             this.boot_stop.UseVisualStyleBackColor = true;
             this.boot_stop.Click += new System.EventHandler(this.boot_stop_Click);
             // 
-            // label88
-            // 
-            this.label88.AutoSize = true;
-            this.label88.ForeColor = System.Drawing.Color.Red;
-            this.label88.Location = new System.Drawing.Point(389, 26);
-            this.label88.Name = "label88";
-            this.label88.Size = new System.Drawing.Size(11, 12);
-            this.label88.TabIndex = 21;
-            this.label88.Text = "*";
-            // 
             // label87
             // 
             this.label87.AutoSize = true;
-            this.label87.ForeColor = System.Drawing.Color.Red;
+            this.label87.ForeColor = System.Drawing.SystemColors.ControlText;
             this.label87.Location = new System.Drawing.Point(398, 26);
             this.label87.Name = "label87";
             this.label87.Size = new System.Drawing.Size(269, 12);
@@ -3625,6 +3616,15 @@
             this.upgrade_progress.TabIndex = 61;
             this.upgrade_progress.Visible = false;
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.Location = new System.Drawing.Point(377, 24);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(16, 16);
+            this.pictureBox1.TabIndex = 21;
+            this.pictureBox1.TabStop = false;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -3712,6 +3712,7 @@
             this.panel12.PerformLayout();
             this.panel11.ResumeLayout(false);
             this.panel11.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -4095,7 +4096,6 @@
         private System.Windows.Forms.TextBox textBox10;
         private System.Windows.Forms.Label label90;
         private System.Windows.Forms.Label label89;
-        private System.Windows.Forms.Label label88;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.Button playinfo_export;
         private System.Windows.Forms.Button playInfo_fresh;
@@ -4168,6 +4168,7 @@
         private System.Windows.Forms.Label label119;
         private System.Windows.Forms.Label software_version;
         private System.Windows.Forms.ProgressBar upgrade_progress;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }
 
