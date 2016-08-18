@@ -195,7 +195,7 @@ namespace StbTool
                 }
                 else if (getdata.Contains("200write"))
                 {
-                    mainForm.updateResultMeg("操作成功");
+                    mainForm.updateResultMsg("操作成功");
                 }
             }
             if (mOperate.Equals("write") && mListIndex == 2 && MainForm.netType != null)
@@ -213,7 +213,7 @@ namespace StbTool
                 {
                     if (tmpList.Count > 0 && tmpList.Count == DataModel.table1List.Count)
                     {
-                        mainForm.updateResultMeg("操作成功");
+                        mainForm.updateResultMsg("操作成功");
                         //DataModel.table1List = tmpList;
                         mainForm.updateUI(DataModel.table1List, mListIndex);
                     }
@@ -222,7 +222,7 @@ namespace StbTool
                 {
                     if (tmpList.Count > 0 && tmpList.Count == DataModel.table2List.Count)
                     {
-                        mainForm.updateResultMeg("操作成功");
+                        mainForm.updateResultMsg("操作成功");
                         //DataModel.table2List = tmpList;
                         mainForm.updateUI(DataModel.table2List, mListIndex);
                     }
@@ -245,8 +245,16 @@ namespace StbTool
         {
             int recv = 0;
             byte[] data = new byte[1024];
-            client.Send(Encoding.ASCII.GetBytes(mTcpHead + ioctlMessage));
-            recv = client.Receive(data);
+            try
+            {
+                client.Send(Encoding.ASCII.GetBytes(mTcpHead + ioctlMessage));
+                recv = client.Receive(data);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                mainForm.disconnect();
+            }
             string getdata = Encoding.UTF8.GetString(data, 0, recv);
             Console.WriteLine(getdata + "<<<");
             ioctlResult(getdata);
@@ -368,13 +376,13 @@ namespace StbTool
                 {
                     if (!str.Contains("200"))
                     {
-                        mainForm.updateResultMeg("可视化信息收集失败");
+                        mainForm.updateResultMsg("可视化信息收集失败");
                         break;
                     }
                     string CpuUsedRate = str.Substring(22);
                     if (CpuUsedRate.Equals("unknown"))
                     {
-                        mainForm.updateResultMeg("可视化信息收集失败");
+                        mainForm.updateResultMsg("可视化信息收集失败");
                         break;
                     }
                 }
@@ -396,12 +404,12 @@ namespace StbTool
             }
             if (listindex == 31)
             {
-                mainForm.updateResultMeg("可视化信息收集成功");
+                mainForm.updateResultMsg("可视化信息收集成功");
                 mainForm.updatePlayInfoUI();
             }
             else
             {
-                mainForm.updateResultMeg("可视化信息收集失败");
+                mainForm.updateResultMsg("可视化信息收集失败");
             }
         }
 

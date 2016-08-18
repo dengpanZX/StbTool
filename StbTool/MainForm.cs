@@ -244,7 +244,7 @@ namespace StbTool
             {
                 string msg = mSocket.startConnectStb(connect_name, connect_password, ipAdrees);
                 if (msg == string.Empty)
-                    updateResultMeg("建立网络连接失败，请确保网络通达或远程连接是否已打开！");
+                    updateResultMsg("建立网络连接失败，请确保网络通达或远程连接是否已打开！");
                 else
                     messageHandler(msg);
             }
@@ -607,7 +607,7 @@ namespace StbTool
         }
 
         //更新状态栏打印信息
-        public void updateResultMeg(string msg)
+        public void updateResultMsg(string msg)
         {
             resultMsg = msg;
             isOperationSuccessful = true;
@@ -990,7 +990,7 @@ namespace StbTool
             if (fName == string.Empty)
                 return;
             StbToolUtils.ReadTextFileToList(fName);
-            updateResultMeg("导入参数成功");
+            updateResultMsg("导入参数成功");
             updateUI(DataModel.paramsList1, 1);
             updateUI(DataModel.paramsList2, 2);
             isImportData1 = true;
@@ -1006,7 +1006,7 @@ namespace StbTool
             if (fName == string.Empty)
                 return;
             StbToolUtils.WriteListToTextFile(fName);
-            updateResultMeg("导出参数成功");
+            updateResultMsg("导出参数成功");
         }
 
         //一键收集按全选后抓包选项也选上
@@ -1102,18 +1102,18 @@ namespace StbTool
             if (!mConnectStatus)
                 return;
             string sendMsg = "";
-            if (start_size.Text.ToString() == string.Empty)
-            {
-                MessageBox.Show("抓包大小为空", "", MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1);
-                return;
-            }
-            else if (Convert.ToInt32(start_size.Text.ToString()) > 10 || Convert.ToInt32(start_size.Text.ToString()) < 0)
-            {
-                MessageBox.Show("抓包大小不在数值范围", "错误", MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1);
-                return;
-            }
+            //if (start_size.Text.ToString() == string.Empty)
+            //{
+            //    MessageBox.Show("抓包大小为空", "", MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1);
+            //    return;
+            //}
+            //else if (Convert.ToInt32(start_size.Text.ToString()) > 10 || Convert.ToInt32(start_size.Text.ToString()) < 0)
+            //{
+            //    MessageBox.Show("抓包大小不在数值范围", "错误", MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1);
+            //    return;
+            //}
             updateStatus("开机信息收集");
-            sendMsg = "ioctl^starStartupInfo^null^" + start_size.Text.ToString();
+            sendMsg = "ioctl^starStartupInfo^null^null";
             mSocket.sendIoctlMessage(sendMsg);
         }
 
@@ -1167,13 +1167,6 @@ namespace StbTool
         {
             if (!mConnectStatus)
                 return;
-            if (boot_start.Enabled)
-            {
-                updateStatus("");
-                resultMsg = "已经停止";
-                isOperationSuccessful = true;
-                return;
-            }
             updateStatus("停止收集");
             mSocket.sendIoctlMessage("ioctl^stopStartupInfo^null");
         }
@@ -1283,7 +1276,7 @@ namespace StbTool
             if (fName == string.Empty)
                 return;
             StbToolUtils.WritePlayInfoToTextFile(fName);
-            updateResultMeg("导出参数成功");
+            updateResultMsg("导出参数成功");
         }
 
         string upgradePath = "";
@@ -1303,7 +1296,7 @@ namespace StbTool
                 return;
             if (upgradePath == string.Empty)
             {
-                updateResultMeg("未指定升级文件");
+                updateResultMsg("未指定升级文件");
                 DialogResult dr;
                 dr = MessageBox.Show("未指定升级文件", "错误", MessageBoxButtons.OK, 0, MessageBoxDefaultButton.Button1);
                 return;
@@ -1357,7 +1350,7 @@ namespace StbTool
                 }
                 if (progress == 100)
                 {
-                    updateResultMeg("升级成功");
+                    updateResultMsg("升级成功");
                     Thread disconnectThread = new Thread(afterUpgradeDisconnect);
                     disconnectThread.Start(); //在升级后断开连接
                 }
