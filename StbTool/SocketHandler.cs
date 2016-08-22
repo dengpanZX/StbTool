@@ -169,7 +169,7 @@ namespace StbTool
                     }
                     else if (mOperate.Equals("write"))
                     {
-                        if (model.getName().Equals("connecttype"))
+                        if (isModifyStaticNet())
                             continue;
                         Console.WriteLine(mTcpHead + mOperate + "^" + model.getName() + "^null^" + model.getValue());
                         client.Send(Encoding.ASCII.GetBytes(mTcpHead + mOperate + "^" + model.getName() + "^null^" + model.getValue()));
@@ -198,11 +198,10 @@ namespace StbTool
                     mainForm.updateResultMsg("操作成功");
                 }
             }
-            if (mOperate.Equals("write") && mListIndex == 2 && MainForm.netType != null)
+            if (mOperate.Equals("write") && mListIndex == 2 && isModifyStaticNet())
             {
                 //网络修改后单独在最后发送，避免修改网络后又数据未修改成功
-               // sendIoctlMessage(mOperate + "^" + "connecttype" + "^null^" + MainForm.netType);
-                ioctlMessage = mOperate + "^" + "connecttype" + "^null^" + MainForm.netType;
+                // sendIoctlMessage(mOperate + "^" + "connecttype" + "^null^" + MainForm.netType);
                 Thread sendNetMsg = new Thread(sendNetworkMessage);
                 sendNetMsg.Start();
                 return;
@@ -256,18 +255,46 @@ namespace StbTool
                 mainForm.disconnect();
             }
             string getdata = Encoding.UTF8.GetString(data, 0, recv);
-            Console.WriteLine(getdata + "<<<");
             ioctlResult(getdata);
         }
 
         //单独处理网络状态修改
         private void sendNetworkMessage()
         {
+            if ("3".EndsWith(MainForm.netType))
+            {
+                foreach (DataModel netmodel in DataModel.network_info)
+                {
+                    ioctlMessage = "write^" + netmodel.getName() + "^null^" + netmodel.getValue();
+                    sendIoctlMessage();
+                }
+            }
+            ioctlMessage = "write^" + "connecttype" + "^null^" + MainForm.netType;
             byte[] data = new byte[1024];
-            client.Send(Encoding.ASCII.GetBytes(mTcpHead + ioctlMessage));
+            try
+            {
+                client.Send(Encoding.ASCII.GetBytes(mTcpHead + ioctlMessage));
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                mainForm.disconnect();
+            }
             Thread.Sleep(1000);
             mainForm.disconnect();
         }
+
+        //判断是否修改了静态连接
+        private bool isModifyStaticNet()
+        {
+            foreach (DataModel model in mList)
+            {
+                string modifyName = model.getName();
+                return StbToolUtils.isModeifyStaticNet(modifyName);
+            }
+            return false;
+        }
+
         //处理ioctl消息的结果
         private void ioctlResult(string getdata)
         {

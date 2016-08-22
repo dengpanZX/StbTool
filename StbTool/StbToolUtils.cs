@@ -142,5 +142,17 @@ namespace StbTool
         {
             return Regex.IsMatch(ip, @"^((2[0-4]\d|25[0-5]|[01]?\d\d?)\.){3}(2[0-4]\d|25[0-5]|[01]?\d\d?)$");
         }
+
+        //判断是否修改静态网络
+        public static bool isModeifyStaticNet(String modifyName)
+        {
+            if (modifyName.Equals("connecttype") ||
+                modifyName.Equals("stbIP") ||
+                modifyName.Equals("gateway") ||
+                modifyName.Equals("netmask") ||
+                modifyName.Equals("dns"))
+                return true;
+            return false;
+        }
     }
 }

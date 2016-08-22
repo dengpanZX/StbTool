@@ -337,10 +337,10 @@ namespace StbTool
                 {
                     this.Invoke((MethodInvoker)delegate
                     {
-                         lock (text_time)
+                        lock (text_time)
                         {
                             text_time.Text = time.ToString();
-                         }
+                        }
 
                     });
                     time = time.AddSeconds(1);
@@ -463,8 +463,6 @@ namespace StbTool
                                 {
                                     ((TextBox)model.getObject()).Text = model.getValue();
                                 }
-
-
                             }
                             else
                             {
@@ -772,6 +770,17 @@ namespace StbTool
                 if (model.getObject() != null)
                 {
                     tempValue = ((TextBox)model.getObject()).Text.ToString();
+                    if (StbToolUtils.isModeifyStaticNet(model.getName()))
+                    {
+                        //将网络设置的信息保存，在静态设置前发送
+                        foreach (DataModel netmodel in DataModel.network_info)
+                        {
+                            if (netmodel.getName().EndsWith(model.getName()))
+                            {
+                                netmodel.setValue(tempValue);
+                            }
+                        }
+                    }
                 }
                 else
                 {
@@ -783,10 +792,8 @@ namespace StbTool
                             tempValue = "2";
                         else if (rbt_pppoe.Checked == true)
                             tempValue = "1";
-                        if (!model.getValue().Equals(tempValue))
-                        {
-                            netType = tempValue;
-                        }
+                        netType = tempValue;
+
                     }
 
                     if (model.getName().Equals("QoSLogSwitch"))

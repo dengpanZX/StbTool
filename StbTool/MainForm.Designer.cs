@@ -3784,6 +3784,11 @@
             DataModel.table2List.Add(new DataModel("TMSEnable", "", null, 3)); //tms开关
             DataModel.table2List.Add(new DataModel("TMSHeartBit", "", null, 3)); //tms心跳开关
 
+            DataModel.network_info.Clear();
+            DataModel.network_info.Add(new DataModel("stbIP", "", edt_ip, 3));
+            DataModel.network_info.Add(new DataModel("gateway", "", edt_gateway, 3));
+            DataModel.network_info.Add(new DataModel("netmask", "", edt_mask, 3));
+            DataModel.network_info.Add(new DataModel("dns", "", edt_dhcpserver, 3));
         }
 
         private void initUiList()

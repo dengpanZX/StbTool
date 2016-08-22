@@ -21,6 +21,7 @@ namespace StbTool
         public static List<DataModel> playInfo1List = new List<DataModel>(); //可视化定位数据队列
         public static List<DataModel> playInfo2List = new List<DataModel>(); //可视化定位数据队列
         public static List<TextBox> info_textList = new List<TextBox>();  //一键信息收集text队列
+        public static List<DataModel> network_info = new List<DataModel>();  //网络信息
         public DataModel(string name, string value, Object text, int attribute)
         {
             this.name = name;
